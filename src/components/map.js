@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import GoogleMapReact from 'google-map-react' //Google map package
 import Marker from './marker'; //Marker component
+require('dotenv').config()
+
 
 class GoogleMap extends Component {
     constructor(props){
@@ -29,7 +31,7 @@ class GoogleMap extends Component {
         return(
             <div style={{height: '90vh', width: '90%'}}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{key: 'AIzaSyBBCgu1b68j1NExNyaQgWlsG32Jw5qWeOA'}}
+                    bootstrapURLKeys={{key: process.env.GOOGLE_MAPS_API_KEY}}
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                     onClick={this.markerClick}
