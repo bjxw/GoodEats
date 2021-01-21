@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import GoogleMapReact from 'google-map-react'
-import Marker from './marker';
+import GoogleMapReact from 'google-map-react' //Google map package
+import Marker from './marker'; //Marker component
 
 class GoogleMap extends Component {
     constructor(props){
@@ -29,7 +29,7 @@ class GoogleMap extends Component {
         return(
             <div style={{height: '90vh', width: '90%'}}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{key: 'AIzaSyAfrPjevhok2PCbpj__UOeHKxSo5P1KXRg'}}
+                    bootstrapURLKeys={{key: 'AIzaSyBBCgu1b68j1NExNyaQgWlsG32Jw5qWeOA'}}
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                     onClick={this.markerClick}
