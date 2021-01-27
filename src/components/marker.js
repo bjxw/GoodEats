@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React from 'react'
+import InfoWindow from './infoWindow'
 
 const Marker = ({show, place}) => {
     const markerStyle = {
@@ -14,7 +15,7 @@ const Marker = ({show, place}) => {
     return(
         <div>
             <div style={markerStyle}/>
-            {/* {show && <InfoWindow place={place}/>} */}
+            {show && <InfoWindow place={place}/>}
         </div>
     )
 }
