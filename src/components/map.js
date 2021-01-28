@@ -37,10 +37,11 @@ class GoogleMap extends Component {
 
         console.log(index);
         for(var i = 0; i < markers.length; i++){
-            markers[i].show = false;
             if(i === index){
                 console.log("index matches");
-                markers[i].show = true;
+                markers[i].show = !markers[i].show;
+            } else {
+                markers[i].show = false;
             }
         }
 
