@@ -6,7 +6,8 @@ import MarkerWindow from './markerWindow';
 class GoogleMap extends Component {
     constructor(props){
         super(props);
-        this.addMarker = this.addMarker.bind(this);
+        this.addNewMarker = this.addNewMarker.bind(this);
+        this.submitMarker = this.submitMarker.bind(this);
         this.openMarker = this.openMarker.bind(this);
         this.markerWindowClick = this.markerWindowClick.bind(this);
         this.state = {
@@ -19,89 +20,113 @@ class GoogleMap extends Component {
             ],
 
             showMarkerWindow: false,
-            markerWindowXY: {lat: 0, lng: 0}
+            showNewMarker: false,
+            newMarker: {lat: 0, lng: 0, name:"", show: false, id: null}
         }
     }
 
-    addMarker(e){
+    addNewMarker(e){ // e = ({ x, y, lat, lng, event })
         console.log('addMarker() fired');
-        console.log(e); //OUTPUTS: ({ x, y, lat, lng, event })
 
-        const marker = {lat: e.lat, lng: e.lng};
+        var markers = this.state.markers;
+        for(var i = 0; i < this.state.markers.length; i++){ //closes any opened info windows to reduce confusion
+            markers[i].show = false;
+        }
+
+        //create marker
+        var marker = this.state.newMarker;
+        marker.lat = e.lat;
+        marker.lng = e.lng;
+        marker.id = this.state.markers.length;
+
+        this.setState({newMarker: marker});
+        this.setState({showNewMarker: true});
+        this.setState({showMarkerWindow: true});
+    }
+
+    submitMarker(marker){
         var markers = this.state.markers;
         markers = markers.concat(marker);
-        
-        var showMarkerWindow = !this.state.showMarkerWindow;
-        this.setState({showMarkerWindow})
-        this.setState({markerWindowXY: marker});
-        //console.log(markers);
         this.setState({markers});
+        this.setState({showMarkerWindow: false});
     }
 
     openMarker(marker){
         console.log('openMarker() fired');
         var markers = this.state.markers;
-        const index = markers.findIndex((index) => index.id === marker);
+
+        const index = markers.findIndex((e) => e.id === Number(marker));
+        
+        this.setState({showMarkerWindow: false});
+        this.setState({showNewMarker: false});
 
         for(var i = 0; i < markers.length; i++){
-            if(i === index){
-                console.log("index matches");
+            if(i === index){ //index matches
                 markers[i].show = !markers[i].show;
-            } else {
+            } else { //close other markers
                 markers[i].show = false;
             }
         }
 
-        //console.log(markers);
         this.setState({markers});
     }
 
-    markerWindowClick(e){
+    markerWindowClick(e){ //this method prevents the onclick method from bubbling up to parents
         e.stopPropagation();
     }
 
     render(){
-        const defaultCenter = {
+        const defaultCenter = { //Centered location for initial map render
             lat: 34.08070866379608,
             lng: -118.0738933692873
         }
 
-        var markers = this.state.markers;
-        
-        var markerWindow = null;
-        if(this.state.showMarkerWindow){
-            markerWindow = 
-            <MarkerWindow
-                lat={this.state.markerWindowXY.lat}
-                lng={this.state.markerWindowXY.lng}
+        var markers = this.state.markers; // markers to map and render
+
+        var newMarker = null;
+        if(this.state.showNewMarker){
+            newMarker = 
+            <Marker
+                lat = {this.state.newMarker.lat}
+                lng = {this.state.newMarker.lng}
             />
         }
+
+        var markerWindow = null;
+        if(this.state.showMarkerWindow){ //render new marker window 
+            markerWindow = 
+            <MarkerWindow
+                lat={this.state.newMarker.lat}
+                lng={this.state.newMarker.lng}
+                submitMarker={this.submitMarker}
+                index={this.state.markers.length}
+            />
+        }
+
         return(
             <div style={{height: '95vh', width: '90vw'}}>
                 <GoogleMapReact
                     bootstrapURLKeys={{key: ''}}
                     defaultCenter={defaultCenter}
                     defaultZoom={12}
-                    onClick={this.addMarker}
+                    onClick={this.addNewMarker}
                     onChildClick={this.openMarker}
                     options={{draggableCursor:'pointer'}}
                 >
-                    {markers.map((marker) =>(
+                    {markers.map((marker, index) => (
                         <Marker
                             lat={marker.lat}
                             lng={marker.lng}
-                            name={marker.name}
                             place={marker}
                             show={marker.show}
+                            key={index}
                         />
                     ))}
 
+                    {newMarker}
                     {markerWindow}
                 </GoogleMapReact>
-
-                
             </div>
-            
         );
     }
 };
