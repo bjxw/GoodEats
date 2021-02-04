@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
+import "./css/markerWindow.css"
 
 const infoWindowStyle = {
     position: 'relative',
-    bottom: 170,
+    bottom: 190,
     left: '-40px',
 
     width: 220,
-    height: 105,
+    height: 135,
 
     backgroundColor: 'white',
     boxShadow: '2px 2px 7px 1px rgba(0, 0, 0, 0.3)',
@@ -21,7 +22,7 @@ const infoWindowTail = {
     position: 'relative',
 
     left: '-4px',
-    bottom: 35,
+    bottom: 25,
 
     width: 20,
     height: 20,
@@ -37,10 +38,12 @@ class MarkerWindow extends Component{
     constructor(props){
         super(props);
         this.state = {
-            name: ""
+            name: "",
+            description: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.markerWindowClick = this.markerWindowClick.bind(this);
+        this.closeMarkerWindow = this.closeMarkerWindow.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
@@ -55,12 +58,17 @@ class MarkerWindow extends Component{
         e.stopPropagation();
     }    
 
+    closeMarkerWindow(){
+        this.props.closeMarkerWindow();
+    }
+
     handleSubmit(e){
         e.preventDefault();
         var marker = {
             lat: this.props.lat,
             lng: this.props.lng,
             name: this.state.name,
+            description: this.state.description,
             show: false,
             id: this.props.index
         }
@@ -74,6 +82,11 @@ class MarkerWindow extends Component{
                     <div style={infoWindowTail}/>
 
                     <div style={infoWindowStyle}>
+                        <div className="closeWindowStyle" onClick={this.closeMarkerWindow}>
+                            X
+                        </div>
+                        <br/>
+
                         <form 
                             onSubmit={this.handleSubmit}
                             ref={(ref) => this.form = ref}
@@ -86,6 +99,18 @@ class MarkerWindow extends Component{
                                 name="name"
                                 placeholder="Location Name"
                                 value={this.state.name} 
+                                onChange={this.handleChange}
+                                autoComplete="off"
+                            />
+
+                            <label>
+                                Description:
+                            </label>
+                            <input
+                                type="text"
+                                name="description"
+                                placeholder="Description"
+                                value={this.state.description}
                                 onChange={this.handleChange}
                                 autoComplete="off"
                             />
