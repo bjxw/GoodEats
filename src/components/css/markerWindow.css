@@ -1,0 +1,9 @@
+.closeWindowStyle{
+    position: relative;
+    left: 95%;
+    color: gray;
+}
+
+.closeWindowStyle:hover{
+    color: darkgray;
+}

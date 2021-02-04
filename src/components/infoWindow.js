@@ -39,7 +39,8 @@ const InfoWindow = (props) =>{
         <div>
             <div style={infoWindowTail}/>
             <div style={infoWindowStyle}>
-                {place.id}: {place.name}
+                {place.id}: {place.name} <br/>
+                {place.description}
             </div>
         </div>
     );
