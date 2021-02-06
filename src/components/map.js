@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import GoogleMapReact from 'google-map-react'; //see https://github.com/google-map-react/google-map-react/blob/master/API.md
-import Marker from './marker';
-import MarkerWindow from './markerWindow';
+import Marker from './marker'; // Marker object used to track locations
+import MarkerWindow from './markerWindow'; // infoWindow object that display new marker form
+
+import "./css/map.css"
 
 class GoogleMap extends Component {
     constructor(props){
@@ -56,6 +58,7 @@ class GoogleMap extends Component {
     submitMarker(marker){
         var markers = this.state.markers;
         markers = markers.concat(marker);
+
         this.setState({markers});
         this.setState({showMarkerWindow: false});
         this.setState({addMarkerMode: false});
@@ -125,7 +128,7 @@ class GoogleMap extends Component {
         }
 
         return(
-            <div style={{height: '95vh', width: '90vw'}}>
+            <div className="AddMarkerButton">
                 <button onClick={this.toggleMarkerMode}>
                     {addMarkerButtonText}
                 </button>

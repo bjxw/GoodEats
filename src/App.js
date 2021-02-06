@@ -1,15 +1,18 @@
 import React from 'react';
-import GoogleMap from "./components/map";
+import GoogleMap from "./components/map"; //main map app component
+
+import "./components/css/App.css";
+import "bootstrap/dist/css/bootstrap.min.css"; //from npm bootstrap. fixes "root" margin border
 
 function App() {
   return (
-    <div>
-      <header>
-        <div>
-          Welcome to GoodEats!
-          <GoogleMap/>
-        </div>
+    <div className="AppPage">
+      <header className="AppHeader">
+          GoodEats
       </header>
+      <div className="MapBox">
+        <GoogleMap/>
+      </div>
     </div>
   );
 }
