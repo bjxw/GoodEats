@@ -1,7 +1,7 @@
 import React from 'react'
 import InfoWindow from './infoWindow'
 
-const Marker = ({show, place}) => {
+const Marker = ({show, place}) => { //show and place props passed from map.js
     const markerStyle = {
         border: '1px solid white',
         borderRadius: '50%',
