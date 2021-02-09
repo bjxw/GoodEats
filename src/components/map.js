@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import GoogleMapReact from 'google-map-react'; //see https://github.com/google-map-react/google-map-react/blob/master/API.md
 import Marker from './marker'; // Marker object used to track locations
 import MarkerWindow from './markerWindow'; // infoWindow object that display new marker form
+import SearchBox from './searchBox';
 
 import "./css/map.css"
 
@@ -30,19 +31,21 @@ class GoogleMap extends Component {
         }
     }
 
+    //this method toggles whether a user can add a new marker to the map or not
     toggleMarkerMode(){
         var marker = this.state.newMarker;
         marker.lat = null;
         marker.lng = null;
-
+        
         this.setState({newMarker: marker});
         this.setState({addMarkerMode: !this.state.addMarkerMode});
         this.setState({showMarkerWindow: !this.state.showMarkerWindow});
         this.setState({showNewMarker: !this.state.showNewMarker});
     }
 
+    //this method adds a new marker to the map under the right condition
     addNewMarker(e){ // e = ({ x, y, lat, lng, event })
-        if(this.state.addMarkerMode){
+        if(this.state.addMarkerMode){ //checks for the marker mode otherwise no-op
             console.log('addMarker() fired');
 
             var markers = this.state.markers;
@@ -62,6 +65,7 @@ class GoogleMap extends Component {
         }
     }
 
+    //this method adds the submitted marker information and updates the map
     submitMarker(marker){
         var markers = this.state.markers;
         markers = markers.concat(marker);
@@ -71,11 +75,13 @@ class GoogleMap extends Component {
         this.setState({addMarkerMode: false});
     }
 
+    //this method closes out the marker window created when attempting to add a new marker
     closeMarkerWindow(){
         this.setState({showNewMarker: false})
         this.setState({showMarkerWindow: false});
     }
 
+    //this method open an infoWindow for the selected existing marker
     openMarker(marker){
         console.log('openMarker() fired');
         var markers = this.state.markers;
@@ -96,7 +102,8 @@ class GoogleMap extends Component {
         this.setState({markers});
     }
 
-    markerWindowClick(e){ //this method prevents the onclick method from bubbling up to parents
+    //this method prevents the onclick method from bubbling up to parents
+    markerWindowClick(e){ 
         e.stopPropagation();
     }
 
@@ -108,11 +115,7 @@ class GoogleMap extends Component {
 
         var markers = this.state.markers; // markers to map and render
 
-        var addMarkerButtonText = "Add Marker"
-        if(this.state.addMarkerMode){
-            addMarkerButtonText = "Cancel"
-        }
-
+        //renders the marker to be added
         var newMarker = null;
         if(this.state.showNewMarker){
             newMarker = 
@@ -122,8 +125,9 @@ class GoogleMap extends Component {
             />
         }
 
+        //renders the markerWindow for the marker to be added
         var markerWindow = null;
-        if(this.state.showMarkerWindow){ //render new marker window 
+        if(this.state.showMarkerWindow){
             markerWindow = 
             <MarkerWindow
                 lat={this.state.newMarker.lat}
@@ -135,10 +139,8 @@ class GoogleMap extends Component {
         }
 
         return(
-            <div className="AddMarkerButton">
-                <button onClick={this.toggleMarkerMode}>
-                    {addMarkerButtonText}
-                </button>
+            <div className="MapStyle">
+                {/*Main Google Map Component*/}
                 <GoogleMapReact
                     bootstrapURLKeys={{key: ''}}
                     defaultCenter={defaultCenter}
@@ -147,6 +149,7 @@ class GoogleMap extends Component {
                     onChildClick={this.openMarker}
                     options={{draggableCursor:'pointer'}}
                 >
+                    {/*This block renders all existing markers from the database*/}
                     {markers.map((marker, index) => (
                         <Marker
                             lat={marker.lat}
@@ -156,11 +159,16 @@ class GoogleMap extends Component {
                             key={index}
                         />
                     ))}
-
               
-                    {newMarker}
-                    {markerWindow}
+                    {newMarker /*new marker icon*/}
+                    {markerWindow /*new marker submission window*/}
                 </GoogleMapReact>
+
+                {/*Search bar to lookup existing data*/}
+                <SearchBox
+                    toggleMarkerMode={this.toggleMarkerMode}
+                    addMarkerMode={this.state.addMarkerMode}
+                />
             </div>
         );
     }

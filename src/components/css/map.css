@@ -1,6 +1,8 @@
-.AddMarkerButton{
+.MapStyle{
     height: 90vh;
-    width: 80vw;
+    width: 75vw;
 
     text-align: center;
+    display: flex;
+    flex-direction: row;
 }
