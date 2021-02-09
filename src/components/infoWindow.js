@@ -1,44 +1,14 @@
 import React from 'react';
 
+import "./css/infoWindow.css";
+
 const InfoWindow = (props) =>{
     const {place} = props;
-    const infoWindowStyle = {
-        position: 'relative',
-        bottom: 170,
-        left: '-40px',
-
-        width: 220,
-        height: 105,
-
-        backgroundColor: 'white',
-        boxShadow: '2px 2px 7px 1px rgba(0, 0, 0, 0.3)',
-
-        padding: 10,
-        fontSize: 14,
-        
-        zIndex: 99,
-    };
-
-    const infoWindowTail = {
-        position: 'relative',
-
-        left: '-4px',
-        bottom: 35,
-
-        width: 20,
-        height: 20,
-
-        backgroundColor: 'white',
-        boxShadow: '1px 1px rgba(0, 0, 0, 0.3)',
-        transform: 'rotate(45deg)',
-
-        zIndex: 100
-    }
 
     return(
         <div>
-            <div style={infoWindowTail}/>
-            <div style={infoWindowStyle}>
+            <div className="InfoWindowTail"/>
+            <div className="InfoWindowStyle">
                 {place.id}: {place.name} <br/>
                 {place.description}
             </div>

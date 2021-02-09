@@ -26,12 +26,19 @@ class GoogleMap extends Component {
             addMarkerMode: false,
             showMarkerWindow: false,
             showNewMarker: false,
-            newMarker: {lat: 0, lng: 0, name:"", description:"", show: false, id: null}
+            newMarker: {lat: null, lng: null, name:"", description:"", show: false, id: null}
         }
     }
 
     toggleMarkerMode(){
-        this.setState({addMarkerMode: !this.state.addMarkerMode})
+        var marker = this.state.newMarker;
+        marker.lat = null;
+        marker.lng = null;
+
+        this.setState({newMarker: marker});
+        this.setState({addMarkerMode: !this.state.addMarkerMode});
+        this.setState({showMarkerWindow: !this.state.showMarkerWindow});
+        this.setState({showNewMarker: !this.state.showNewMarker});
     }
 
     addNewMarker(e){ // e = ({ x, y, lat, lng, event })
@@ -58,7 +65,7 @@ class GoogleMap extends Component {
     submitMarker(marker){
         var markers = this.state.markers;
         markers = markers.concat(marker);
-
+        
         this.setState({markers});
         this.setState({showMarkerWindow: false});
         this.setState({addMarkerMode: false});
