@@ -10,7 +10,8 @@ function App() {
       <header className="AppHeader">
           GoodEats
       </header>
-      <div className="MapBox">
+
+      <div className="AppBox">
         <GoogleMap/>
       </div>
     </div>
