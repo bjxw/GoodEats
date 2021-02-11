@@ -1,5 +1,7 @@
 import {Component} from 'react';
 
+import PlaceSearch from './placeSearch';
+
 import "./css/searchBox.css"
 
 class SearchBox extends Component{
@@ -21,11 +23,11 @@ class SearchBox extends Component{
                 >
                     {addMarkerButtonText}
                 </button>
-                <input
-                    className="SearchBarStyle"
-                    type="text"
-                    autoComplete="off"
-                    placeholder="Enter A Location"
+
+                <PlaceSearch
+                    showNewMarker={this.props.showNewMarker}
+                    newMarker={this.props.newMarker}
+                    showLocation={this.props.showLocation}
                 />
             </div>
         )

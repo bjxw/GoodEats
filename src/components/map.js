@@ -5,12 +5,14 @@ import MarkerWindow from './markerWindow'; // infoWindow object that display new
 import SearchBox from './searchBox';
 
 import "./css/map.css"
+import MapStyle from "./css/mapStyle"
 
 class GoogleMap extends Component {
     constructor(props){
         super(props);
         this.toggleMarkerMode = this.toggleMarkerMode.bind(this);
         this.addNewMarker = this.addNewMarker.bind(this);
+        this.showLocation = this.showLocation.bind(this);
         this.submitMarker = this.submitMarker.bind(this);
         this.closeMarkerWindow = this.closeMarkerWindow.bind(this);
         this.openMarker = this.openMarker.bind(this);
@@ -65,6 +67,11 @@ class GoogleMap extends Component {
         }
     }
 
+    showLocation(marker){
+        this.setState({showNewMarker: true});
+        this.setState({newMarker: marker})
+    }
+
     //this method adds the submitted marker information and updates the map
     submitMarker(marker){
         var markers = this.state.markers;
@@ -113,6 +120,16 @@ class GoogleMap extends Component {
             lng: -118.0738933692873
         }
 
+        var mapStyle = null;
+        if(this.state.addMarkerMode){
+            mapStyle = MapStyle.styles
+        }
+
+        var mapOptions = {
+            draggableCursor: 'crosshair',
+            styles: mapStyle
+        }
+
         var markers = this.state.markers; // markers to map and render
 
         //renders the marker to be added
@@ -147,7 +164,7 @@ class GoogleMap extends Component {
                     defaultZoom={12}
                     onClick={this.addNewMarker}
                     onChildClick={this.openMarker}
-                    options={{draggableCursor:'pointer'}}
+                    options={mapOptions}
                 >
                     {/*This block renders all existing markers from the database*/}
                     {markers.map((marker, index) => (
@@ -168,6 +185,9 @@ class GoogleMap extends Component {
                 <SearchBox
                     toggleMarkerMode={this.toggleMarkerMode}
                     addMarkerMode={this.state.addMarkerMode}
+                    showNewMarker={this.state.showNewMarker}
+                    newMarker={this.state.newMarker}
+                    showLocation={this.showLocation}
                 />
             </div>
         );
