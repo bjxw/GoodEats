@@ -5,9 +5,9 @@ import PlaceSearch from './placeSearch';
 import "./css/searchBox.css"
 
 class SearchBox extends Component{
-    constructor(props){
-        super(props);
-    }
+    // constructor(props){
+    //     super(props);
+    // }
 
     render(){
         var addMarkerButtonText = "Add Marker"
@@ -25,7 +25,6 @@ class SearchBox extends Component{
                 </button>
 
                 <PlaceSearch
-                    showNewMarker={this.props.showNewMarker}
                     newMarker={this.props.newMarker}
                     showLocation={this.props.showLocation}
                 />

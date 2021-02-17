@@ -70,4 +70,6 @@ let styles = [
     }
 ]
 
-export default {styles};
+const MapStyle = {styles}
+
+export default MapStyle;
