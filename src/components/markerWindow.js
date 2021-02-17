@@ -6,12 +6,11 @@ class MarkerWindow extends Component{
     constructor(props){
         super(props);
         this.state = {
-            name: "",
+            name: this.props.name || "",
             description: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.markerWindowClick = this.markerWindowClick.bind(this);
-        this.closeMarkerWindow = this.closeMarkerWindow.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
@@ -24,11 +23,7 @@ class MarkerWindow extends Component{
 
     markerWindowClick(e){
         e.stopPropagation();
-    }    
-
-    closeMarkerWindow(){
-        this.props.closeMarkerWindow();
-    }
+    }  
 
     handleSubmit(e){
         e.preventDefault();
@@ -50,7 +45,7 @@ class MarkerWindow extends Component{
                     <div className="MarkerWindowTail"/>
 
                     <div className="MarkerWindowStyle">
-                        <div className="closeWindowStyle" onClick={this.closeMarkerWindow}>
+                        <div className="closeWindowStyle" onClick={this.props.closeMarkerWindow}>
                             X
                         </div>
 
