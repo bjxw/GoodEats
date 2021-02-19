@@ -18,21 +18,27 @@ class PlaceSearch extends Component {
       marker.name = address.split(',')[0];
       this.props.showLocation(marker);
       geocodeByAddress(address)
-        .then((results) => {
-          return getLatLng(results[0]);
-        })
-        .then((latLng) => {
-          console.log('Success', latLng);
+      .then((results) => {
+        return getLatLng(results[0]);
+      })
+      .then((latLng) => {
+        console.log('Success', latLng);
 
-          var marker = this.props.newMarker;
-          marker.lat = latLng.lat;
-          marker.lng = latLng.lng;
-          this.props.showLocation(marker);
-        })
-        .catch(error => console.error('Error', error));
+        var marker = this.props.newMarker;
+        marker.lat = latLng.lat;
+        marker.lng = latLng.lng;
+        this.props.showLocation(marker);
+      })
+      .catch(error => console.error('Error', error));
+
+      this.setState({address: ''});
     };
    
     render() {
+      var searchBoxPlaceholder = 'Find A Place ...';
+      if(this.props.addMarkerMode){
+        searchBoxPlaceholder = 'Add A Place ...';
+      }
       return (
         <PlacesAutocomplete
           value={this.state.address}
@@ -43,7 +49,7 @@ class PlaceSearch extends Component {
             <div>
               <input
                 {...getInputProps({
-                  placeholder: 'Search Places ...',
+                  placeholder: searchBoxPlaceholder,
                   className: 'location-search-input PlaceInputStyle',
                 })}
               />

@@ -11,19 +11,21 @@ class NewMarker extends Component{
             <InfoWindow place={this.props.place} 
                 lat={this.props.place.lat}
                 lng={this.props.place.lng}
+                closeInfoWindow={this.props.closeMarkerWindow}
             />
         if(this.props.addMarkerMode){
+            window = 
             <MarkerWindow name={this.props.place.name} 
                 lat={this.props.place.lat}
                 lng={this.props.place.lng}
                 closeMarkerWindow={this.props.closeMarkerWindow}
-                // submitMarker={this.submitMarker}
-                // index={this.state.markers.length}
+                submitMarker={this.props.submitMarker}
+                index={this.props.index}
             />
         }
         return(
             <div>
-                <div className="NewMarkerStyle"/>
+                <div className={`NewMarkerStyle`}/>
                 {this.props.show && window}
             </div>
         );

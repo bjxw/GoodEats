@@ -40,46 +40,44 @@ class MarkerWindow extends Component{
 
     render(){
         return(
-            <div>
-                <div onClick={this.markerWindowClick}>
-                    <div className="MarkerWindowTail"/>
+            <div onClick={this.markerWindowClick}>
+                <div className="MarkerWindowTail"/>
 
-                    <div className="MarkerWindowStyle">
-                        <div className="closeWindowStyle" onClick={this.props.closeMarkerWindow}>
-                            X
-                        </div>
-
-                        <form 
-                            onSubmit={this.handleSubmit}
-                        >
-                            <label>
-                                Name:
-                            </label>
-                            <input 
-                                type="text" 
-                                name="name"
-                                placeholder="Location Name"
-                                value={this.state.name} 
-                                onChange={this.handleChange}
-                                autoComplete="off"
-                            />
-
-                            <label>
-                                Description:
-                            </label>
-                            <input
-                                type="text"
-                                name="description"
-                                placeholder="Description"
-                                value={this.state.description}
-                                onChange={this.handleChange}
-                                autoComplete="off"
-                            />
-
-                            <br/>
-                            <input type="submit" value="Submit"/>
-                        </form>
+                <div className="MarkerWindowStyle">
+                    <div className="closeWindowStyle" onClick={this.props.closeMarkerWindow}>
+                        X
                     </div>
+
+                    <form 
+                        onSubmit={this.handleSubmit}
+                    >
+                        <label>
+                            Name:
+                        </label>
+                        <input 
+                            type="text" 
+                            name="name"
+                            placeholder="Location Name"
+                            value={this.state.name} 
+                            onChange={this.handleChange}
+                            autoComplete="off"
+                        />
+
+                        <label>
+                            Description:
+                        </label>
+                        <input
+                            type="text"
+                            name="description"
+                            placeholder="Description"
+                            value={this.state.description}
+                            onChange={this.handleChange}
+                            autoComplete="off"
+                        />
+
+                        <br/>
+                        <input type="submit" value="Submit"/>
+                    </form>
                 </div>
             </div>
         );

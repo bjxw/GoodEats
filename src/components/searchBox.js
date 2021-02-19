@@ -27,6 +27,7 @@ class SearchBox extends Component{
                 <PlaceSearch
                     newMarker={this.props.newMarker}
                     showLocation={this.props.showLocation}
+                    addMarkerMode={this.props.addMarkerMode}
                 />
             </div>
         )
