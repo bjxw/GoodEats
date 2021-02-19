@@ -21,6 +21,9 @@ class GoogleMap extends Component {
         this.openMarker = this.openMarker.bind(this);
         this.markerWindowClick = this.markerWindowClick.bind(this);
 
+        this.closeInfoWindow = this.closeInfoWindow.bind(this);
+        this.closeMarkerWindow = this.closeMarkerWindow.bind(this);
+
         //location look-up methods
         this.showLocation = this.showLocation.bind(this);
         
@@ -35,7 +38,6 @@ class GoogleMap extends Component {
 
             //map bools
             addMarkerMode: false,
-            showMarkerWindow: false,
             showNewMarker: false,
             
             //new marker information
@@ -50,15 +52,10 @@ class GoogleMap extends Component {
         marker.lng = null;
         marker.show = false;
         
-        var markers = this.state.markers;
-        for(var i = 0; i < markers.length; i++){
-            markers[i].show = false;
-        }
-        this.setState({markers: markers});
+        this.closeInfoWindow();
 
         this.setState({newMarker: marker});
         this.setState({addMarkerMode: !this.state.addMarkerMode});
-        this.setState({showMarkerWindow: !this.state.showMarkerWindow});
     }
 
     //this method adds a new marker to the map under the right condition
@@ -66,10 +63,7 @@ class GoogleMap extends Component {
         if(this.state.addMarkerMode){ //checks for the marker mode otherwise no-op
             console.log('addMarker() fired');
 
-            var markers = this.state.markers;
-            for(var i = 0; i < this.state.markers.length; i++){ //closes any opened info windows to reduce confusion
-                markers[i].show = false;
-            }
+            this.closeInfoWindow();
 
             //create marker
             var newMarker = this.state.newMarker;
@@ -78,8 +72,8 @@ class GoogleMap extends Component {
             newMarker.show = true;
             newMarker.id = this.state.markers.length;
 
+            this.setState({showNewMarker: true});
             this.setState({newMarker: newMarker});
-            //this.setState({showMarkerWindow: true});
         }
     }
 
@@ -87,28 +81,29 @@ class GoogleMap extends Component {
     submitMarker(marker){
         var markers = this.state.markers;
         markers = markers.concat(marker);
+
+        var newMarker = this.state.newMarker;
+        newMarker.show = false;
+        this.setState({newMarker: newMarker});
         
         this.setState({markers});
-        this.setState({showMarkerWindow: false});
         this.setState({addMarkerMode: false});
     }
 
     //this method open an infoWindow for the selected existing marker
     openMarker(marker){
         console.log('openMarker() fired');
-        var markers = this.state.markers;
-
-        const index = markers.findIndex((e) => e.id === Number(marker));
         
-        this.setState({showMarkerWindow: false});
-        this.setState({showNewMarker: false});
-
+        //close any possible windows for newMarker
         var newMarker = this.state.newMarker;
         newMarker.show = false;
         this.setState({newMarker: newMarker});
-        
-        //edit newMarker state
+        this.setState({showNewMarker: false});
 
+        var markers = this.state.markers;
+        const index = markers.findIndex((e) => e.id === Number(marker));
+
+        //search for the index matching the opened Marker
         for(var i = 0; i < markers.length; i++){
             if(i === index){ //index matches
                 markers[i].show = !markers[i].show;
@@ -125,14 +120,27 @@ class GoogleMap extends Component {
         e.stopPropagation();
     }
 
-    showLocation(marker){
-        marker.show = true;
-
+    closeInfoWindow(){
         var markers = this.state.markers;
         for(var i = 0; i < markers.length; i++){
             markers[i].show = false;
         }
+
         this.setState({markers: markers});
+    }
+
+    closeMarkerWindow(){
+        var newMarker = this.state.newMarker;
+        newMarker.show = false;
+        
+        this.setState({newMarker: newMarker});
+        this.setState({showNewMarker: false});
+    }
+
+    showLocation(marker){
+        marker.show = true;
+
+        this.closeInfoWindow();
 
         this.setState({showNewMarker: true});
         this.setState({newMarker: marker})
@@ -150,21 +158,26 @@ class GoogleMap extends Component {
         }
 
         var mapOptions = {
-            draggableCursor: 'crosshair',
+            draggableCursor: 'pointer',
             styles: mapStyle
         }
 
         var markers = this.state.markers; // markers to map and render
 
         //renders the marker to be added
-        var newMarker =
-            <NewMarker
+        var newMarker = null;
+        if(this.state.showNewMarker){
+            newMarker = <NewMarker
                 lat = {this.state.newMarker.lat}
                 lng = {this.state.newMarker.lng}
                 place = {this.state.newMarker}
                 show = {this.state.newMarker.show}
                 addMarkerMode = {this.state.addMarkerMode}
+                closeMarkerWindow = {this.closeMarkerWindow}
+                submitMarker = {this.submitMarker}
+                index = {this.state.markers.length}
             />
+        }
 
         return(
             <div className="MapStyle">
@@ -185,6 +198,7 @@ class GoogleMap extends Component {
                             place={marker}
                             show={marker.show}
                             key={index}
+                            closeInfoWindow={this.closeInfoWindow}
                         />
                     ))}
               
