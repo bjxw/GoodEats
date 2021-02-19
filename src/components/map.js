@@ -183,7 +183,7 @@ class GoogleMap extends Component {
             <div className="MapStyle">
                 {/*Main Google Map Component*/}
                 <GoogleMapReact
-                    bootstrapURLKeys={{key: ''}}
+                    bootstrapURLKeys={{key: 'API_KEY_HERE'}}
                     defaultCenter={defaultCenter}
                     defaultZoom={12}
                     onClick={this.addNewMarker}
