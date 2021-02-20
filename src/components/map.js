@@ -16,6 +16,7 @@ class GoogleMap extends Component {
         this.toggleMarkerMode = this.toggleMarkerMode.bind(this);
         this.addNewMarker = this.addNewMarker.bind(this);
         this.submitMarker = this.submitMarker.bind(this);
+        this.filterPlaces = this.filterPlaces.bind(this);
 
         //existing marker methods
         this.openMarker = this.openMarker.bind(this);
@@ -25,7 +26,7 @@ class GoogleMap extends Component {
         this.closeMarkerWindow = this.closeMarkerWindow.bind(this);
 
         //location look-up methods
-        this.showLocation = this.showLocation.bind(this);
+        this.showPlaceSearch = this.showPlaceSearch.bind(this);
         
         this.state = {
             markers: [
@@ -35,6 +36,7 @@ class GoogleMap extends Component {
                 {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", description:"Bougie Organic Food", show: false, id: 3}, // green zone
                 {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
             ],
+            placeList:[],
 
             //map bools
             addMarkerMode: false,
@@ -88,6 +90,8 @@ class GoogleMap extends Component {
         
         this.setState({markers});
         this.setState({addMarkerMode: false});
+        this.setState({showNewMarker: false});
+        this.filterPlaces();
     }
 
     //this method open an infoWindow for the selected existing marker
@@ -137,13 +141,48 @@ class GoogleMap extends Component {
         this.setState({showNewMarker: false});
     }
 
-    showLocation(marker){
+    showPlaceSearch(marker){
         marker.show = true;
 
         this.closeInfoWindow();
 
         this.setState({showNewMarker: true});
         this.setState({newMarker: marker})
+    }
+
+    filterPlaces(e){
+        //console.log("filterPlaces() fired");
+        var floor = e.bounds.nw;
+        var ceil = e.bounds.se;
+
+        // handles x-lat coordinate
+        if(floor.lat > ceil.lat){
+            let temp = ceil.lat;
+            ceil.lat = floor.lat;
+            floor.lat = temp;
+        }
+
+        // handles y-lng coordinate
+        if(floor.lng > ceil.lng){
+            let temp = ceil.lng;
+            ceil.lng = floor.lng;
+            floor.lng = temp;
+        }
+        console.log(floor);
+        console.log(ceil);
+
+        var markers = this.state.markers;
+        var placeList = [];
+        for(var i = 0; i < markers.length; i++){
+            if(markers[i].lat > floor.lat && markers[i].lat < ceil.lat){
+                if(markers[i].lng > floor.lng && markers[i].lng < ceil.lng){
+                    console.log("Should add");
+                    placeList = placeList.concat(markers[i]);
+                }
+            }
+        }
+        console.log(placeList);
+        this.setState({placeList: placeList});
     }
 
     render(){
@@ -188,6 +227,7 @@ class GoogleMap extends Component {
                     defaultZoom={12}
                     onClick={this.addNewMarker}
                     onChildClick={this.openMarker}
+                    onChange={this.filterPlaces}
                     options={mapOptions}
                 >
                     {/*This block renders all existing markers from the database*/}
@@ -210,7 +250,8 @@ class GoogleMap extends Component {
                     toggleMarkerMode={this.toggleMarkerMode}
                     addMarkerMode={this.state.addMarkerMode}
                     newMarker={this.state.newMarker}
-                    showLocation={this.showLocation}
+                    showPlaceSearch={this.showPlaceSearch}
+                    placeList={this.state.placeList}
                 />
             </div>
         );
