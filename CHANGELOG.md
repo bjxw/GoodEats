@@ -15,3 +15,5 @@
 - Added Google Maps styles for marker mode
 - Added marker showing for location search 
 
+# 2/22/2021
+- Added responsive UI to placeList and map markers respectively

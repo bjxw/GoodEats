@@ -33,6 +33,7 @@ class SearchBox extends Component{
 
                 <PlaceList
                     placeList={this.props.placeList}
+                    openMarker={this.props.openMarker}
                 />
             </div>
         )
