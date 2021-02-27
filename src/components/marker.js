@@ -13,6 +13,7 @@ class Marker extends Component{
                     <InfoWindow 
                         place={this.props.place}
                         closeInfoWindow = {this.props.closeInfoWindow}
+                        editMarker = {this.props.editMarker}
                     />
                 }
             </div>

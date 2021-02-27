@@ -24,21 +24,24 @@ class GoogleMap extends Component {
         this.closeInfoWindow = this.closeInfoWindow.bind(this);
         this.closeMarkerWindow = this.closeMarkerWindow.bind(this);
 
+        this.editMarker = this.editMarker.bind(this);
+
         //location look-up methods
         this.showLocation = this.showLocation.bind(this);
         
         this.state = {
             markers: [
-                {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", description:"Cheap Meals", show: false, id: 0}, // in-n-out
-                {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", description:"Good Chinese Food", show: false, id: 1}, // bay island
-                {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", description:"Solid Vegetarian Options", show: false, id: 2}, // bodhi veggie cuisine
-                {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", description:"Bougie Organic Food", show: false, id: 3}, // green zone
-                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
+                {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", description:"Cheap Meals", show: false, id: 0}, // in-n-out
+                {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", description:"Good Chinese Food", show: false, id: 1}, // bay island
+                {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", description:"Solid Vegetarian Options", show: false, id: 2}, // bodhi veggie cuisine
+                {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", description:"Bougie Organic Food", show: false, id: 3}, // green zone
+                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
             ],
 
             //map bools
             addMarkerMode: false,
             showNewMarker: false,
+            draggable: true,
             
             //new marker information
             newMarker: {lat: null, lng: null, name:"", description:"", show: false, id: null}
@@ -79,12 +82,21 @@ class GoogleMap extends Component {
 
     //this method adds the submitted marker information and updates the map
     submitMarker(marker){
+        console.log("submitMarker()");
+        console.log(marker);
         var markers = this.state.markers;
-        markers = markers.concat(marker);
-
+        if(marker.id < markers.length){ //editing marker
+            markers[marker.id] = marker;
+        } else { //submit new marker
+            markers = markers.concat(marker);
+        }
+        console.log(markers);
+        
         var newMarker = this.state.newMarker;
         newMarker.show = false;
+
         this.setState({newMarker: newMarker});
+        this.setState({showNewMarker: false});
         
         this.setState({markers});
         this.setState({addMarkerMode: false});
@@ -137,6 +149,19 @@ class GoogleMap extends Component {
         this.setState({showNewMarker: false});
     }
 
+    editMarker(marker){
+        console.log("editMarker()");
+        this.toggleMarkerMode();
+
+        var newMarker = JSON.parse(JSON.stringify(marker));
+        newMarker.show = true;
+        newMarker.id = marker.id;
+        console.log(newMarker);
+        
+        this.setState({showNewMarker: true});
+        this.setState({newMarker: newMarker});
+    }
+
     showLocation(marker){
         marker.show = true;
 
@@ -175,10 +200,13 @@ class GoogleMap extends Component {
                 addMarkerMode = {this.state.addMarkerMode}
                 closeMarkerWindow = {this.closeMarkerWindow}
                 submitMarker = {this.submitMarker}
-                index = {this.state.markers.length}
+                id = {this.state.newMarker.id || this.state.markers.length}
             />
         }
 
+        console.log("React render()");
+        console.log(this.state.markers);
+        console.log(JSON.stringify(this.state.newMarker));
         return(
             <div className="MapStyle">
                 {/*Main Google Map Component*/}
@@ -188,6 +216,7 @@ class GoogleMap extends Component {
                     defaultZoom={12}
                     onClick={this.addNewMarker}
                     onChildClick={this.openMarker}
+                    draggable={!this.state.showNewMarker}
                     options={mapOptions}
                 >
                     {/*This block renders all existing markers from the database*/}
@@ -199,6 +228,7 @@ class GoogleMap extends Component {
                             show={marker.show}
                             key={index}
                             closeInfoWindow={this.closeInfoWindow}
+                            editMarker={this.editMarker}
                         />
                     ))}
               

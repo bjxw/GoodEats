@@ -18,11 +18,27 @@ class InfoWindow extends Component{
             <div onClick={this.markerWindowClick}>
                 <div className="InfoWindowTail"/>
                 <div className="InfoWindowStyle">
-                    <div className="closeWindowStyle" onClick={this.props.closeInfoWindow}>
+                    <div className="closeInfoWindowStyle" onClick={this.props.closeInfoWindow}>
                         X
                     </div>
 
-                    {this.props.place.name} <br/>
+                    <div>
+                        <span className="PlaceNameStyle">
+                            {this.props.place.name}
+                        </span>
+                        
+                        <span className="PlaceEditFont">
+                            (
+                            <span className="PlaceEditStyle" onClick={() => this.props.editMarker(this.props.place)}>edit</span>
+                            )
+                        </span>
+                        
+                    </div>
+
+                    <div className="PlaceAddrStyle">
+                        {this.props.place.addr} 
+                    </div>
+                    
                     {this.props.place.description}
                 </div>
             </div>

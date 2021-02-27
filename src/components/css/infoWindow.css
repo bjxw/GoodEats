@@ -12,8 +12,10 @@
     text-align: left;
 
     background-color: white;
-    box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 
+    cursor: default;
     z-index: 99;
 }
 
@@ -31,4 +33,35 @@
     transform: rotate(45deg);
 
     z-index: 100;
+}
+
+.closeInfoWindowStyle{
+    position: absolute;
+    top: 5%;
+    left: 92.5%;
+    color: gray;
+}
+
+.closeInfoWindowStyle:hover{
+    color: darkgray;
+    cursor: pointer;
+}
+
+.PlaceNameStyle{
+    font-size: 14pt;
+    margin-right: 2pt;
+}
+
+.PlaceAddrStyle{
+    font-size: 10pt;
+}
+
+.PlaceEditFont{
+    font-size: 7pt;
+}
+
+.PlaceEditStyle{
+    font-size: 8pt;
+    color: blue;
+    cursor: pointer;
 }

@@ -15,3 +15,5 @@
 - Added Google Maps styles for marker mode
 - Added marker showing for location search 
 
+# 2/26/2021
+- Started editMarker branch and editing options

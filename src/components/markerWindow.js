@@ -6,8 +6,8 @@ class MarkerWindow extends Component{
     constructor(props){
         super(props);
         this.state = {
-            name: this.props.name || "",
-            description: ""
+            name: this.props.place.name || "",
+            description: this.props.place.description || ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.markerWindowClick = this.markerWindowClick.bind(this);
@@ -19,6 +19,7 @@ class MarkerWindow extends Component{
         this.setState({
             [e.target.name]: e.target.value
         });
+        e.stopPropagation();
     }
 
     markerWindowClick(e){
@@ -31,9 +32,10 @@ class MarkerWindow extends Component{
             lat: this.props.lat,
             lng: this.props.lng,
             name: this.state.name,
+            addr: this.state.addr,
             description: this.state.description,
             show: false,
-            id: this.props.index
+            id: this.props.id
         }
         this.props.submitMarker(marker);
     }
@@ -59,6 +61,18 @@ class MarkerWindow extends Component{
                             name="name"
                             placeholder="Location Name"
                             value={this.state.name} 
+                            onChange={this.handleChange}
+                            autoComplete="off"
+                        />
+
+                        <label>
+                            Address:
+                        </label>
+                        <input
+                            type="text"
+                            name="addr"
+                            placeholder="Street, City, State ZIP"
+                            value={this.state.addr}
                             onChange={this.handleChange}
                             autoComplete="off"
                         />

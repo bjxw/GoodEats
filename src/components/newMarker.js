@@ -15,12 +15,12 @@ class NewMarker extends Component{
             />
         if(this.props.addMarkerMode){
             window = 
-            <MarkerWindow name={this.props.place.name} 
+            <MarkerWindow place={this.props.place} 
                 lat={this.props.place.lat}
                 lng={this.props.place.lng}
                 closeMarkerWindow={this.props.closeMarkerWindow}
                 submitMarker={this.props.submitMarker}
-                index={this.props.index}
+                id={this.props.id}
             />
         }
         return(
