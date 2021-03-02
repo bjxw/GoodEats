@@ -1,6 +1,7 @@
 import {Component} from 'react';
 
 import PlaceSearch from './placeSearch';
+import PlaceList from './placeList';
 
 import "./css/searchBox.css"
 
@@ -26,8 +27,13 @@ class SearchBox extends Component{
 
                 <PlaceSearch
                     newMarker={this.props.newMarker}
-                    showLocation={this.props.showLocation}
+                    showPlaceSearch={this.props.showPlaceSearch}
                     addMarkerMode={this.props.addMarkerMode}
+                />
+
+                <PlaceList
+                    placeList={this.props.placeList}
+                    openMarker={this.props.openMarker}
                 />
             </div>
         )

@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import PlacesAutocomplete, {geocodeByAddress, geocodeByPlaceId, getLatLng} from 'react-places-autocomplete';
+import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete'; //see https://github.com/hibiken/react-places-autocomplete
 
 import "./css/placeSearch.css";
 
@@ -16,7 +16,7 @@ class PlaceSearch extends Component {
     handleSelect = address => {
       var marker = this.props.newMarker;
       marker.name = address.split(',')[0];
-      this.props.showLocation(marker);
+      this.props.showPlaceSearch(marker);
       geocodeByAddress(address)
       .then((results) => {
         return getLatLng(results[0]);
@@ -27,7 +27,7 @@ class PlaceSearch extends Component {
         var marker = this.props.newMarker;
         marker.lat = latLng.lat;
         marker.lng = latLng.lng;
-        this.props.showLocation(marker);
+        this.props.showPlaceSearch(marker);
       })
       .catch(error => console.error('Error', error));
 
@@ -54,7 +54,7 @@ class PlaceSearch extends Component {
                 })}
               />
 
-              <div className="autocomplete-dropdown-container">
+              <div className="autocomplete-dropdown-container PlaceDropdownStyle">
                 {loading && <div>Loading...</div>}
                 {suggestions.map(suggestion => {
                   const className = suggestion.active

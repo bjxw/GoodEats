@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import GoogleMapReact from 'google-map-react'; //see https://github.com/google-map-react/google-map-react/blob/master/API.md
 
 import Marker from './marker'; // Marker object used to track locations
-import NewMarker from './newMarker';
-import SearchBox from './searchBox';
+import NewMarker from './newMarker'; // Separate Marker used for place lookup or new marker submission
+import SearchBox from './searchBox'; // Window attached to map for adding markers, place lookup, and place list
 
 import "./css/map.css"
 import MapStyle from "./css/mapStyle"
@@ -16,6 +16,7 @@ class GoogleMap extends Component {
         this.toggleMarkerMode = this.toggleMarkerMode.bind(this);
         this.addNewMarker = this.addNewMarker.bind(this);
         this.submitMarker = this.submitMarker.bind(this);
+        this.filterPlaces = this.filterPlaces.bind(this);
 
         //existing marker methods
         this.openMarker = this.openMarker.bind(this);
@@ -27,9 +28,10 @@ class GoogleMap extends Component {
         this.editMarker = this.editMarker.bind(this);
 
         //location look-up methods
-        this.showLocation = this.showLocation.bind(this);
+        this.showPlaceSearch = this.showPlaceSearch.bind(this);
         
         this.state = {
+            //list of existing markers on the map
             markers: [
                 {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", description:"Cheap Meals", show: false, id: 0}, // in-n-out
                 {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", description:"Good Chinese Food", show: false, id: 1}, // bay island
@@ -37,6 +39,8 @@ class GoogleMap extends Component {
                 {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", description:"Bougie Organic Food", show: false, id: 3}, // green zone
                 {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
             ],
+
+            placeList:[], //list of markers to be shown on the map *references markers above and is not a copy
 
             //map bools
             addMarkerMode: false,
@@ -121,6 +125,8 @@ class GoogleMap extends Component {
         for(var i = 0; i < markers.length; i++){
             if(i === index){ //index matches
                 markers[i].show = !markers[i].show;
+                console.log(markers);
+                console.log(this.state.placeList);
             } else { //close other markers
                 markers[i].show = false;
             }
@@ -166,13 +172,47 @@ class GoogleMap extends Component {
         this.setState({newMarker: newMarker});
     }
 
-    showLocation(marker){
+    showPlaceSearch(marker){
         marker.show = true;
 
         this.closeInfoWindow();
 
         this.setState({showNewMarker: true});
-        this.setState({newMarker: marker})
+        this.setState({newMarker: marker});
+    }
+
+    filterPlaces(e){
+        //console.log("filterPlaces() fired");
+        var floor = e.bounds.nw;
+        var ceil = e.bounds.se;
+
+        // handles x-lat coordinate
+        if(floor.lat > ceil.lat){
+            let temp = ceil.lat;
+            ceil.lat = floor.lat;
+            floor.lat = temp;
+        }
+
+        // handles y-lng coordinate
+        if(floor.lng > ceil.lng){
+            let temp = ceil.lng;
+            ceil.lng = floor.lng;
+            floor.lng = temp;
+        }
+        // console.log(floor);
+        // console.log(ceil);
+
+        var markers = this.state.markers;
+        var placeList = [];
+        for(var i = 0; i < markers.length; i++){ //check if the marker should be added to the list
+            if(markers[i].lat > floor.lat && markers[i].lat < ceil.lat){
+                if(markers[i].lng > floor.lng && markers[i].lng < ceil.lng){ 
+                    placeList = placeList.concat(markers[i]); //add marker to visible list if passes both checks
+                }
+            }
+        }
+        //console.log(placeList);
+        this.setState({placeList: placeList});
     }
 
     render(){
@@ -221,6 +261,7 @@ class GoogleMap extends Component {
                     onClick={this.addNewMarker}
                     onChildClick={this.openMarker}
                     draggable={!this.state.showNewMarker}
+                    onChange={this.filterPlaces}
                     options={mapOptions}
                 >
                     {/*This block renders all existing markers from the database*/}
@@ -243,7 +284,9 @@ class GoogleMap extends Component {
                     toggleMarkerMode={this.toggleMarkerMode}
                     addMarkerMode={this.state.addMarkerMode}
                     newMarker={this.state.newMarker}
-                    showLocation={this.showLocation}
+                    showPlaceSearch={this.showPlaceSearch}
+                    placeList={this.state.placeList}
+                    openMarker={this.openMarker}
                 />
             </div>
         );
