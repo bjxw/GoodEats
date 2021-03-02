@@ -25,4 +25,5 @@
 - Removed drag clicks persisting on markerWindows
 - Fixed editMarker edits creating new markers instead of updating
 - Removed buggy 'edit' clicks caused from clicking edit in edit mode
+- Fixed missed merge with "visibleMarkers" branch
 

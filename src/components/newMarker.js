@@ -26,7 +26,7 @@ class NewMarker extends Component{
         return(
             <div>
                 <div className={`NewMarkerStyle`}/>
-                {this.props.show && window}
+                {this.props.place.show && window}
             </div>
         );
     }

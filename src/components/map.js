@@ -5,8 +5,8 @@ import Marker from './marker'; // Marker object used to track locations
 import NewMarker from './newMarker'; // Separate Marker used for place lookup or new marker submission
 import SearchBox from './searchBox'; // Window attached to map for adding markers, place lookup, and place list
 
-import "./css/map.css"
-import MapStyle from "./css/mapStyle"
+import "./css/map.css";
+import MapStyle from "./css/mapStyle";
 
 class GoogleMap extends Component {
     constructor(props){
@@ -48,12 +48,13 @@ class GoogleMap extends Component {
             draggable: true,
             
             //new marker information
-            newMarker: {lat: null, lng: null, name:"", description:"", show: false, id: null}
+            newMarker: {lat: null, lng: null, name:"", addr:"", description:"", show: false, id: null}
         }
     }
 
     //this method toggles whether a user can add a new marker to the map or not
     toggleMarkerMode(){
+        //console.log("toggleMarkerMode() fired");
         var marker = this.state.newMarker;
         marker.lat = null;
         marker.lng = null;
@@ -61,6 +62,7 @@ class GoogleMap extends Component {
         
         this.closeInfoWindow();
 
+        this.setState({showNewMarker: false});
         this.setState({newMarker: marker});
         this.setState({addMarkerMode: !this.state.addMarkerMode});
     }
@@ -68,7 +70,7 @@ class GoogleMap extends Component {
     //this method adds a new marker to the map under the right condition
     addNewMarker(e){ // e = ({ x, y, lat, lng, event })
         if(this.state.addMarkerMode && !this.state.showNewMarker){ //checks for the marker mode by checking modes and making sure user isn't entering data
-            console.log('addMarker() fired');
+            //console.log('addMarker() fired');
 
             this.closeInfoWindow();
 
@@ -77,6 +79,7 @@ class GoogleMap extends Component {
             newMarker.lat = e.lat;
             newMarker.lng = e.lng;
             newMarker.name = "";
+            newMarker.addr = "";
             newMarker.description = "";
             newMarker.show = true;
             newMarker.id = this.state.markers.length;
@@ -88,7 +91,7 @@ class GoogleMap extends Component {
 
     //this method adds the submitted marker information and updates the map
     submitMarker(marker){
-        console.log("submitMarker()");
+        //console.log("submitMarker() fired");
         console.log(marker);
         var markers = this.state.markers;
         if(marker.id < markers.length){ //editing marker
@@ -110,7 +113,7 @@ class GoogleMap extends Component {
 
     //this method open an infoWindow for the selected existing marker
     openMarker(marker){
-        console.log('openMarker() fired');
+        //console.log('openMarker() fired');
         
         //close any possible windows for newMarker
         var newMarker = this.state.newMarker;
@@ -125,8 +128,8 @@ class GoogleMap extends Component {
         for(var i = 0; i < markers.length; i++){
             if(i === index){ //index matches
                 markers[i].show = !markers[i].show;
-                console.log(markers);
-                console.log(this.state.placeList);
+                //console.log(markers);
+                //console.log(this.state.placeList);
             } else { //close other markers
                 markers[i].show = false;
             }
@@ -158,8 +161,7 @@ class GoogleMap extends Component {
     }
 
     editMarker(marker){
-        console.log("editMarker()");
-        //this.toggleMarkerMode();
+        //console.log("editMarker() fired");
         this.closeInfoWindow();
         this.setState({addMarkerMode: true});
 
@@ -240,22 +242,21 @@ class GoogleMap extends Component {
                 lat = {this.state.newMarker.lat}
                 lng = {this.state.newMarker.lng}
                 place = {this.state.newMarker}
-                show = {this.state.newMarker.show}
                 addMarkerMode = {this.state.addMarkerMode}
                 closeMarkerWindow = {this.closeMarkerWindow}
                 submitMarker = {this.submitMarker}
-                id = {this.state.newMarker.id || this.state.markers.length}
+                id = {this.state.newMarker.id >= 0 ? this.state.newMarker.id : this.state.markers.length} //include index 0 otherwise results in array addition
             />
         }
 
-        console.log("React render()");
-        console.log(this.state.markers);
-        console.log(JSON.stringify(this.state.newMarker));
+        //console.log("React render()");
+        //console.log(this.state.markers);
+        //console.log(JSON.stringify(this.state.newMarker));
         return(
             <div className="MapStyle">
                 {/*Main Google Map Component*/}
                 <GoogleMapReact
-                    bootstrapURLKeys={{key: ''}}
+                    bootstrapURLKeys={{key: 'API_KEY_HERE'}}
                     defaultCenter={defaultCenter}
                     defaultZoom={12}
                     onClick={this.addNewMarker}
@@ -294,4 +295,3 @@ class GoogleMap extends Component {
 };
 
 export default GoogleMap;
-

@@ -7,6 +7,7 @@ class MarkerWindow extends Component{
         super(props);
         this.state = {
             name: this.props.place.name || "",
+            addr: this.props.place.addr || "",
             description: this.props.place.description || ""
         }
         this.handleChange = this.handleChange.bind(this);
