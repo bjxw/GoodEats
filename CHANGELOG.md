@@ -17,3 +17,8 @@
 
 # 2/26/2021
 - Started editMarker branch and editing options
+
+# 3/2/2021
+- Removed drag clicks persisting on markerWindows
+- Fixed editMarker edits creating new markers instead of updating
+- Removed buggy 'edit' clicks caused from clicking edit in edit mode

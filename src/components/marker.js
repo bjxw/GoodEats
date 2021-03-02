@@ -7,9 +7,9 @@ class Marker extends Component{
     render(){
         return(
             <div>
-                <div className={`MarkerStyle ${this.props.show ? "active": ""}`}/>
+                <div className={`MarkerStyle ${this.props.place.show ? "active": ""}`}/>
                 {
-                    this.props.show && 
+                    this.props.place.show && 
                     <InfoWindow 
                         place={this.props.place}
                         closeInfoWindow = {this.props.closeInfoWindow}

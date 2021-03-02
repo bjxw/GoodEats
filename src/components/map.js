@@ -63,7 +63,7 @@ class GoogleMap extends Component {
 
     //this method adds a new marker to the map under the right condition
     addNewMarker(e){ // e = ({ x, y, lat, lng, event })
-        if(this.state.addMarkerMode){ //checks for the marker mode otherwise no-op
+        if(this.state.addMarkerMode && !this.state.showNewMarker){ //checks for the marker mode by checking modes and making sure user isn't entering data
             console.log('addMarker() fired');
 
             this.closeInfoWindow();
@@ -72,6 +72,8 @@ class GoogleMap extends Component {
             var newMarker = this.state.newMarker;
             newMarker.lat = e.lat;
             newMarker.lng = e.lng;
+            newMarker.name = "";
+            newMarker.description = "";
             newMarker.show = true;
             newMarker.id = this.state.markers.length;
 
@@ -151,7 +153,9 @@ class GoogleMap extends Component {
 
     editMarker(marker){
         console.log("editMarker()");
-        this.toggleMarkerMode();
+        //this.toggleMarkerMode();
+        this.closeInfoWindow();
+        this.setState({addMarkerMode: true});
 
         var newMarker = JSON.parse(JSON.stringify(marker));
         newMarker.show = true;
@@ -225,7 +229,6 @@ class GoogleMap extends Component {
                             lat={marker.lat}
                             lng={marker.lng}
                             place={marker}
-                            show={marker.show}
                             key={index}
                             closeInfoWindow={this.closeInfoWindow}
                             editMarker={this.editMarker}
