@@ -41,6 +41,7 @@ class GoogleMap extends Component {
             ],
 
             placeList:[], //list of markers to be shown on the map *references markers above and is not a copy
+            bounds:{},
 
             //map bools
             addMarkerMode: false,
@@ -91,7 +92,7 @@ class GoogleMap extends Component {
 
     //this method adds the submitted marker information and updates the map
     submitMarker(marker){
-        //console.log("submitMarker() fired");
+        console.log("submitMarker() fired");
         console.log(marker);
         var markers = this.state.markers;
         if(marker.id < markers.length){ //editing marker
@@ -106,9 +107,9 @@ class GoogleMap extends Component {
 
         this.setState({newMarker: newMarker});
         this.setState({showNewMarker: false});
-        
-        this.setState({markers});
+
         this.setState({addMarkerMode: false});
+        this.setState({markers: markers}, this.filterPlaces(this.state.bounds));
     }
 
     //this method open an infoWindow for the selected existing marker
@@ -168,7 +169,7 @@ class GoogleMap extends Component {
         var newMarker = JSON.parse(JSON.stringify(marker));
         newMarker.show = true;
         newMarker.id = marker.id;
-        console.log(newMarker);
+        //console.log(newMarker);
         
         this.setState({showNewMarker: true});
         this.setState({newMarker: newMarker});
@@ -183,10 +184,13 @@ class GoogleMap extends Component {
         this.setState({newMarker: marker});
     }
 
-    filterPlaces(e){
-        //console.log("filterPlaces() fired");
-        var floor = e.bounds.nw;
-        var ceil = e.bounds.se;
+    filterPlaces(bounds){
+        console.log("filterPlaces() fired");
+        //console.log(bounds);
+        console.log(this.state.markers);
+        this.setState({bounds: bounds});
+        var floor = bounds.nw;
+        var ceil = bounds.se;
 
         // handles x-lat coordinate
         if(floor.lat > ceil.lat){
@@ -262,7 +266,7 @@ class GoogleMap extends Component {
                     onClick={this.addNewMarker}
                     onChildClick={this.openMarker}
                     draggable={!this.state.showNewMarker}
-                    onChange={this.filterPlaces}
+                    onChange={(e) => this.filterPlaces(e.bounds)}
                     options={mapOptions}
                 >
                     {/*This block renders all existing markers from the database*/}
