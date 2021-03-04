@@ -5,10 +5,10 @@ import PlaceList from './placeList';
 
 import "./css/searchBox.css"
 
+/*
+    This class defines the SearchBox component which contains components related to map information and lookups.
+*/
 class SearchBox extends Component{
-    // constructor(props){
-    //     super(props);
-    // }
 
     render(){
         var addMarkerButtonText = "Add Marker"

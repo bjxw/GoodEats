@@ -3,6 +3,10 @@ import InfoWindow from './infoWindow';
 
 import "./css/marker.css";
 
+/* 
+    This class defines the Marker component placed on the Map. 
+    It contains Marker info passed from map.js and an InfoWindow component as seen in infoWIndow.js 
+*/
 class Marker extends Component{
     render(){
         return(

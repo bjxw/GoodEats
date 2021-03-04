@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 
 import "./css/placeList.css";
 
+/*
+    This class defines the PlaceList component meant to show visible Markers on the Map.
+    The PlaceList is passed from map.js and converts the array into a list under the SearchBox 
+*/
 class PlaceList extends Component{
     constructor(props){
         super(props);
@@ -13,6 +17,7 @@ class PlaceList extends Component{
         this.chooseMarker = this.chooseMarker.bind(this);
     }
 
+    // This method allows users to click on a location in the list and highlight the respective Marker on the Map
     chooseMarker(e){
         this.props.openMarker(e.target.id);
     }

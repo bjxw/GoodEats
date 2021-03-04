@@ -2,6 +2,10 @@ import React, {Component} from 'react'
 
 import "./css/markerWindow.css";
 
+/*
+    This class defines the MarkerWindow component that comes attached to the NewMarker component.
+    The MarkerWindow is a form that allows users to submit the Marker it is attached to for Map expansion.
+*/
 class MarkerWindow extends Component{
     constructor(props){
         super(props);
@@ -16,6 +20,7 @@ class MarkerWindow extends Component{
     }
     
 
+    // This method updates the state of the form
     handleChange(e){
         this.setState({
             [e.target.name]: e.target.value
@@ -23,10 +28,12 @@ class MarkerWindow extends Component{
         e.stopPropagation();
     }
 
+    // This method prevents clicks in the Window from propagating to the parent Map and causing unintended events
     markerWindowClick(e){
         e.stopPropagation();
     }  
 
+    // This method submits the inputted information for a new Marker
     handleSubmit(e){
         e.preventDefault();
         var marker = {

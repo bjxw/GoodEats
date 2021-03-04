@@ -3,20 +3,31 @@ import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-auto
 
 import "./css/placeSearch.css";
 
+/*
+  This class defines the PlaceSearch component which functions as a search bar that allows users to
+  either look up a location or use a location to autofill a new Marker's information in addMarkerMode().
+*/
 class PlaceSearch extends Component {
     constructor(props) {
       super(props);
       this.state = {address: ''};
     }
    
+    // This method fills the address field acquired from react-places-autocomplete
     handleChange = address => {
       this.setState({ address });
     };
    
+    /*
+      This method handles the selection of a location in the list. This functions
+      by taking the address and passing it through Google API to fetch further
+      information. It then stores this information and passes it back to
+      newMarker in map.js
+    */
     handleSelect = address => {
       var marker = this.props.newMarker;
       marker.name = address.split(',')[0];
-      this.props.showPlaceSearch(marker);
+      //this.props.showPlaceSearch(marker);
       geocodeByAddress(address)
       .then((results) => {
         return getLatLng(results[0]);
@@ -60,7 +71,7 @@ class PlaceSearch extends Component {
                   const className = suggestion.active
                     ? 'suggestion-item--active'
                     : 'suggestion-item';
-                  // inline style for demonstration purpose
+                  // This style colors results in the search list
                   const style = suggestion.active
                     ? { backgroundColor: '#3bf2f5', cursor: 'pointer' }
                     : { backgroundColor: '#ffffff', cursor: 'pointer' };
@@ -70,6 +81,7 @@ class PlaceSearch extends Component {
                         className,
                         style,
                       })}
+                      key={suggestion.description}
                     >
                       <span>{suggestion.description}</span>
                       <hr/>

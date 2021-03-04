@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import "./css/infoWindow.css";
 
+// This class is a component that is automatically attached to any Marker component for Marker info display
 class InfoWindow extends Component{
     constructor(props){
         super(props);
@@ -9,6 +10,7 @@ class InfoWindow extends Component{
         this.markerWindowClick = this.markerWindowClick.bind(this);
     }
 
+    // This function prevents any clicks on a Marker's InfoWindow from propagating to the Google Map resulting in a map click
     markerWindowClick(e){
         e.stopPropagation();
     }  
