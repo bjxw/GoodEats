@@ -44,8 +44,6 @@
 - Added Google Maps styles for marker mode
 - Added marker showing for location search 
 
-# 2/11/2021
-
 # 2/16/2021
 - Refactored MarkerWindow code to become separate components
 
@@ -76,4 +74,6 @@
 - Remerged all branches but need to fix markerEdit
 - editMarkers fully functional after fixing all bugs
 
-
+# 3/4/2021
+- Discovered arrow function was needed to prevent 'this' callback errors for placeList
+- Fixed hr breaks in placeSearch dropdown

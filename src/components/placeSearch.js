@@ -84,7 +84,7 @@ class PlaceSearch extends Component {
                       key={suggestion.description}
                     >
                       <span>{suggestion.description}</span>
-                      <hr/>
+                      <hr className="DropdownBreakStyle"/>
                     </div>
                   );
                 })}

@@ -108,7 +108,7 @@ class GoogleMap extends Component {
         this.setState({showNewMarker: false}); // Hide the Marker after submission
 
         this.setState({addMarkerMode: false}); // Exit addMarkerMode
-        this.setState({markers: markers}, this.filterPlaces(this.state.bounds)); // Update visible placeList after Marker submission
+        this.setState({markers: markers}, () => this.filterPlaces(this.state.bounds)); // Update visible placeList after Marker submission
     }
 
     // This method opens an InfoWindow for the selected Marker
