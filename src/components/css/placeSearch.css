@@ -3,8 +3,12 @@
 }
 
 .PlaceDropdownStyle{
-    position:absolute;
     z-index: 100;
+}
+
+.DropdownPlaceStyle{
+    width: 100%;
+    background-color: blue;
 }
 
 hr.DropdownBreakStyle{

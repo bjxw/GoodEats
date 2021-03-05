@@ -82,6 +82,7 @@ class PlaceSearch extends Component {
                         style,
                       })}
                       key={suggestion.description}
+                      className="DropdownPlaceStyle"
                     >
                       <span>{suggestion.description}</span>
                       <hr className="DropdownBreakStyle"/>

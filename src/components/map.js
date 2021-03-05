@@ -182,9 +182,8 @@ class GoogleMap extends Component {
 
     // This method filters the current Markers within the visible bounds to display as visible places in the SearchBar
     filterPlaces(bounds){
-        console.log("filterPlaces() fired");
+        //console.log("filterPlaces() fired");
         //console.log(bounds);
-        console.log(this.state.markers);
         this.setState({bounds: bounds}); // Update bounds to the current one
         var floor = bounds.nw; // Determines the lower coordinate values
         var ceil = bounds.se; // Determines the higher coordinate values
@@ -233,7 +232,8 @@ class GoogleMap extends Component {
         // Applies specified options to the Map
         var mapOptions = {
             draggableCursor: 'pointer',
-            styles: mapStyle
+            styles: mapStyle,
+            restriction: {latLngBounds: {north: 85, south: -85, west: -180, east: 180}}
         }
 
         var markers = this.state.markers; // Markers to render on the Map
