@@ -77,3 +77,9 @@
 # 3/4/2021
 - Discovered arrow function was needed to prevent 'this' callback errors for placeList
 - Fixed hr breaks in placeSearch dropdown
+
+# 3/5/2021
+- Added scrolling restrictions to map options for out of bounds prevention
+
+# 3/8/2021
+- Fixing CSS for future deletion icon in PlaceList

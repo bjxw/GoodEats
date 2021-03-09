@@ -33,11 +33,18 @@ class PlaceList extends Component{
                 {placeList.map((marker) => (
                     <div 
                         className={`PlaceEntry ${marker.show ? "active": ""}`}
-                        onClick={this.chooseMarker}
-                        key={marker.id} //required to prevent map errors
-                        id={marker.id} //passes id for marker index
                     >
-                        {marker.name}
+                        <div className="PlaceContainer">
+                            <div
+                                className="PlaceName"
+                                onClick={this.chooseMarker}
+                                key={marker.id} //required to prevent map errors
+                                id={marker.id} //passes id for marker index
+                            >
+                                {marker.name}
+                            </div>
+                            <div className="FloatTrash">T</div>
+                        </div>
                     </div>
                     ))}
             </div>

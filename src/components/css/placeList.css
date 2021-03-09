@@ -13,6 +13,12 @@ hr.PlaceListDivide{
 
 .PlaceEntry{
     user-select: none;
+    text-align: left;
+    padding-left: 20pt;
+    width: 100%;
+    
+    float: left;
+    position: relative;
 }
 
 .PlaceEntry:hover{
@@ -22,4 +28,23 @@ hr.PlaceListDivide{
 
 .PlaceEntry.active{
     background-color: rgb(72, 203, 255);
+}
+
+.PlaceContainer{
+    display: flex;
+}
+
+.PlaceName{
+    float: left;
+    width: 75%;
+    position: relative;
+}
+
+.FloatTrash{
+    position: relative;
+    float: right;
+    padding-left: 15pt;
+
+    width: 5%;
+    /* align-self: center; /*Use to center trash icon*\/*/
 }
