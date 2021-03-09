@@ -2,9 +2,14 @@ import React, {Component} from 'react';
 
 import "./css/placeList.css";
 
+// See https://fontawesome.com/how-to-use/on-the-web/using-with/react for icon usage
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+
 /*
     This class defines the PlaceList component meant to show visible Markers on the Map.
-    The PlaceList is passed from map.js and converts the array into a list under the SearchBox 
+    The PlaceList is passed from map.js and converts the array into a list under the SearchBox.
+    To see how this component is used see searchBox.js
 */
 class PlaceList extends Component{
     constructor(props){
@@ -21,9 +26,11 @@ class PlaceList extends Component{
     chooseMarker(e){
         this.props.openMarker(e.target.id);
     }
+    
 
     render(){
-        var placeList = this.props.placeList
+        var placeList = this.props.placeList;
+        const trashIcon = <FontAwesomeIcon icon={faTrashAlt}/>
         return(
             <div>
                 <span className="PlaceListHeader">
@@ -33,17 +40,23 @@ class PlaceList extends Component{
                 {placeList.map((marker) => (
                     <div 
                         className={`PlaceEntry ${marker.show ? "active": ""}`}
+                        key={marker.id} //required to prevent map errors
                     >
                         <div className="PlaceContainer">
                             <div
                                 className="PlaceName"
                                 onClick={this.chooseMarker}
-                                key={marker.id} //required to prevent map errors
+                                
                                 id={marker.id} //passes id for marker index
                             >
                                 {marker.name}
                             </div>
-                            <div className="FloatTrash">T</div>
+                            <div 
+                                className="FloatTrash"
+                                onClick={() => this.props.deleteMarker(marker)}
+                            >
+                                {trashIcon}
+                            </div>
                         </div>
                     </div>
                     ))}

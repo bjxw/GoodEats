@@ -83,3 +83,7 @@
 
 # 3/8/2021
 - Fixing CSS for future deletion icon in PlaceList
+
+# 3/9/2021
+- Adding trash icons for deletion
+- Working on deletion method for Markers

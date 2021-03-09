@@ -7,6 +7,7 @@ import "./css/searchBox.css"
 
 /*
     This class defines the SearchBox component which contains components related to map information and lookups.
+    Refer to the component in map.js to see its usage.
 */
 class SearchBox extends Component{
 
@@ -34,6 +35,7 @@ class SearchBox extends Component{
                 <PlaceList
                     placeList={this.props.placeList}
                     openMarker={this.props.openMarker}
+                    deleteMarker={this.props.deleteMarker}
                 />
             </div>
         )

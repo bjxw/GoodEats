@@ -26,6 +26,7 @@ class GoogleMap extends Component {
         this.closeMarkerWindow = this.closeMarkerWindow.bind(this);
 
         this.editMarker = this.editMarker.bind(this);
+        this.deleteMarker = this.deleteMarker.bind(this);
 
         // Location look-up methods
         this.showPlaceSearch = this.showPlaceSearch.bind(this);
@@ -170,6 +171,11 @@ class GoogleMap extends Component {
         this.setState({newMarker: newMarker});
     }
 
+    deleteMarker(marker){
+        console.log("deleteMarker() fired");
+        console.log(marker);
+    }
+
     // This method places a green location Marker for a place a user has looked up in the SearchBar
     showPlaceSearch(marker){
         marker.show = true;
@@ -291,6 +297,7 @@ class GoogleMap extends Component {
                     showPlaceSearch={this.showPlaceSearch}
                     placeList={this.state.placeList}
                     openMarker={this.openMarker}
+                    deleteMarker={this.deleteMarker}
                 />
             </div>
         );
