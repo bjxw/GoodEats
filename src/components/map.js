@@ -174,6 +174,14 @@ class GoogleMap extends Component {
     deleteMarker(marker){
         console.log("deleteMarker() fired");
         console.log(marker);
+
+        var markers = this.state.markers;
+
+        //find the delete marker
+        const index = markers.findIndex((e) => e.id === Number(marker.id));
+        markers.splice(index, 1);
+
+        this.setState({markers: markers}, () => this.filterPlaces(this.state.bounds));
     }
 
     // This method places a green location Marker for a place a user has looked up in the SearchBar
@@ -259,7 +267,7 @@ class GoogleMap extends Component {
         }
 
         //console.log("React render()");
-        //console.log(this.state.markers);
+        console.log(this.state.markers);
         //console.log(JSON.stringify(this.state.newMarker));
         return(
             <div className="MapStyle">

@@ -48,3 +48,7 @@ hr.PlaceListDivide{
     width: 5%;
     /* align-self: center; /*Use to center trash icon*\/ */
 }
+
+.FloatTrash:hover{
+    color: gray;
+}
