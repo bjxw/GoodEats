@@ -87,3 +87,10 @@
 # 3/9/2021
 - Adding trash icons for deletion
 - Working on deletion method for Markers
+- Deletion markers works. Need to investigate indexing in database
+
+# 3/11/2021
+- New favico with proper transparency
+- Made GoodEats title unselectable for presentation
+- Fixed minor issue where dragging disabled entirely on newMarkerShow
+- Choosing Markers now centers the map on given location

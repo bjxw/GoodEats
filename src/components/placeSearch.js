@@ -30,12 +30,15 @@ class PlaceSearch extends Component {
       //this.props.showPlaceSearch(marker);
       geocodeByAddress(address)
       .then((results) => {
+        console.log(results);
+        marker.addr = results[0].formatted_address;
+        marker.addr = marker.addr.substring(0, marker.addr.indexOf(", USA"));
         return getLatLng(results[0]);
       })
       .then((latLng) => {
         console.log('Success', latLng);
 
-        var marker = this.props.newMarker;
+        //var marker = this.props.newMarker;
         marker.lat = latLng.lat;
         marker.lng = latLng.lng;
         this.props.showPlaceSearch(marker);

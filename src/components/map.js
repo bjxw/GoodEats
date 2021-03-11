@@ -43,6 +43,7 @@ class GoogleMap extends Component {
 
             placeList:[], // List of Markers to be shown on the Map *entries are references to the Markers array above
             bounds:{}, // Bounds variable stored to enable filterPlaces() to be called outside of the Map
+            center: null,
 
             // Map bools
             addMarkerMode: false, // Boolean that determines whether or not users can add a Marker
@@ -129,6 +130,7 @@ class GoogleMap extends Component {
         for(var i = 0; i < markers.length; i++){
             if(i === index){ // Index matches
                 markers[i].show = !markers[i].show;
+                this.setState({center: {lat: markers[i].lat , lng: markers[i].lng}});
             } else { // Close all other markers
                 markers[i].show = false;
             }
@@ -187,6 +189,8 @@ class GoogleMap extends Component {
     // This method places a green location Marker for a place a user has looked up in the SearchBar
     showPlaceSearch(marker){
         marker.show = true;
+
+        this.setState({center: {lat: marker.lat, lng: marker.lng}});
 
         this.closeInfoWindow();
 
@@ -275,10 +279,11 @@ class GoogleMap extends Component {
                 <GoogleMapReact
                     bootstrapURLKeys={{key: 'API_KEY_HERE'}}
                     defaultCenter={defaultCenter}
+                    center={this.state.center || defaultCenter}
                     defaultZoom={12}
                     onClick={this.addNewMarker}
                     onChildClick={this.openMarker}
-                    draggable={!this.state.showNewMarker}
+                    draggable={!(this.state.showNewMarker && this.state.addMarkerMode)}
                     onChange={(e) => this.filterPlaces(e.bounds)}
                     options={mapOptions}
                 >

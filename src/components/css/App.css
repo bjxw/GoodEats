@@ -8,6 +8,7 @@
     font-family: 'Brush Script MT', 'Brush Script Std', cursive;
     font-size: 48px;
     text-align: center;
+    user-select: none;
 }
 
 .AppBox{
