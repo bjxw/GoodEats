@@ -8,6 +8,13 @@ class InfoWindow extends Component{
         super(props);
 
         this.markerWindowClick = this.markerWindowClick.bind(this);
+
+        // Passed through from marker.js and newMarker.js
+        this.closeInfoWindow = this.props.closeInfoWindow;
+
+        this.state = {
+            place: this.props.place
+        }
     }
 
     // This function prevents any clicks on a Marker's InfoWindow from propagating to the Google Map resulting in a map click
@@ -20,28 +27,28 @@ class InfoWindow extends Component{
             <div onClick={this.markerWindowClick}>
                 <div className="InfoWindowTail"/>
                 <div className="InfoWindowStyle">
-                    <div className="closeInfoWindowStyle" onClick={this.props.closeInfoWindow}>
+                    <div className="closeInfoWindowStyle" onClick={this.closeInfoWindow}>
                         X
                     </div>
 
                     <div>
                         <span className="PlaceNameStyle">
-                            {this.props.place.name}
+                            {this.state.place.name}
                         </span>
                         
                         <span className="PlaceEditFont">
                             (
-                            <span className="PlaceEditStyle" onClick={() => this.props.editMarker(this.props.place)}>edit</span>
+                            <span className="PlaceEditStyle" onClick={() => this.props.editMarker(this.state.place)}>edit</span>
                             )
                         </span>
                         
                     </div>
 
                     <div className="PlaceAddrStyle">
-                        {this.props.place.addr} 
+                        {this.state.place.addr} 
                     </div>
                     
-                    {this.props.place.description}
+                    {this.state.place.description}
                 </div>
             </div>
         )

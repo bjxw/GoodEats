@@ -87,6 +87,7 @@ class GoogleMap extends Component {
             newMarker.show = true;
             newMarker.id = this.state.markers.length;
 
+            this.setState({center: {lat: e.lat, lng: e.lng}});
             this.setState({showNewMarker: true}); // Make the Marker visible
             this.setState({newMarker: newMarker}); // Make sure new Marker info is blank for entries
         }
@@ -271,7 +272,7 @@ class GoogleMap extends Component {
         }
 
         //console.log("React render()");
-        console.log(this.state.markers);
+        //console.log(this.state.markers);
         //console.log(JSON.stringify(this.state.newMarker));
         return(
             <div className="MapStyle">
