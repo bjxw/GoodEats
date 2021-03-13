@@ -27,7 +27,8 @@ class PlaceSearch extends Component {
     handleSelect = address => {
       var marker = this.props.newMarker;
       marker.name = address.split(',')[0];
-      //this.props.showPlaceSearch(marker);
+      marker.description = "";
+      // this.props.showPlaceSearch(marker);
       geocodeByAddress(address)
       .then((results) => {
         console.log(results);
@@ -41,6 +42,7 @@ class PlaceSearch extends Component {
         //var marker = this.props.newMarker;
         marker.lat = latLng.lat;
         marker.lng = latLng.lng;
+        console.log(marker);
         this.props.showPlaceSearch(marker);
       })
       .catch(error => console.error('Error', error));

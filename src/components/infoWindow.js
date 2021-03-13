@@ -8,13 +8,6 @@ class InfoWindow extends Component{
         super(props);
 
         this.markerWindowClick = this.markerWindowClick.bind(this);
-
-        // Passed through from marker.js and newMarker.js
-        this.closeInfoWindow = this.props.closeInfoWindow;
-
-        this.state = {
-            place: this.props.place
-        }
     }
 
     // This function prevents any clicks on a Marker's InfoWindow from propagating to the Google Map resulting in a map click
@@ -23,32 +16,40 @@ class InfoWindow extends Component{
     }  
 
     render(){
+        var editTag = null;
+        if(this.props.editMarker){
+            editTag =
+            <span className="PlaceEditFont">
+                (
+                <span className="PlaceEditStyle" onClick={() => this.props.editMarker(this.props.place)}>
+                    edit
+                </span>
+                )
+            </span>
+        }
+
         return(
             <div onClick={this.markerWindowClick}>
                 <div className="InfoWindowTail"/>
                 <div className="InfoWindowStyle">
-                    <div className="closeInfoWindowStyle" onClick={this.closeInfoWindow}>
+                    <div className="closeInfoWindowStyle" onClick={this.props.closeInfoWindow}>
                         X
                     </div>
 
                     <div>
                         <span className="PlaceNameStyle">
-                            {this.state.place.name}
+                            {this.props.place.name}
                         </span>
                         
-                        <span className="PlaceEditFont">
-                            (
-                            <span className="PlaceEditStyle" onClick={() => this.props.editMarker(this.state.place)}>edit</span>
-                            )
-                        </span>
+                        {editTag}
                         
                     </div>
 
                     <div className="PlaceAddrStyle">
-                        {this.state.place.addr} 
+                        {this.props.place.addr} 
                     </div>
                     
-                    {this.state.place.description}
+                    {this.props.place.description}
                 </div>
             </div>
         )

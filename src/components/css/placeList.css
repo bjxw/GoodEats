@@ -14,7 +14,6 @@ hr.PlaceListDivide{
 .PlaceEntry{
     user-select: none;
     text-align: left;
-    padding-left: 20pt;
     width: 100%;
     
     float: left;
@@ -34,16 +33,29 @@ hr.PlaceListDivide{
     display: flex;
 }
 
+.LeafIcon{
+    font-size: 8pt;
+    padding-top: 3pt;
+    padding-left: 5pt;
+    float: left;
+    color: green;
+}
+
+.LeafIcon.Hide{
+    visibility: hidden;
+}
+
 .PlaceName{
     float: left;
     width: 75%;
     position: relative;
+    padding-left: 5pt;
 }
 
 .FloatTrash{
     position: relative;
     float: right;
-    padding-left: 15pt;
+    padding-left: 5pt;
 
     width: 5%;
     /* align-self: center; /*Use to center trash icon*\/ */

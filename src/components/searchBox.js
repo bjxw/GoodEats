@@ -36,6 +36,7 @@ class SearchBox extends Component{
                     placeList={this.props.placeList}
                     openMarker={this.props.openMarker}
                     deleteMarker={this.props.deleteMarker}
+                    addMarkerMode={this.props.addMarkerMode}
                 />
             </div>
         )

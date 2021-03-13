@@ -34,11 +34,11 @@ class GoogleMap extends Component {
         this.state = {
             // List of existing Markers on the Map
             markers: [
-                {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", description:"Cheap Meals", show: false, id: 0}, // in-n-out
-                {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", description:"Good Chinese Food", show: false, id: 1}, // bay island
-                {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", description:"Solid Vegetarian Options", show: false, id: 2}, // bodhi veggie cuisine
-                {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", description:"Bougie Organic Food", show: false, id: 3}, // green zone
-                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
+                {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", description:"Cheap Meals", isVeggie: false, show: false, id: 0}, // in-n-out
+                {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", description:"Good Chinese Food", isVeggie: false, show: false, id: 1}, // bay island
+                {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", description:"Solid Vegetarian Options", isVeggie: true, show: false, id: 2}, // bodhi veggie cuisine
+                {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", description:"Bougie Organic Food", isVeggie: false, show: false, id: 3}, // green zone
+                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", description:"Chicken. Need I say more?", isVeggie: false, show: false, id: 4}, // popeyes
             ],
 
             placeList:[], // List of Markers to be shown on the Map *entries are references to the Markers array above
@@ -58,10 +58,15 @@ class GoogleMap extends Component {
     // This method toggles whether a user can add a new Marker to the Map or not
     toggleMarkerMode(){
         //console.log("toggleMarkerMode() fired");
-        var marker = this.state.newMarker;
-        marker.lat = null;
-        marker.lng = null;
-        marker.show = false;
+        var marker = {
+            lat: null,
+            lng: null,
+            name: "",
+            addr: "",
+            description: "",
+            show: false,
+            id: this.state.markers.length
+        }
         
         this.closeInfoWindow();
 
@@ -95,7 +100,8 @@ class GoogleMap extends Component {
 
     // This method adds the submitted Marker to the Map
     submitMarker(marker){ // marker = Marker object *see ./marker.js
-        //console.log("submitMarker() fired");
+        console.log("submitMarker() fired");
+        console.log(marker);
 
         var markers = this.state.markers;
         if(marker.id < markers.length){ // Edit an existing Marker
@@ -142,6 +148,7 @@ class GoogleMap extends Component {
 
     // This methods closes all open InfoWindows
     closeInfoWindow(){
+        //console.log("closeInfoWindow() fired");
         var markers = this.state.markers;
         for(var i = 0; i < markers.length; i++){
             markers[i].show = false;
@@ -161,11 +168,11 @@ class GoogleMap extends Component {
 
     // This method allows for the editing of existing Markers
     editMarker(marker){
-        //console.log("editMarker() fired");
+        console.log("editMarker() fired");
         this.closeInfoWindow();
         this.setState({addMarkerMode: true});
 
-        var newMarker = marker;
+        var newMarker = JSON.parse(JSON.stringify(marker));
         newMarker.show = true;
         newMarker.id = marker.id;
         //console.log(newMarker);
@@ -272,7 +279,7 @@ class GoogleMap extends Component {
         }
 
         //console.log("React render()");
-        //console.log(this.state.markers);
+        console.log(this.state.markers);
         //console.log(JSON.stringify(this.state.newMarker));
         return(
             <div className="MapStyle">

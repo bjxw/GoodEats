@@ -4,7 +4,8 @@ import "./css/placeList.css";
 
 // See https://fontawesome.com/how-to-use/on-the-web/using-with/react for icon usage
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { faTrashAlt} from '@fortawesome/free-regular-svg-icons';
+import {faLeaf} from '@fortawesome/free-solid-svg-icons';
 
 /*
     This class defines the PlaceList component meant to show visible Markers on the Map.
@@ -30,7 +31,12 @@ class PlaceList extends Component{
 
     render(){
         var placeList = this.props.placeList;
-        const trashIcon = <FontAwesomeIcon icon={faTrashAlt}/>
+
+        var trashIcon = null;
+        if(!this.props.addMarkerMode){
+            trashIcon = <FontAwesomeIcon icon={faTrashAlt}/>;
+        }
+
         return(
             <div>
                 <span className="PlaceListHeader">
@@ -43,6 +49,9 @@ class PlaceList extends Component{
                         key={marker.id} //required to prevent map errors
                     >
                         <div className="PlaceContainer">
+                            <div className={`LeafIcon ${marker.isVeggie ? "": "Hide"}`}>
+                                {<FontAwesomeIcon icon={faLeaf}/>}
+                            </div>
                             <div
                                 className="PlaceName"
                                 onClick={this.chooseMarker}

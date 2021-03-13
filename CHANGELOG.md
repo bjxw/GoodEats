@@ -94,3 +94,13 @@
 - Made GoodEats title unselectable for presentation
 - Fixed minor issue where dragging disabled entirely on newMarkerShow
 - Choosing Markers now centers the map on given location
+
+# 3/12/2021
+- Unclear if refactoring code will entirely work. Put on hold
+- Fixing various bugs on master branch (editing then adding new marker replaces the edited marker, infoWindow showing during an edit)
+- Fixed edit option showing on newMarker
+- Added a vegetarian symbol
+
+# TODO
+- Deletion
+- Refactor/clean code

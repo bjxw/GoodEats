@@ -18,7 +18,6 @@ class MarkerWindow extends Component{
         this.markerWindowClick = this.markerWindowClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
 
     // This method updates the state of the form
     handleChange(e){
@@ -37,8 +36,8 @@ class MarkerWindow extends Component{
     handleSubmit(e){
         e.preventDefault();
         var marker = {
-            lat: this.props.lat,
-            lng: this.props.lng,
+            lat: this.props.place.lat,
+            lng: this.props.place.lng,
             name: this.state.name,
             addr: this.state.addr,
             description: this.state.description,
@@ -68,7 +67,7 @@ class MarkerWindow extends Component{
                             type="text" 
                             name="name"
                             placeholder="Location Name"
-                            value={this.state.name} 
+                            value={this.props.place.name || this.state.name} 
                             onChange={this.handleChange}
                             autoComplete="off"
                         />
@@ -80,7 +79,7 @@ class MarkerWindow extends Component{
                             type="text"
                             name="addr"
                             placeholder="Street, City, State ZIP"
-                            value={this.state.addr}
+                            value={this.props.place.addr || this.state.addr}
                             onChange={this.handleChange}
                             autoComplete="off"
                         />
@@ -92,7 +91,7 @@ class MarkerWindow extends Component{
                             type="text"
                             name="description"
                             placeholder="Description"
-                            value={this.state.description}
+                            value={this.state.description || this.props.place.description}
                             onChange={this.handleChange}
                             autoComplete="off"
                         />

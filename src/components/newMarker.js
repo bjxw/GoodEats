@@ -20,9 +20,7 @@ class NewMarker extends Component{
             />
         if(this.props.addMarkerMode){ // Convert the InfoWindow to a MarkerWindow
             window = 
-            <MarkerWindow place={this.props.place} 
-                lat={this.props.place.lat}
-                lng={this.props.place.lng}
+            <MarkerWindow place={this.props.place}
                 closeMarkerWindow={this.props.closeMarkerWindow}
                 submitMarker={this.props.submitMarker}
                 id={this.props.id}
