@@ -34,11 +34,11 @@ class GoogleMap extends Component {
         this.state = {
             // List of existing Markers on the Map
             markers: [
-                {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", description:"Cheap Meals", isVeggie: false, show: false, id: 0}, // in-n-out
-                {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", description:"Good Chinese Food", isVeggie: false, show: false, id: 1}, // bay island
-                {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", description:"Solid Vegetarian Options", isVeggie: true, show: false, id: 2}, // bodhi veggie cuisine
-                {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", description:"Bougie Organic Food", isVeggie: false, show: false, id: 3}, // green zone
-                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", description:"Chicken. Need I say more?", isVeggie: false, show: false, id: 4}, // popeyes
+                {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Cheap Meals", show: false, id: 0}, // in-n-out
+                {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Good Chinese Food", show: false, id: 1}, // bay island
+                {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: true, description:"Solid Vegetarian Options", show: false, id: 2}, // bodhi veggie cuisine
+                {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", hours:"", phone:"", website:"", isVeggie: false, description:"Bougie Organic Food", show: false, id: 3}, // green zone
+                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", hours:"", phone:"", website:"", isVeggie: false, description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
             ],
 
             placeList:[], // List of Markers to be shown on the Map *entries are references to the Markers array above
@@ -51,7 +51,7 @@ class GoogleMap extends Component {
             draggable: true, // Boolean that locks the Map from being dragged or interacted with during Window events
             
             // New marker information stored for locations looked up or new Markers in addMarkerMode
-            newMarker: {lat: null, lng: null, name:"", addr:"", description:"", show: false, id: null}
+            newMarker: {lat: null, lng: null, name:"", addr:"", hours:"", phone:"", website:"", isVeggie: false, description:"", show: false, id: null}
         }
     }
 

@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import "./css/infoWindow.css";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import {faMap} from '@fortawesome/free-regular-svg-icons';
-import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+import {faClock} from '@fortawesome/free-regular-svg-icons';
+import {faMapMarkerAlt, faPhoneAlt, faGlobe} from '@fortawesome/free-solid-svg-icons';
 
 // This class is a component that is automatically attached to any Marker component for Marker info display
 class InfoWindow extends Component{
@@ -46,16 +46,42 @@ class InfoWindow extends Component{
                         {editTag}
                     </div>
 
-                    <div className="PlaceAddrContainer">
-                        <div className="LocationIcon">
+                    <div className="PlaceInfoContainer">
+                        <div className="Icon">
                             <FontAwesomeIcon icon={faMapMarkerAlt}/>
                         </div>
-                        <div className="PlaceAddrStyle">
+                        <div className="PlaceInfoStyle">
                             {this.props.place.addr} 
                         </div>
-                        
+                    </div>
+
+                    <div className="PlaceInfoContainer">
+                        <div className="Icon">
+                            <FontAwesomeIcon icon={faClock}/>
+                        </div>
+                        <div className="PlaceInfoStyle">
+                            {this.props.place.hours}
+                        </div>
                     </div>
                     
+                    <div className="PlaceInfoContainer">
+                        <div className="Icon">
+                            <FontAwesomeIcon icon={faPhoneAlt}/>
+                        </div>
+                        <div className="PlaceInfoStyle">
+                            {this.props.place.phone}
+                        </div>
+                    </div>
+
+                    <div className="PlaceInfoContainer">
+                        <div className="Icon">
+                            <FontAwesomeIcon icon={faGlobe}/>
+                        </div>
+                        <div className="PlaceInfoStyle">
+                            {this.props.place.website}
+                        </div>
+                    </div>
+
                     {this.props.place.description}
                 </div>
             </div>

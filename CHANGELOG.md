@@ -105,8 +105,11 @@
 - Added proper implementation of vegetarian restaurants
 - Added deletion confirmation for markers
 
+# 3/16/2021
+- Adding updated CSS to InfoWindows
+- Adding Places Details into placeSearch
+- Figuring out custom places vs Google Places
+
 # TODO
 - Backend database (deletion)
-- Refactor/clean code
-- CSS styling InfoWindow
-- Get all info for a restaurant
+- Refactor/clean code (always)

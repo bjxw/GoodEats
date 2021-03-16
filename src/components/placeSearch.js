@@ -27,15 +27,36 @@ class PlaceSearch extends Component {
       newMarker in map.js
     */
     handleSelect = address => {
+      const temp = document.createElement('div');
+      const placesService = new window.google.maps.places.PlacesService(temp);
+
       var marker = this.props.newMarker;
-      marker.name = address.split(',')[0];
+      //marker.name = address.split(',')[0];
       marker.description = "";
       // this.props.showPlaceSearch(marker);
       geocodeByAddress(address)
       .then((results) => {
-        console.log(results);
-        marker.addr = results[0].formatted_address;
-        marker.addr = marker.addr.substring(0, marker.addr.indexOf(", USA"));
+        //console.log(results);
+        const request = {
+          placeId: results[0].place_id,
+          fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
+        }
+        placesService.getDetails(request, (place, status) => {
+          console.log(place);
+          marker.name = place.name;
+
+          marker.addr = place.formatted_address;
+          marker.addr = marker.addr.substring(0, marker.addr.indexOf(", USA"));
+
+          var date = new Date().getDay() - 1;
+          if(date === -1) date = 6;
+          marker.hours = place.opening_hours.weekday_text[date];
+          marker.hours = marker.hours.substring(marker.hours.indexOf(":") + 1);
+
+          marker.phone = place.formatted_phone_number;
+
+          marker.website = place.website;
+        });
         return getLatLng(results[0]);
       })
       .then((latLng) => {
@@ -57,6 +78,7 @@ class PlaceSearch extends Component {
       if(this.props.addMarkerMode){
         searchBoxPlaceholder = 'Add A Place ...';
       }
+
       return (
         <PlacesAutocomplete
           value={this.state.address}
