@@ -10,7 +10,9 @@ import "./css/placeSearch.css";
 class PlaceSearch extends Component {
     constructor(props) {
       super(props);
-      this.state = {address: ''};
+      this.state = {
+        address: ''
+      };
     }
    
     // This method fills the address field acquired from react-places-autocomplete

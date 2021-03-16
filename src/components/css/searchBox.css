@@ -5,6 +5,7 @@
 
 .ButtonStyle{
     width: 200pt;
+    user-select: none;
 }
 
 .SearchBarStyle{

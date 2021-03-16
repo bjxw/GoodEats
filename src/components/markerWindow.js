@@ -65,6 +65,7 @@ class MarkerWindow extends Component{
 
                     <form 
                         onSubmit={this.handleSubmit}
+                        className="MarkerWindowForm"
                     >
                         <label>
                             Name:

@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 
 import "./css/infoWindow.css";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {faMap} from '@fortawesome/free-regular-svg-icons';
+import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+
 // This class is a component that is automatically attached to any Marker component for Marker info display
 class InfoWindow extends Component{
     constructor(props){
@@ -36,17 +40,20 @@ class InfoWindow extends Component{
                         X
                     </div>
 
-                    <div>
-                        <span className="PlaceNameStyle">
-                            {this.props.place.name}
-                        </span>
+                    <div className="InfoWindowTitle">
+                        {this.props.place.name}
                         
                         {editTag}
-                        
                     </div>
 
-                    <div className="PlaceAddrStyle">
-                        {this.props.place.addr} 
+                    <div className="PlaceAddrContainer">
+                        <div className="LocationIcon">
+                            <FontAwesomeIcon icon={faMapMarkerAlt}/>
+                        </div>
+                        <div className="PlaceAddrStyle">
+                            {this.props.place.addr} 
+                        </div>
+                        
                     </div>
                     
                     {this.props.place.description}

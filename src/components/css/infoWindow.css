@@ -1,12 +1,11 @@
 .InfoWindowStyle{
     position: relative;
 
-    bottom: 150px;
+    bottom: 195px;
     right: 45px;
-    padding: 10px;
 
-    width: 220px;
-    height: 105px;
+    width: 300px;
+    height: 150px;
     
     font-size: 14px;
     text-align: left;
@@ -40,6 +39,8 @@
     top: 5%;
     left: 92.5%;
     color: gray;
+
+    user-select: none;
 }
 
 .closeInfoWindowStyle:hover{
@@ -47,17 +48,37 @@
     cursor: pointer;
 }
 
-.PlaceNameStyle{
+.InfoWindowTitle{
+    background-color: rgb(72, 203, 255);
+    padding: 10px;
+
     font-size: 14pt;
-    margin-right: 2pt;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.PlaceAddrContainer{
+    display: flex;
+    padding: 10px;
+}
+
+.LocationIcon{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    user-select: none;
 }
 
 .PlaceAddrStyle{
     font-size: 10pt;
+    padding-left: 5px;
 }
 
 .PlaceEditFont{
     font-size: 7pt;
+    padding-left: 5px;
+
+    user-select: none;
 }
 
 .PlaceEditStyle{

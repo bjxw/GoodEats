@@ -2,10 +2,19 @@
     position: relative;
     left: 95%;
     color: gray;
+    user-select: none;
 }
 
 .closeWindowStyle:hover{
     color: darkgray;
+}
+
+.MarkerWindowForm label{
+    user-select: none;
+}
+
+.MarkerWindowForm br{
+    user-select: none;
 }
 
 .MarkerWindowStyle{
@@ -45,3 +54,4 @@
 .VeggieLabel{
     padding-left: 5pt;
 }
+
