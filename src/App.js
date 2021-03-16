@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="AppPage">
       <header className="AppHeader">
-          GoodEats
+          Good Eats
       </header>
 
       <div className="AppBox">

@@ -17,10 +17,14 @@ class PlaceList extends Component{
         super(props);
 
         this.state = {
-            place:""
+            markerToDel: "",
+            toDelete: false
         }
 
         this.chooseMarker = this.chooseMarker.bind(this);
+        this.deleteConfirm = this.deleteConfirm.bind(this);
+        this.deleteCancel = this.deleteCancel.bind(this);
+        this.deleteMarker = this.deleteMarker.bind(this);
     }
 
     // This method allows users to click on a location in the list and highlight the respective Marker on the Map
@@ -28,6 +32,20 @@ class PlaceList extends Component{
         this.props.openMarker(e.target.id);
     }
     
+    deleteConfirm(marker){
+        this.setState({markerToDel: marker}, () => {
+            this.setState({toDelete: true});
+        });
+    }
+
+    deleteCancel(){
+        this.setState({toDelete: false});
+    }
+
+    deleteMarker(marker){
+        this.props.deleteMarker(marker);
+        this.deleteCancel();
+    }
 
     render(){
         var placeList = this.props.placeList;
@@ -36,6 +54,30 @@ class PlaceList extends Component{
         if(!this.props.addMarkerMode){
             trashIcon = <FontAwesomeIcon icon={faTrashAlt}/>;
         }
+
+        var confirmWindow = 
+        <div className={`ConfirmContainer ${this.state.toDelete ? "": "Hide"}`}>
+             <div className="ConfirmWindowStyle">
+                <div className="ConfirmText">
+                    Are you sure you want to delete {this.state.markerToDel.name}?
+                </div>
+                <hr className="ConfirmDivide"/>
+
+                <div 
+                    className="ConfirmYes"
+                    onClick={() => this.deleteMarker(this.state.markerToDel)}
+                >
+                    Yes
+                </div>
+                <div 
+                    className="ConfirmNo"
+                    onClick={this.deleteCancel}
+                >
+                    No
+                </div>
+            </div>
+        </div>
+       
 
         return(
             <div>
@@ -52,6 +94,7 @@ class PlaceList extends Component{
                             <div className={`LeafIcon ${marker.isVeggie ? "": "Hide"}`}>
                                 {<FontAwesomeIcon icon={faLeaf}/>}
                             </div>
+
                             <div
                                 className="PlaceName"
                                 onClick={this.chooseMarker}
@@ -60,15 +103,17 @@ class PlaceList extends Component{
                             >
                                 {marker.name}
                             </div>
+
                             <div 
                                 className="FloatTrash"
-                                onClick={() => this.props.deleteMarker(marker)}
+                                onClick={() => this.deleteConfirm(marker)}
                             >
                                 {trashIcon}
                             </div>
                         </div>
                     </div>
-                    ))}
+                ))}
+                {confirmWindow}
             </div>
         )
     }

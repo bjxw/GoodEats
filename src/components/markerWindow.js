@@ -12,7 +12,8 @@ class MarkerWindow extends Component{
         this.state = {
             name: this.props.place.name || "",
             addr: this.props.place.addr || "",
-            description: this.props.place.description || ""
+            description: this.props.place.description || "",
+            isVeggie: this.props.place.isVeggie || ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.markerWindowClick = this.markerWindowClick.bind(this);
@@ -21,8 +22,12 @@ class MarkerWindow extends Component{
 
     // This method updates the state of the form
     handleChange(e){
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
         this.setState({
-            [e.target.name]: e.target.value
+            [name]: value
         });
         e.stopPropagation();
     }
@@ -41,6 +46,7 @@ class MarkerWindow extends Component{
             name: this.state.name,
             addr: this.state.addr,
             description: this.state.description,
+            isVeggie: this.state.isVeggie,
             show: false,
             id: this.props.id
         }
@@ -95,6 +101,18 @@ class MarkerWindow extends Component{
                             onChange={this.handleChange}
                             autoComplete="off"
                         />
+                        <br/>
+
+                        <input
+                            type="checkbox"
+                            name="isVeggie"
+                            checked={this.state.isVeggie}
+                            onChange={this.handleChange}
+                        />
+                        <label className="VeggieLabel">
+                            Vegetarian Dishes
+                        </label>
+                        
 
                         <br/>
                         <input type="submit" value="Submit"/>

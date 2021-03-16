@@ -64,6 +64,7 @@ class GoogleMap extends Component {
             name: "",
             addr: "",
             description: "",
+            isVeggie: false,
             show: false,
             id: this.state.markers.length
         }
@@ -89,6 +90,7 @@ class GoogleMap extends Component {
             newMarker.name = "";
             newMarker.addr = "";
             newMarker.description = "";
+            newMarker.isVeggie = false;
             newMarker.show = true;
             newMarker.id = this.state.markers.length;
 
@@ -182,8 +184,8 @@ class GoogleMap extends Component {
     }
 
     deleteMarker(marker){
-        console.log("deleteMarker() fired");
-        console.log(marker);
+        // console.log("deleteMarker() fired");
+        // console.log(marker);
 
         var markers = this.state.markers;
 
@@ -279,7 +281,7 @@ class GoogleMap extends Component {
         }
 
         //console.log("React render()");
-        console.log(this.state.markers);
+        //console.log(this.state.markers);
         //console.log(JSON.stringify(this.state.newMarker));
         return(
             <div className="MapStyle">

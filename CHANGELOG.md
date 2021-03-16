@@ -101,6 +101,12 @@
 - Fixed edit option showing on newMarker
 - Added a vegetarian symbol
 
+# 3/15/2021
+- Added proper implementation of vegetarian restaurants
+- Added deletion confirmation for markers
+
 # TODO
-- Deletion
+- Backend database (deletion)
 - Refactor/clean code
+- CSS styling InfoWindow
+- Get all info for a restaurant
