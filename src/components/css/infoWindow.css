@@ -1,11 +1,11 @@
 .InfoWindowStyle{
     position: relative;
 
-    bottom: 195px;
+    bottom: calc(245px);
     right: 45px;
 
     width: 300px;
-    height: fit-content;
+    height: 200px;
     
     font-size: 14px;
     text-align: left;
@@ -58,21 +58,37 @@
 }
 
 .PlaceInfoContainer{
+    height: 140px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background: 
+        linear-gradient(#ffffff 33%, rgba(255,255,255, 0)),
+        linear-gradient(rgba(255,255,255, 0), #ffffff 66%) 0 100%,
+        radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 1), rgba(0,0,0,0)),
+        radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.5), rgba(0,0,0,0)) 0 100%;
+    background-repeat: no-repeat;
+    background-attachment: local, local, scroll, scroll;
+    background-size: 100% 35px, 100% 35px, 100% 10px, 100% 10px;
+}
+
+.PlaceInfoLabel{
     display: flex;
     padding: 10px;
     padding-bottom: 0px;
 }
 
 .Icon{
-    display: flex;
     justify-content: center;
     flex-direction: column;
     user-select: none;
+    padding-top: 1px;
 }
 
 .PlaceInfoStyle{
     font-size: 10pt;
     padding-left: 5px;
+    word-wrap: break-word;
 }
 
 .PlaceEditFont{

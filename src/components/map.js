@@ -48,7 +48,7 @@ class GoogleMap extends Component {
             // Map bools
             addMarkerMode: false, // Boolean that determines whether or not users can add a Marker
             showNewMarker: false, // Boolean that determines whether or not to display a location/new Marker the user would like to add on the Map
-            draggable: true, // Boolean that locks the Map from being dragged or interacted with during Window events
+            draggable: true,
             
             // New marker information stored for locations looked up or new Markers in addMarkerMode
             newMarker: {lat: null, lng: null, name:"", addr:"", hours:"", phone:"", website:"", isVeggie: false, description:"", show: false, id: null}
@@ -139,6 +139,11 @@ class GoogleMap extends Component {
         for(var i = 0; i < markers.length; i++){
             if(i === index){ // Index matches
                 markers[i].show = !markers[i].show;
+                if(markers[i].show){
+                    this.setState({draggable: false});
+                } else {
+                    this.setState({draggable: true});
+                }
                 this.setState({center: {lat: markers[i].lat , lng: markers[i].lng}});
             } else { // Close all other markers
                 markers[i].show = false;
@@ -156,6 +161,7 @@ class GoogleMap extends Component {
             markers[i].show = false;
         }
 
+        this.setState({draggable: true});
         this.setState({markers: markers});
     }
 
@@ -293,7 +299,7 @@ class GoogleMap extends Component {
                     defaultZoom={12}
                     onClick={this.addNewMarker}
                     onChildClick={this.openMarker}
-                    draggable={!(this.state.showNewMarker && this.state.addMarkerMode)}
+                    draggable={!(this.state.showNewMarker && this.state.addMarkerMode) && this.state.draggable}
                     onChange={(e) => this.filterPlaces(e.bounds)}
                     options={mapOptions}
                 >

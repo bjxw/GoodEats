@@ -110,6 +110,11 @@
 - Adding Places Details into placeSearch
 - Figuring out custom places vs Google Places
 
+# 3/17/2021
+- Added more infoWindow components
+- Added scrolling CSS for infoWindows
+- Broken placeSearch newMarker fill found
+
 # TODO
-- Backend database (deletion)
+- Backend database (*deletion cases)
 - Refactor/clean code (always)

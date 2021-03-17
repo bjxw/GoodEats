@@ -4,7 +4,7 @@ import "./css/infoWindow.css";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faClock} from '@fortawesome/free-regular-svg-icons';
-import {faMapMarkerAlt, faPhoneAlt, faGlobe} from '@fortawesome/free-solid-svg-icons';
+import {faMapMarkerAlt, faPhoneAlt, faGlobe, faStickyNote, faLeaf} from '@fortawesome/free-solid-svg-icons';
 
 // This class is a component that is automatically attached to any Marker component for Marker info display
 class InfoWindow extends Component{
@@ -47,42 +47,69 @@ class InfoWindow extends Component{
                     </div>
 
                     <div className="PlaceInfoContainer">
-                        <div className="Icon">
-                            <FontAwesomeIcon icon={faMapMarkerAlt}/>
+                        <div className="PlaceInfoLabel">
+                            <div className="Icon">
+                                <FontAwesomeIcon icon={faMapMarkerAlt}/>
+                            </div>
+                            <div className="PlaceInfoStyle">
+                                {this.props.place.addr} 
+                            </div>
                         </div>
-                        <div className="PlaceInfoStyle">
-                            {this.props.place.addr} 
-                        </div>
-                    </div>
 
-                    <div className="PlaceInfoContainer">
-                        <div className="Icon">
-                            <FontAwesomeIcon icon={faClock}/>
+                        { this.props.place.hours &&
+                        <div className="PlaceInfoLabel">
+                            <div className="Icon">
+                                <FontAwesomeIcon icon={faClock}/>
+                            </div>
+                            <div className="PlaceInfoStyle">
+                                {this.props.place.hours}
+                            </div>
                         </div>
-                        <div className="PlaceInfoStyle">
-                            {this.props.place.hours}
+                        }
+                        
+                        { this.props.place.phone &&
+                        <div className="PlaceInfoLabel">
+                            <div className="Icon">
+                                <FontAwesomeIcon icon={faPhoneAlt}/>
+                            </div>
+                            <div className="PlaceInfoStyle">
+                                {this.props.place.phone}
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div className="PlaceInfoContainer">
-                        <div className="Icon">
-                            <FontAwesomeIcon icon={faPhoneAlt}/>
+                        }
+                        
+                        {this.props.place.website && 
+                        <div className="PlaceInfoLabel">
+                            <div className="Icon">
+                                <FontAwesomeIcon icon={faGlobe}/>
+                            </div>
+                            <div className="PlaceInfoStyle">
+                                {this.props.place.website}
+                            </div>
                         </div>
-                        <div className="PlaceInfoStyle">
-                            {this.props.place.phone}
-                        </div>
-                    </div>
+                        }
+                        
 
-                    <div className="PlaceInfoContainer">
-                        <div className="Icon">
-                            <FontAwesomeIcon icon={faGlobe}/>
+                        <div className="PlaceInfoLabel">
+                            <div className="Icon">
+                                <FontAwesomeIcon icon={faStickyNote}/>
+                            </div>
+                            <div className="PlaceInfoStyle">
+                                {this.props.place.description}
+                            </div>
                         </div>
-                        <div className="PlaceInfoStyle">
-                            {this.props.place.website}
-                        </div>
-                    </div>
 
-                    {this.props.place.description}
+                        { this.props.place.isVeggie &&
+                        <div className="PlaceInfoLabel">
+                            <div className="Icon">
+                                <FontAwesomeIcon icon={faLeaf} size="sm"/>
+                            </div>
+                            <div className="PlaceInfoStyle">
+                                <div>Vegetarian Options Available</div>
+                            </div>
+                        </div>
+                        }
+                    </div>
                 </div>
             </div>
         )
