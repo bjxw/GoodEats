@@ -210,8 +210,9 @@ class GoogleMap extends Component {
 
         this.closeInfoWindow();
 
-        this.setState({showNewMarker: true});
-        this.setState({newMarker: marker});
+        this.setState({newMarker: marker}, () =>{
+            this.setState({showNewMarker: true});
+        });
     }
 
     // This method filters the current Markers within the visible bounds to display as visible places in the SearchBar

@@ -1,12 +1,26 @@
 .closeWindowStyle{
-    position: relative;
-    left: 95%;
+    position: absolute;
+    top: 2.5%;
+    left: 92.5%;
     color: gray;
     user-select: none;
 }
 
 .closeWindowStyle:hover{
     color: darkgray;
+}
+
+.MarkerWindowTitle{
+    background-color: rgb(72, 203, 255);
+    padding: 10px;
+
+    font-size: 14pt;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.MarkerWindowForm{
+    padding: 10px;
 }
 
 .MarkerWindowForm label{
@@ -22,13 +36,13 @@
     bottom: 295px;
     left: -40px;
 
-    width: 220px;
+    width: 300px;
     height: 250px;
 
     background-color: white;
     box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
 
-    padding: 10px;
     font-size: 14px;
     
     text-align: left;
@@ -55,3 +69,17 @@
     padding-left: 5pt;
 }
 
+.HoursContainer{
+    visibility: visible;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.HoursContainer.Hide{
+    visibility: hidden;
+}

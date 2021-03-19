@@ -89,7 +89,7 @@ class InfoWindow extends Component{
                         </div>
                         }
                         
-
+                        {this.props.place.description &&
                         <div className="PlaceInfoLabel">
                             <div className="Icon">
                                 <FontAwesomeIcon icon={faStickyNote}/>
@@ -98,6 +98,8 @@ class InfoWindow extends Component{
                                 {this.props.place.description}
                             </div>
                         </div>
+                        }
+                        
 
                         { this.props.place.isVeggie &&
                         <div className="PlaceInfoLabel">

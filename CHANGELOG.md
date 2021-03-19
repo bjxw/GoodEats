@@ -115,6 +115,9 @@
 - Added scrolling CSS for infoWindows
 - Broken placeSearch newMarker fill found
 
+# 3/19/2021
+- Fixed placeSearch not working
+
 # TODO
 - Backend database (*deletion cases)
 - Refactor/clean code (always)

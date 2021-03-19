@@ -27,22 +27,23 @@ class PlaceSearch extends Component {
       newMarker in map.js
     */
     handleSelect = address => {
+      // console.log("handleSelect() fired");
+      // console.log(address) // name of restaurant
       const temp = document.createElement('div');
       const placesService = new window.google.maps.places.PlacesService(temp);
 
-      var marker = this.props.newMarker;
-      //marker.name = address.split(',')[0];
-      marker.description = "";
-      // this.props.showPlaceSearch(marker);
       geocodeByAddress(address)
       .then((results) => {
-        //console.log(results);
+        //console.log(results); // formatted_address & place_id
         const request = {
           placeId: results[0].place_id,
           fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
         }
+
+        var marker = this.props.newMarker;
+        //console.log(marker);
         placesService.getDetails(request, (place, status) => {
-          console.log(place);
+          // console.log(place);
           marker.name = place.name;
 
           marker.addr = place.formatted_address;
@@ -56,15 +57,17 @@ class PlaceSearch extends Component {
           marker.phone = place.formatted_phone_number;
 
           marker.website = place.website;
+          this.props.showPlaceSearch(marker);
         });
+        //console.log(marker);
         return getLatLng(results[0]);
       })
-      .then((latLng) => {
-        console.log('Success', latLng);
+      .then((results) => {
+        // console.log('Success', results);
 
-        //var marker = this.props.newMarker;
-        marker.lat = latLng.lat;
-        marker.lng = latLng.lng;
+        var marker = this.props.newMarker;
+        marker.lat = results.lat;
+        marker.lng = results.lng
         console.log(marker);
         this.props.showPlaceSearch(marker);
       })
