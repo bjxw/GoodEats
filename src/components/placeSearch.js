@@ -43,7 +43,7 @@ class PlaceSearch extends Component {
         var marker = this.props.newMarker;
         //console.log(marker);
         placesService.getDetails(request, (place, status) => {
-          // console.log(place);
+          console.log(place.opening_hours.weekday_text);
           marker.name = place.name;
 
           marker.addr = place.formatted_address;

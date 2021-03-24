@@ -118,6 +118,14 @@
 # 3/19/2021
 - Fixed placeSearch not working
 
+# 3/22/2021
+- Adding hours table for new markers
+
+# 3/24/2021
+- Timepicker component created
+- Moving hoursTable to separate component and linking to markerWindow
+- Connected hoursTable UI to markerWindow
+
 # TODO
 - Backend database (*deletion cases)
 - Refactor/clean code (always)

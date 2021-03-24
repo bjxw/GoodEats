@@ -1,4 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+
+import HoursTable from './hoursTable';
 
 import "./css/markerWindow.css";
 
@@ -19,14 +21,28 @@ class MarkerWindow extends Component{
             description: this.props.place.description,
             isVeggie: this.props.place.isVeggie,
 
-            editHours: false
+            pickTime: false,
+
+            open_hours:[
+                "",  "",  "",  "",  "",  "", "12:00 AM"
+            ],
+                
+                
+            close_hours:{
+                0: "", 1: "", 2: "", 3: "", 4: "", 5: "", 6: ""
+            }
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleHoursTable = this.handleHoursTable.bind(this);
+        this.closeHoursTable = this.closeHoursTable.bind(this);
+        this.handleHoursChange = this.handleHoursChange.bind(this);
+        this.handleHoursSubmit = this.handleHoursSubmit.bind(this);
+
         this.markerWindowClick = this.markerWindowClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
 
     // This method updates the state of the form
     handleChange(e){
@@ -34,6 +50,8 @@ class MarkerWindow extends Component{
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
+        console.log(name);
+        console.log(value);
         this.setState({
             [name]: value
         });
@@ -42,7 +60,35 @@ class MarkerWindow extends Component{
 
     handleHoursTable(){
         console.log("handleHoursTable() fired");
-        this.setState({editHours: true});
+        this.setState({pickTime: !this.state.pickTime});
+    }
+
+    closeHoursTable(){
+        this.setState({pickTime: false});
+    }
+
+    handleHoursChange(e){
+        console.log("handleHoursChange() fired");
+        //console.log(e.target);
+        //console.log(e.target.name);
+        //console.log(e.target.value);
+        var args = e.target.name.split(" ");
+        var open_hours = this.state.open_hours;
+        console.log(args[1]);
+        console.log(open_hours.keys.length);
+        for(var i = 0; i < this.state.open_hours.length; i++){
+            console.log(open_hours[i]);
+            if(Number(args[1]) === i){
+                console.log("index match");
+                open_hours[i] = e.target.value;
+            }
+        }
+        this.setState({open_hours: open_hours}, console.log(this.state.open_hours));
+    }
+
+    handleHoursSubmit(e){
+        e.preventDefault();
+        console.log(this.state);
     }
 
     // This method prevents clicks in the Window from propagating to the parent Map and causing unintended events
@@ -71,11 +117,6 @@ class MarkerWindow extends Component{
     }
 
     render(){
-        var hoursTable = 
-        <div className={`HoursContainer ${this.state.editHours ? "": "Hide"}`}>
-            Test
-        </div>
-
         return(
             <div onClick={this.markerWindowClick}>
                 <div className="MarkerWindowTail"/>
@@ -185,6 +226,13 @@ class MarkerWindow extends Component{
                         <input type="submit" value="Submit"/>
                     </form>
                 </div>
+                {
+                    this.state.pickTime && 
+                    <HoursTable
+                        pickTime = {this.state.pickTime}
+                        closeHoursTable = {this.closeHoursTable}
+                    />
+                }
             </div>
         );
     }

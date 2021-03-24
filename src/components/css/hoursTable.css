@@ -1,0 +1,63 @@
+.HoursContainer{
+    visibility: visible;
+    position: absolute;
+    height: 100vw;
+    width: 100vw;
+
+    top: -50vw;
+    left: -50vw;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 300;
+}
+
+.HoursWindowStyle{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 55%;
+
+    background-color: white;
+    box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.4);
+    width: 300px;
+    height: 200px;
+    padding: 1rem;
+   
+    border-radius: 0.5rem;
+    z-index: 301; /* Higher than the z-index of the background */
+}
+
+.CloseHoursWindowStyle{
+    position: absolute;
+    top: 2.5%;
+    left: 92.5%;
+    color: gray;
+    font-size: 10pt;
+
+    user-select: none;
+}
+
+.CloseHoursWindowStyle:hover{
+    color: darkgray;
+    cursor: pointer;
+}
+
+.HoursForm{
+    height: fit-content;
+    width: fit-content;
+
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.Day{
+    font-size: 10pt;
+    float: left;
+    display: inline-block;
+}
+
+.To{
+    float: left;
+    text-align: center;
+    padding: 5px;
+}

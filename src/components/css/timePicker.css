@@ -1,0 +1,134 @@
+.TimePickerContainer{
+    position: relative;
+    float: left;
+}
+
+.TimeContainer{
+    width: 75px;
+    height: 20px;
+
+    border: 1px solid black;
+
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.TimeBox{
+    float: left;
+    margin: 1px;
+    font-size: 8pt;
+}
+
+.TimeBox:hover{
+    background-color: gray;
+}
+
+.Colon{
+    float: left;
+    margin: 1px;
+}
+
+.HourPickerWindow{
+    display: inherit;
+
+    position: absolute;
+    height: 250px;
+    width: fit-content;
+
+    box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.4);
+    background-color: white;
+
+    overflow-y: auto;
+    font-size: 12pt;
+    text-align: center;
+
+    z-index: 10;
+}
+
+.HourPickerWindow::-webkit-scrollbar{
+    width: 5px;
+}
+
+.HourPickerWindow::-webkit-scrollbar-thumb{
+    background-color: rgb(15, 187, 255);
+    border-radius: 10rem;
+}
+
+.HourPickerWindow.Hide{
+    display: none;
+}
+
+.MinutePickerWindow{
+    display: inherit;
+
+    position: absolute;
+    height: 250px;
+    width: fit-content;
+    left: 12pt;
+
+    box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.4);
+    background-color: white;
+
+    overflow-y: auto;
+    font-size: 12pt;
+    text-align: center;
+
+    z-index: 10;
+}
+
+.MinutePickerWindow::-webkit-scrollbar{
+    width: 5px;
+}
+
+.MinutePickerWindow::-webkit-scrollbar-thumb{
+    background-color: rgb(15, 187, 255);
+    border-radius: 10rem;
+}
+
+.MinutePickerWindow.Hide{
+    display: none;
+}
+
+.AMPMPickerWindow{
+    visibility: visible;
+
+    position: absolute;
+    left: 20pt;
+
+    box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.4);
+    background-color: white;
+
+    overflow-y: auto;
+    font-size: 12pt;
+    text-align: center;
+
+    z-index: 10;
+}
+
+.AMPMPickerWindow::-webkit-scrollbar{
+    width: 5px;
+}
+
+.AMPMPickerWindow::-webkit-scrollbar-thumb{
+    background-color: rgb(15, 187, 255);
+    border-radius: 10rem;
+}
+
+.AMPMPickerWindow.Hide{
+    visibility: hidden;
+}
+
+.TimeContainer{
+    padding: 5px;
+
+    overflow: hidden
+}
+
+.Time{
+    padding: 5px;
+}
+
+.Time:hover{
+    background-color: gray;
+    border-radius: 0.2rem;
+}
