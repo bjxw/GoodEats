@@ -45,18 +45,32 @@ class TimePicker extends Component{
 
     setHour(h){
         this.setState({hour: h});
-
-        this.setState({pickHour: false});
+        this.setState({pickHour: false}, () => {
+            if(this.state.minute !== "--" && this.state.AMPM !== "--"){
+                var time = this.state.hour + ":" + this.state.minute + " " + this.state.AMPM;
+                this.props.setTime(this.props.day, this.props.oc, time);
+            }
+        });
     }
 
     setMinute(m){
         this.setState({minute: m});
-        this.setState({pickMinute: false});
+        this.setState({pickMinute: false}, () => {
+            if(this.state.hour !== "--" && this.state.AMPM !== "--"){
+                var time = this.state.hour + ":" + this.state.minute + " " + this.state.AMPM;
+                this.props.setTime(this.props.day, this.props.oc, time);
+            }
+        });
     }
 
     setAMPM(a){
         this.setState({AMPM: a});
-        this.setState({pickAMPM: false});
+        this.setState({pickAMPM: false}, () => {
+            if(this.state.hour !== "--" && this.state.minute !== "--"){
+                var time = this.state.hour + ":" + this.state.minute + " " + this.state.AMPM;
+                this.props.setTime(this.props.day, this.props.oc, time);
+            }
+        });
     }
 
     render(){

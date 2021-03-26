@@ -32,6 +32,33 @@ class InfoWindow extends Component{
             </span>
         }
 
+        var date = new Date().getDay() - 1;
+        if(date === -1) date = 6;
+        var todaysHours;
+        switch(date){
+            case 0:
+                todaysHours = this.props.place.hours.monday;
+                break;
+            case 1:
+                todaysHours = this.props.place.hours.tuesday;
+                break;
+            case 2:
+                todaysHours = this.props.place.hours.wednesday;
+                break;
+            case 3:
+                todaysHours = this.props.place.hours.thursday;
+                break;
+            case 4:
+                todaysHours = this.props.place.hours.friday;
+                break;
+            case 5:
+                todaysHours = this.props.place.hours.saturday;
+                break;
+            case 6:
+                todaysHours = this.props.place.hours.sunday;
+                break;
+        }
+        
         return(
             <div onClick={this.markerWindowClick}>
                 <div className="InfoWindowTail"/>
@@ -56,13 +83,13 @@ class InfoWindow extends Component{
                             </div>
                         </div>
 
-                        { this.props.place.hours &&
+                        { todaysHours &&
                         <div className="PlaceInfoLabel">
                             <div className="Icon">
                                 <FontAwesomeIcon icon={faClock}/>
                             </div>
                             <div className="PlaceInfoStyle">
-                                {this.props.place.hours}
+                                {todaysHours}
                             </div>
                         </div>
                         }
