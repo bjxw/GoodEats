@@ -49,6 +49,7 @@ class PlaceList extends Component{
 
     render(){
         var placeList = this.props.placeList;
+        //console.log(placeList);
 
         var trashIcon = null;
         if(!this.props.addMarkerMode){
@@ -77,8 +78,7 @@ class PlaceList extends Component{
                 </div>
             </div>
         </div>
-       
-
+    
         return(
             <div>
                 <span className="PlaceListHeader">

@@ -85,7 +85,7 @@ class MarkerWindow extends Component{
             show: false,
             id: this.props.id
         }
-        //console.log(marker);
+        console.log(marker);
         this.props.submitMarker(marker);
     }
 

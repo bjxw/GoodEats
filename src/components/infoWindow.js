@@ -35,28 +35,32 @@ class InfoWindow extends Component{
         var date = new Date().getDay() - 1;
         if(date === -1) date = 6;
         var todaysHours;
-        switch(date){
-            case 0:
-                todaysHours = this.props.place.hours.sunday;
-                break;
-            case 1:
-                todaysHours = this.props.place.hours.monday;
-                break;
-            case 2:
-                todaysHours = this.props.place.hours.tuesday;
-                break;
-            case 3:
-                todaysHours = this.props.place.hours.wednesday;
-                break;
-            case 4:
-                todaysHours = this.props.place.hours.thursday;
-                break;
-            case 5:
-                todaysHours = this.props.place.hours.friday;
-                break;
-            case 6:
-                todaysHours = this.props.place.hours.saturday;
-                break;
+        if(this.props.place.hours){
+             switch(date){
+                case 0:
+                    todaysHours = this.props.place.hours.sunday;
+                    break;
+                case 1:
+                    todaysHours = this.props.place.hours.monday;
+                    break;
+                case 2:
+                    todaysHours = this.props.place.hours.tuesday;
+                    break;
+                case 3:
+                    todaysHours = this.props.place.hours.wednesday;
+                    break;
+                case 4:
+                    todaysHours = this.props.place.hours.thursday;
+                    break;
+                case 5:
+                    todaysHours = this.props.place.hours.friday;
+                    break;
+                case 6:
+                    todaysHours = this.props.place.hours.saturday;
+                    break;
+                default:
+                    todaysHours="";
+            }
         }
         
         return(
@@ -74,69 +78,72 @@ class InfoWindow extends Component{
                     </div>
 
                     <div className="PlaceInfoContainer">
-                        <div className="PlaceInfoLabel">
-                            <div className="Icon">
-                                <FontAwesomeIcon icon={faMapMarkerAlt}/>
+                        {this.props.place.addr && 
+                            <div className="PlaceInfoLabel">
+                                <div className="Icon">
+                                    <FontAwesomeIcon icon={faMapMarkerAlt}/>
+                                </div>
+                                <div className="PlaceInfoStyle">
+                                    {this.props.place.addr} 
+                                </div>
                             </div>
-                            <div className="PlaceInfoStyle">
-                                {this.props.place.addr} 
-                            </div>
-                        </div>
-
-                        { todaysHours &&
-                        <div className="PlaceInfoLabel">
-                            <div className="Icon">
-                                <FontAwesomeIcon icon={faClock}/>
-                            </div>
-                            <div className="PlaceInfoStyle">
-                                {todaysHours}
-                            </div>
-                        </div>
                         }
                         
-                        { this.props.place.phone &&
-                        <div className="PlaceInfoLabel">
-                            <div className="Icon">
-                                <FontAwesomeIcon icon={faPhoneAlt}/>
+
+                        {todaysHours &&
+                            <div className="PlaceInfoLabel">
+                                <div className="Icon">
+                                    <FontAwesomeIcon icon={faClock}/>
+                                </div>
+                                <div className="PlaceInfoStyle">
+                                    {todaysHours}
+                                </div>
                             </div>
-                            <div className="PlaceInfoStyle">
-                                {this.props.place.phone}
+                        }
+                        
+                        {this.props.place.phone &&
+                            <div className="PlaceInfoLabel">
+                                <div className="Icon">
+                                    <FontAwesomeIcon icon={faPhoneAlt}/>
+                                </div>
+                                <div className="PlaceInfoStyle">
+                                    {this.props.place.phone}
+                                </div>
                             </div>
-                        </div>
                         }
                         
                         {this.props.place.website && 
-                        <div className="PlaceInfoLabel">
-                            <div className="Icon">
-                                <FontAwesomeIcon icon={faGlobe}/>
+                            <div className="PlaceInfoLabel">
+                                <div className="Icon">
+                                    <FontAwesomeIcon icon={faGlobe}/>
+                                </div>
+                                <div className="PlaceInfoStyle">
+                                    {this.props.place.website}
+                                </div>
                             </div>
-                            <div className="PlaceInfoStyle">
-                                {this.props.place.website}
-                            </div>
-                        </div>
                         }
                         
                         {this.props.place.description &&
-                        <div className="PlaceInfoLabel">
-                            <div className="Icon">
-                                <FontAwesomeIcon icon={faStickyNote}/>
+                            <div className="PlaceInfoLabel">
+                                <div className="Icon">
+                                    <FontAwesomeIcon icon={faStickyNote}/>
+                                </div>
+                                <div className="PlaceInfoStyle">
+                                    {this.props.place.description}
+                                </div>
                             </div>
-                            <div className="PlaceInfoStyle">
-                                {this.props.place.description}
-                            </div>
-                        </div>
                         }
                         
 
-                        { this.props.place.isVeggie &&
-                        <div className="PlaceInfoLabel">
-                            <div className="Icon">
-                                <FontAwesomeIcon icon={faLeaf} size="sm"/>
+                        {this.props.place.isVeggie &&
+                            <div className="PlaceInfoLabel">
+                                <div className="Icon">
+                                    <FontAwesomeIcon icon={faLeaf} size="sm"/>
+                                </div>
+                                <div className="PlaceInfoStyle">
+                                    <div>Vegetarian Options Available</div>
+                                </div>
                             </div>
-                            <div className="PlaceInfoStyle">
-                                <div>Vegetarian Options Available</div>
-                            </div>
-                        </div>
                         }
                     </div>
                 </div>

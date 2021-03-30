@@ -38,7 +38,7 @@ class GoogleMap extends Component {
                 {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Good Chinese Food", show: false, id: 1}, // bay island
                 {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: true, description:"Solid Vegetarian Options", show: false, id: 2}, // bodhi veggie cuisine
                 {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", hours:"", phone:"", website:"", isVeggie: false, description:"Bougie Organic Food", show: false, id: 3}, // green zone
-                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", hours:"", phone:"", website:"", isVeggie: false, description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
+                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", hours:{friday: " 5:00 AM – 5:00 PM",monday: " 2:00 AM – 2:00 PM",saturday: " 6:00 AM – 6:00 PM",sunday: " 1:00 AM – 1:00 PM",thursday: " 4:00 AM – 4:00 PM",tuesday: " 2:00 AM – 2:00 PM",wednesday: " 3:00 AM – 3:00 PM"}, phone:"", website:"", isVeggie: false, description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
             ],
 
             placeList:[], // List of Markers to be shown on the Map *entries are references to the Markers array above
@@ -63,6 +63,7 @@ class GoogleMap extends Component {
             lng: null,
             name: "",
             addr: "",
+            hours:"",
             description: "",
             isVeggie: false,
             show: false,
@@ -198,6 +199,7 @@ class GoogleMap extends Component {
         //find the delete marker
         const index = markers.findIndex((e) => e.id === Number(marker.id));
         markers.splice(index, 1);
+        console.log(index);
 
         this.setState({markers: markers}, () => this.filterPlaces(this.state.bounds));
     }
@@ -218,7 +220,6 @@ class GoogleMap extends Component {
     // This method filters the current Markers within the visible bounds to display as visible places in the SearchBar
     filterPlaces(bounds){
         //console.log("filterPlaces() fired");
-        //console.log(bounds);
         this.setState({bounds: bounds}); // Update bounds to the current one
         var floor = bounds.nw; // Determines the lower coordinate values
         var ceil = bounds.se; // Determines the higher coordinate values
@@ -244,7 +245,13 @@ class GoogleMap extends Component {
         for(var i = 0; i < markers.length; i++){ // Check if the Marker should be added to the list
             if(markers[i].lat > floor.lat && markers[i].lat < ceil.lat){
                 if(markers[i].lng > floor.lng && markers[i].lng < ceil.lng){ // Passes both bounds check
-                    placeList = placeList.concat(markers[i]);
+                    var found = placeList.findIndex((e) => e === markers[i]);
+                    if(found === -1){
+                        //console.log("placeList added");
+                        placeList = placeList.concat(markers[i]);
+                    } else {
+                        console.log("placeList already exists");
+                    }
                 }
             }
         }
@@ -287,9 +294,8 @@ class GoogleMap extends Component {
             />
         }
 
-        //console.log("React render()");
-        //console.log(this.state.markers);
-        //console.log(JSON.stringify(this.state.newMarker));
+        // console.log(this.state.markers);
+        // console.log(this.state.newMarker);
         return(
             <div className="MapStyle">
                 {/*Main Google Map Component*/}

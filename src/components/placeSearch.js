@@ -51,7 +51,9 @@ class PlaceSearch extends Component {
 
           var hours = place.opening_hours.weekday_text;
           for(var i = 0; i < hours.length; i++){
-            var hour = hours[i].substring(hours[i].indexOf(":") + 1);
+            var hour = hours[i].substring(hours[i].indexOf(":") + 2);
+            console.log(hours[i]);
+            console.log(hour);
             switch(i){
               case 0:
                 hours.sunday = hour;
@@ -74,6 +76,8 @@ class PlaceSearch extends Component {
               case 6:
                 hours.saturday = hour
                 break;
+              default:
+                hours = "";
             }
             delete hours[i];
           }

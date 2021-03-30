@@ -50,6 +50,8 @@ class HoursTable extends Component{
             case "saturday":
                 hours = this.state.saturday
                 break;
+            default:
+                hours = "--";
         }
 
         if(oc === "open"){
@@ -72,6 +74,7 @@ class HoursTable extends Component{
         hours.friday = this.state.friday.open + " - " + this.state.friday.close;
         hours.saturday = this.state.saturday.open + " - " + this.state.saturday.close;
 
+        console.log(hours);
         this.props.handleHoursTable();
         this.props.setHours(hours);
     }
@@ -89,7 +92,7 @@ class HoursTable extends Component{
                             <div className="Day">Sunday:</div>
                             <div className="HourRange">
                                 <TimePicker 
-                                    hours={this.state.open} 
+                                    hours={this.props.hours.sunday ? this.props.hours.sunday.substr(0, this.props.hours.sunday.indexOf('–')) : ""} 
                                     day={"sunday"}
                                     oc={"open"}
                                     setTime={this.setTime}
