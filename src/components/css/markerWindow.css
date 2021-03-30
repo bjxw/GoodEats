@@ -25,19 +25,37 @@
 
 .MarkerWindowForm label{
     user-select: none;
+    margin: 3px
 }
 
 .MarkerWindowForm br{
     user-select: none;
 }
 
+.MarkerWindowForm input[type="submit"]{
+    float: right;
+}
+
+.InputBox{
+    display: flex;
+    padding: 2px;
+}
+
+.InputBox input[type="text"]{
+    flex-grow: 1;
+}
+
+.InputBox input[type="checkbox"]{
+    margin: 3px;
+}
+
 .MarkerWindowStyle{
     position: relative;
-    bottom: 295px;
+    bottom: 320px;
     left: -40px;
 
     width: 300px;
-    height: 250px;
+    height: 275px;
 
     background-color: white;
     box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.3);
@@ -65,6 +83,3 @@
     z-index: 200;
 }
 
-.VeggieLabel{
-    padding-left: 5pt;
-}

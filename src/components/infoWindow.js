@@ -37,25 +37,25 @@ class InfoWindow extends Component{
         var todaysHours;
         switch(date){
             case 0:
-                todaysHours = this.props.place.hours.monday;
+                todaysHours = this.props.place.hours.sunday;
                 break;
             case 1:
-                todaysHours = this.props.place.hours.tuesday;
+                todaysHours = this.props.place.hours.monday;
                 break;
             case 2:
-                todaysHours = this.props.place.hours.wednesday;
+                todaysHours = this.props.place.hours.tuesday;
                 break;
             case 3:
-                todaysHours = this.props.place.hours.thursday;
+                todaysHours = this.props.place.hours.wednesday;
                 break;
             case 4:
-                todaysHours = this.props.place.hours.friday;
+                todaysHours = this.props.place.hours.thursday;
                 break;
             case 5:
-                todaysHours = this.props.place.hours.saturday;
+                todaysHours = this.props.place.hours.friday;
                 break;
             case 6:
-                todaysHours = this.props.place.hours.sunday;
+                todaysHours = this.props.place.hours.saturday;
                 break;
         }
         

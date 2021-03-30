@@ -50,7 +50,7 @@ class MarkerWindow extends Component{
     }
 
     handleHoursTable(){
-        console.log("handleHoursTable() fired");
+        //console.log("handleHoursTable() fired");
         this.setState({pickTime: !this.state.pickTime});
     }
 
@@ -59,8 +59,8 @@ class MarkerWindow extends Component{
     }
 
     setHours(hours){
-        console.log("setHours() fired");
-        console.log(hours);
+        //console.log("setHours() fired");
+        //console.log(hours);
         this.setState({hours: hours});
     }
 
@@ -85,7 +85,7 @@ class MarkerWindow extends Component{
             show: false,
             id: this.props.id
         }
-        console.log(marker);
+        //console.log(marker);
         this.props.submitMarker(marker);
     }
 
@@ -106,96 +106,112 @@ class MarkerWindow extends Component{
                     <form 
                         onSubmit={this.handleSubmit}
                         className="MarkerWindowForm"
+                        autoComplete="off"
                     >
-                        <label>
-                            Name:
-                        </label>
-                        <input 
-                            type="text" 
-                            name="name"
-                            placeholder="Location Name"
-                            value={this.state.name || this.props.place.name} 
-                            onChange={this.handleChange}
-                            autoComplete="off"
-                        />
-                        <br/>
-
-                        <label>
-                            Address:
-                        </label>
-                        <input
-                            type="text"
-                            name="addr"
-                            placeholder="Street, City, State ZIP"
-                            value={this.state.addr || this.props.place.addr}
-                            onChange={this.handleChange}
-                            autoComplete="off"
-                        />
-                        <br/>
-
-                        <label>
-                            Hours:
-                        </label>
-                        <input
-                            type="text"
-                            name="hours"
-                            placeholder="Hours"
-                            onClick={this.handleHoursTable}
-                        />
-                        <br/>
-
-                        <label>
-                            Phone:
-                        </label>
-                        <input
-                            type="text"
-                            name="phone"
-                            placeholder="Phone Number"
-                            value={this.state.phone || this.props.place.phone}
-                            onChange={this.handleChange}
-                            autoComplete="off"
-                        />
-                        <br/>
-
-                        <label>
-                            Website:
-                        </label>
-                        <input
-                            type="text"
-                            name="website"
-                            placeholder="Website"
-                            value={this.state.website || this.props.place.website}
-                            onChange={this.handleChange}
-                            autoComplete="off"
-                        />
-                        <br/>
-
-                        <label>
-                            Description:
-                        </label>
-                        <input
-                            type="text"
-                            name="description"
-                            placeholder="Description"
-                            value={this.state.description}
-                            onChange={this.handleChange}
-                            autoComplete="off"
-                        />
-                        <br/>
-
-                        <input
-                            type="checkbox"
-                            name="isVeggie"
-                            checked={this.state.isVeggie}
-                            onChange={this.handleChange}
-                        />
-                        <label className="VeggieLabel">
-                            Vegetarian Dishes
-                        </label>
-                        <br/>
+                        <div className="InputBox">
+                            <label>
+                                Name:
+                            </label>
+                            <input 
+                                type="text" 
+                                name="name"
+                                placeholder="Location Name"
+                                value={this.state.name || this.props.place.name} 
+                                onChange={this.handleChange}
+                                autoComplete="off"
+                            />
+                            <br/>
+                        </div>
                         
 
-                        <br/>
+                        <div className="InputBox">
+                            <label>
+                                Address:
+                            </label>
+                            <input
+                                type="text"
+                                name="addr"
+                                placeholder="Street, City, State ZIP"
+                                value={this.state.addr || this.props.place.addr}
+                                onChange={this.handleChange}
+                                autoComplete="off"
+                            />
+                            <br/>
+                        </div>
+                       
+
+                        <div className="InputBox">
+                            <label>
+                                Hours:
+                            </label>
+                            <input
+                                type="text"
+                                name="hours"
+                                placeholder="Hours"
+                                onClick={this.handleHoursTable}
+                            />
+                            <br/>
+                        </div>
+                        
+                        <div className="InputBox">
+                            <label>
+                                Phone:
+                            </label>
+                            <input
+                                type="text"
+                                name="phone"
+                                placeholder="Phone Number"
+                                value={this.state.phone || this.props.place.phone}
+                                onChange={this.handleChange}
+                                autoComplete="off"
+                            />
+                            <br/>
+                        </div>
+                      
+                        <div className="InputBox">
+                            <label>
+                                Website:
+                            </label>
+                            <input
+                                type="text"
+                                name="website"
+                                placeholder="Website"
+                                value={this.state.website || this.props.place.website}
+                                onChange={this.handleChange}
+                                autoComplete="off"
+                            />
+                            <br/>
+                        </div>
+                       
+                        <div className="InputBox">
+                            <label>
+                                Description:
+                            </label>
+                            <input
+                                type="text"
+                                name="description"
+                                placeholder="Description"
+                                value={this.state.description}
+                                onChange={this.handleChange}
+                                autoComplete="off"
+                            />
+                            <br/>
+                        </div>
+                        
+                        <div className="InputBox">
+                            <input
+                                type="checkbox"
+                                name="isVeggie"
+                                checked={this.state.isVeggie}
+                                onChange={this.handleChange}
+                            />
+                            <label>
+                                Vegetarian Dishes
+                            </label>
+                            <br/>
+                        </div>
+                       
+                        
                         <input type="submit" value="Submit"/>
                     </form>
                 </div>

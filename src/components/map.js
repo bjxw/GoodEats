@@ -176,7 +176,7 @@ class GoogleMap extends Component {
 
     // This method allows for the editing of existing Markers
     editMarker(marker){
-        console.log("editMarker() fired");
+        //console.log("editMarker() fired");
         this.closeInfoWindow();
         this.setState({addMarkerMode: true});
 

@@ -126,6 +126,15 @@
 - Moving hoursTable to separate component and linking to markerWindow
 - Connected hoursTable UI to markerWindow
 
+# 3/25/2021
+- hoursTable can now be entered manually for newMarkers
+
+# 3/29/2021
+- Ensuring operating hours are passed smoothly across any operation
+
 # TODO
+- Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
+    - Deleting a marker then adding a new one causes this bug (the existing marker is always last on the list)
+    - Scrolling on and off placeList causes duplication/addition bug (existing marker is the one getting cloned/taking over)
 - Backend database (*deletion cases)
 - Refactor/clean code (always)

@@ -37,33 +37,59 @@ class PlaceSearch extends Component {
         //console.log(results); // formatted_address & place_id
         const request = {
           placeId: results[0].place_id,
-          fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
+          //fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
         }
 
         var marker = this.props.newMarker;
         //console.log(marker);
         placesService.getDetails(request, (place, status) => {
-          console.log(place.opening_hours.weekday_text);
+          console.log(place);
           marker.name = place.name;
 
           marker.addr = place.formatted_address;
           marker.addr = marker.addr.substring(0, marker.addr.indexOf(", USA"));
 
-          var date = new Date().getDay() - 1;
-          if(date === -1) date = 6;
-          marker.hours = place.opening_hours.weekday_text[date];
-          marker.hours = marker.hours.substring(marker.hours.indexOf(":") + 1);
+          var hours = place.opening_hours.weekday_text;
+          for(var i = 0; i < hours.length; i++){
+            var hour = hours[i].substring(hours[i].indexOf(":") + 1);
+            switch(i){
+              case 0:
+                hours.sunday = hour;
+                break;
+              case 1:
+                hours.monday = hour;
+                break;
+              case 2:
+                hours.tuesday = hour;
+                break
+              case 3:
+                hours.wednesday = hour;
+                break;
+              case 4:
+                hours.thursday = hour;
+                break;
+              case 5:
+                hours.friday = hour;
+                break;
+              case 6:
+                hours.saturday = hour
+                break;
+            }
+            delete hours[i];
+          }
+          marker.hours = hours;
 
           marker.phone = place.formatted_phone_number;
-
           marker.website = place.website;
+          marker.description = "";
+
           this.props.showPlaceSearch(marker);
         });
         //console.log(marker);
         return getLatLng(results[0]);
       })
       .then((results) => {
-        // console.log('Success', results);
+        console.log('Success', results);
 
         var marker = this.props.newMarker;
         marker.lat = results.lat;
