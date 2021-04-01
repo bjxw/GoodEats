@@ -32,8 +32,7 @@ class InfoWindow extends Component{
             </span>
         }
 
-        var date = new Date().getDay() - 1;
-        if(date === -1) date = 6;
+        var date = new Date().getDay();
         var todaysHours;
         if(this.props.place.hours){
              switch(date){
