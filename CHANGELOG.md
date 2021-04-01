@@ -132,6 +132,9 @@
 # 3/29/2021
 - Ensuring operating hours are passed smoothly across any operation
 
+# 4/1/2021
+- Hours are managed across base functions (create, edit, read)
+
 # TODO
 - Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
     - Deleting a marker causes array index vs id mismatch (solved by using mongodb backend?)
