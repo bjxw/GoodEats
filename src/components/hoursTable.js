@@ -27,6 +27,7 @@ class HoursTable extends Component{
     }
 
     setTime(day, oc, hour){
+        console.log(hour);
         var hours = {open: "", close: ""};
         switch(day){
             case "sunday":
@@ -68,44 +69,30 @@ class HoursTable extends Component{
         var hours = {};
         if(this.state.sunday.open && this.state.sunday.close){
             hours.sunday = this.state.sunday.open + " – " + this.state.sunday.close;
-        } else {
-            hours.sunday = "Unknown"
         }
 
         if(this.state.monday.open && this.state.monday.close){
             hours.monday = this.state.monday.open + " – " + this.state.monday.close;
-        } else {
-            hours.monday = "Unknown"
         }
 
         if(this.state.tuesday.open && this.state.tuesday.close){
             hours.tuesday = this.state.tuesday.open + " – " + this.state.tuesday.close;
-        } else {
-            hours.tuesday = "Unknown"
         }
 
         if(this.state.wednesday.open && this.state.wednesday.close){
             hours.wednesday = this.state.wednesday.open + " – " + this.state.wednesday.close;
-        } else {
-            hours.wednesday = "Unknown"
         }
 
         if(this.state.thursday.open && this.state.thursday.close){
             hours.thursday = this.state.thursday.open + " – " + this.state.thursday.close;
-        } else {
-            hours.thursday = "Unknown"
         }
 
         if(this.state.friday.open && this.state.friday.close){
             hours.friday = this.state.friday.open + " – " + this.state.friday.close;
-        } else {
-            hours.friday = "Unknown"
         }
 
         if(this.state.saturday.open && this.state.saturday.close){
             hours.saturday = this.state.saturday.open + " – " + this.state.saturday.close;
-        } else {
-            hours.saturday = "Unknown"
         }
 
         console.log(hours);
@@ -135,7 +122,7 @@ class HoursTable extends Component{
                                 />
                                 <div className="To">to</div>
                                 <TimePicker 
-                                    hours={this.props.hours.sunday ? this.props.hours.sunday.substr(this.props.hours.sunday.indexOf('–') + 1) : ""}
+                                    hours={this.props.hours.sunday ? this.props.hours.sunday.substr(this.props.hours.sunday.indexOf('–') + 2) : ""}
                                     day={"sunday"}
                                     oc={"close"}
                                     setTime={this.setTime}
@@ -154,7 +141,7 @@ class HoursTable extends Component{
                                 />
                                 <div className="To">to</div>
                                 <TimePicker 
-                                    hours={this.props.hours.monday ? this.props.hours.monday.substr(this.props.hours.monday.indexOf('–') + 1) : ""}
+                                    hours={this.props.hours.monday ? this.props.hours.monday.substr(this.props.hours.monday.indexOf('–') + 2) : ""}
                                     day={"monday"}
                                     oc={"close"}
                                     setTime={this.setTime}
@@ -173,7 +160,7 @@ class HoursTable extends Component{
                                 />
                                 <div className="To">to</div>
                                 <TimePicker 
-                                    hours={this.props.hours.tuesday ? this.props.hours.tuesday.substr(this.props.hours.tuesday.indexOf('–') + 1) : ""}
+                                    hours={this.props.hours.tuesday ? this.props.hours.tuesday.substr(this.props.hours.tuesday.indexOf('–') + 2) : ""}
                                     day={"tuesday"}
                                     oc={"close"}
                                     setTime={this.setTime}
@@ -192,7 +179,7 @@ class HoursTable extends Component{
                                 />
                                 <div className="To">to</div>
                                 <TimePicker 
-                                    hours={this.props.hours.wednesday ? this.props.hours.wednesday.substr(this.props.hours.wednesday.indexOf('–') + 1) : ""}
+                                    hours={this.props.hours.wednesday ? this.props.hours.wednesday.substr(this.props.hours.wednesday.indexOf('–') + 2) : ""}
                                     day={"wednesday"}
                                     oc={"close"}
                                     setTime={this.setTime}
@@ -211,7 +198,7 @@ class HoursTable extends Component{
                                 />
                                 <div className="To">to</div>
                                 <TimePicker 
-                                    hours={this.props.hours.thursday ? this.props.hours.thursday.substr(this.props.hours.thursday.indexOf('–') + 1) : ""}
+                                    hours={this.props.hours.thursday ? this.props.hours.thursday.substr(this.props.hours.thursday.indexOf('–') + 2) : ""}
                                     day={"thursday"}
                                     oc={"close"}
                                     setTime={this.setTime}
@@ -230,7 +217,7 @@ class HoursTable extends Component{
                                 />
                                 <div className="To">to</div>
                                 <TimePicker 
-                                    hours={this.props.hours.friday ? this.props.hours.friday.substr(this.props.hours.friday.indexOf('–') + 1) : ""}
+                                    hours={this.props.hours.friday ? this.props.hours.friday.substr(this.props.hours.friday.indexOf('–') + 2) : ""}
                                     day={"friday"}
                                     oc={"close"}
                                     setTime={this.setTime}
@@ -249,7 +236,7 @@ class HoursTable extends Component{
                                 />
                                 <div className="To">to</div>
                                 <TimePicker 
-                                    hours={this.props.hours.saturday ? this.props.hours.saturday.substr(this.props.hours.saturday.indexOf('–') + 1) : ""}
+                                    hours={this.props.hours.saturday ? this.props.hours.saturday.substr(this.props.hours.saturday.indexOf('–') + 2) : ""}
                                     day={"saturday"}
                                     oc={"close"}
                                     setTime={this.setTime}

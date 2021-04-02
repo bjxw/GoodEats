@@ -21,7 +21,7 @@ class TimePicker extends Component{
 
             hour: this.props.hours.substr(0, this.props.hours.indexOf(':')) || "--",
             minute: this.props.hours.substr(this.props.hours.indexOf(':') + 1, this.props.hours.indexOf(':') + 1) || "--",
-            AMPM: this.props.hours.substr(this.props.hours.indexOf(':') + 3) || "--"
+            AMPM: this.props.hours.substr(this.props.hours.indexOf(':') + 4) || "--"
         }
     }
 
@@ -77,7 +77,8 @@ class TimePicker extends Component{
         var hour = this.state.hour;
         var minute = this.state.minute;
         var AMPM = this.state.AMPM;
-
+        // console.log(minute);
+        // console.log(AMPM);
         return(
             <div className="TimePickerContainer">
                 <div className="TimeContainer">

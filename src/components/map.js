@@ -296,8 +296,6 @@ class GoogleMap extends Component {
             />
         }
 
-        // console.log(this.state.markers);
-        // console.log(this.state.newMarker);
         return(
             <div className="MapStyle">
                 {/*Main Google Map Component*/}

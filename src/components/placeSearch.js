@@ -43,7 +43,7 @@ class PlaceSearch extends Component {
         var marker = this.props.newMarker;
         //console.log(marker);
         placesService.getDetails(request, (place, status) => {
-          console.log(place);
+          //console.log(place);
           marker.name = place.name;
 
           marker.addr = place.formatted_address;
@@ -84,6 +84,7 @@ class PlaceSearch extends Component {
           marker.phone = place.formatted_phone_number;
           marker.website = place.website;
           marker.description = "";
+          console.log(marker);
 
           this.props.showPlaceSearch(marker);
         });

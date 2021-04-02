@@ -23,7 +23,6 @@ class NewMarker extends Component{
             <MarkerWindow place={this.props.place}
                 closeMarkerWindow={this.props.closeMarkerWindow}
                 submitMarker={this.props.submitMarker}
-                id={this.props.id}
             />
         }
         return(

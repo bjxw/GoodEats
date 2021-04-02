@@ -136,6 +136,10 @@
 - Hours are managed across base functions (create, edit, read)
 - Working on passing marker info from editing to placeSearch (ID fixed but details persist)
 
+# 4/2/2021
+- Fixed minor issues with spacing in TimePicker's minute and AMPM gap
+- Working on bug where placeSearch'ing after editing doesn't create the correct newMarker
+
 # TODO
 - Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
     - Deleting a marker causes array index vs id mismatch (solved by using mongodb backend?)

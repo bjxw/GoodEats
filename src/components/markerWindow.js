@@ -83,7 +83,7 @@ class MarkerWindow extends Component{
             isVeggie: this.state.isVeggie || this.props.place.isVeggie,
             description: this.state.description || this.props.place.description,
             show: false,
-            id: this.props.id
+            id: this.props.place.id
         }
         console.log(marker);
         this.props.submitMarker(marker);
@@ -116,7 +116,7 @@ class MarkerWindow extends Component{
                                 type="text" 
                                 name="name"
                                 placeholder="Location Name"
-                                value={this.state.name || this.props.place.name} 
+                                value={this.props.place.name || this.state.name} 
                                 onChange={this.handleChange}
                                 autoComplete="off"
                             />
@@ -132,7 +132,7 @@ class MarkerWindow extends Component{
                                 type="text"
                                 name="addr"
                                 placeholder="Street, City, State ZIP"
-                                value={this.state.addr || this.props.place.addr}
+                                value={this.props.place.addr || this.state.addr}
                                 onChange={this.handleChange}
                                 autoComplete="off"
                             />
@@ -160,8 +160,8 @@ class MarkerWindow extends Component{
                             <input
                                 type="text"
                                 name="phone"
-                                placeholder="Phone Number"
-                                value={this.state.phone || this.props.place.phone}
+                                placeholder="Phone"
+                                value={this.props.place.phone || this.state.phone}
                                 onChange={this.handleChange}
                                 autoComplete="off"
                             />
@@ -176,7 +176,7 @@ class MarkerWindow extends Component{
                                 type="text"
                                 name="website"
                                 placeholder="Website"
-                                value={this.state.website || this.props.place.website}
+                                value={this.props.place.website || this.state.website}
                                 onChange={this.handleChange}
                                 autoComplete="off"
                             />
@@ -191,7 +191,7 @@ class MarkerWindow extends Component{
                                 type="text"
                                 name="description"
                                 placeholder="Description"
-                                value={this.state.description}
+                                value={this.state.description || this.props.place.description}
                                 onChange={this.handleChange}
                                 autoComplete="off"
                             />
