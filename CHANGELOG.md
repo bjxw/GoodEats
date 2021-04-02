@@ -134,6 +134,7 @@
 
 # 4/1/2021
 - Hours are managed across base functions (create, edit, read)
+- Working on passing marker info from editing to placeSearch (ID fixed but details persist)
 
 # TODO
 - Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)

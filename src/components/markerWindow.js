@@ -90,7 +90,6 @@ class MarkerWindow extends Component{
     }
 
     render(){
-        console.log(this.state.hours);
         return(
             <div onClick={this.markerWindowClick}>
                 <div className="MarkerWindowTail"/>

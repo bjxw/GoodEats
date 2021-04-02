@@ -169,6 +169,7 @@ class GoogleMap extends Component {
     // This method closes the InfowWindow for newMarker
     closeMarkerWindow(){
         var newMarker = this.state.newMarker;
+        newMarker.id = this.state.markers.length;
         newMarker.show = false;
         
         this.setState({newMarker: newMarker});
@@ -207,6 +208,7 @@ class GoogleMap extends Component {
     // This method places a green location Marker for a place a user has looked up in the SearchBar
     showPlaceSearch(marker){
         marker.show = true;
+        marker.id = this.state.markers.length;
 
         this.setState({center: {lat: marker.lat, lng: marker.lng}});
 
