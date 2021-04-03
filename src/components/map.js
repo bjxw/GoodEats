@@ -169,6 +169,7 @@ class GoogleMap extends Component {
     // This method closes the InfowWindow for newMarker
     closeMarkerWindow(){
         var newMarker = this.state.newMarker;
+        newMarker.description = "";
         newMarker.id = this.state.markers.length;
         newMarker.show = false;
         
@@ -334,6 +335,7 @@ class GoogleMap extends Component {
                     placeList={this.state.placeList}
                     openMarker={this.openMarker}
                     deleteMarker={this.deleteMarker}
+                    closeMarkerWindow={this.closeMarkerWindow}
                 />
             </div>
         );

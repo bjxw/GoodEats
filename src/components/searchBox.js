@@ -30,6 +30,7 @@ class SearchBox extends Component{
                     newMarker={this.props.newMarker}
                     showPlaceSearch={this.props.showPlaceSearch}
                     addMarkerMode={this.props.addMarkerMode}
+                    closeMarkerWindow={this.props.closeMarkerWindow}
                 />
 
                 <PlaceList

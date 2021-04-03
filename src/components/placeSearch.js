@@ -32,6 +32,8 @@ class PlaceSearch extends Component {
       const temp = document.createElement('div');
       const placesService = new window.google.maps.places.PlacesService(temp);
 
+      this.props.closeMarkerWindow();
+
       geocodeByAddress(address)
       .then((results) => {
         //console.log(results); // formatted_address & place_id
