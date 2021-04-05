@@ -41,11 +41,11 @@ class MarkerWindow extends Component{
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        // console.log(name);
-        // console.log(value);
+        console.log(name);
+        console.log(value);
         this.setState({
             [name]: value
-        });
+        }, console.log(this.state));
         e.stopPropagation();
     }
 
@@ -80,7 +80,7 @@ class MarkerWindow extends Component{
             hours: this.state.hours || this.props.place.hours,
             phone: this.state.phone || this.props.place.phone,
             website: this.state.website || this.props.place.website,
-            isVeggie: this.state.isVeggie || this.props.place.isVeggie,
+            isVeggie: this.state.isVeggie,
             description: this.state.description || this.props.place.description,
             show: false,
             id: this.props.place.id

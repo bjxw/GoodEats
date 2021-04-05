@@ -148,7 +148,6 @@
     - Deleting a marker causes array index vs id mismatch (solved by using mongodb backend?)
     - Deleting a marker then adding a new one causes this bug (the existing marker is always last on the list)
     - Scrolling on and off placeList causes duplication/addition bug (existing marker is the one getting cloned/taking over)
-- PlaceSearch doesn't fill address or name correctly on some instances
-- In edit mode, editing existing marker then placeSearching doesn't update properly
+- Fix vegetarian option issues
 - Backend database (*deletion cases)
 - Refactor/clean code (always)

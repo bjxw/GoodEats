@@ -63,7 +63,7 @@ class GoogleMap extends Component {
             lng: null,
             name: "",
             addr: "",
-            hours:"",
+            hours: "",
             description: "",
             isVeggie: false,
             show: false,
