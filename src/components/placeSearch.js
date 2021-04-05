@@ -11,7 +11,8 @@ class PlaceSearch extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        address: ''
+        address: '',
+        marker: this.props.newMarker
       };
     }
    
@@ -19,31 +20,30 @@ class PlaceSearch extends Component {
     handleChange = address => {
       this.setState({ address });
     };
-   
+
     /*
       This method handles the selection of a location in the list. This functions
       by taking the address and passing it through Google API to fetch further
       information. It then stores this information and passes it back to
       newMarker in map.js
     */
-    handleSelect = address => {
+    handleSelect = address => { //address = name of restaurant
       // console.log("handleSelect() fired");
-      // console.log(address) // name of restaurant
       const temp = document.createElement('div');
       const placesService = new window.google.maps.places.PlacesService(temp);
+
+      var marker = this.state.marker;
 
       this.props.closeMarkerWindow();
 
       geocodeByAddress(address)
       .then((results) => {
-        //console.log(results); // formatted_address & place_id
+        var placeId = results[0].place_id;
         const request = {
-          placeId: results[0].place_id,
-          fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
+          placeId: placeId,
+          //fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
         }
 
-        var marker = this.props.newMarker;
-        //console.log(marker);
         placesService.getDetails(request, (place, status) => {
           //console.log(place);
           marker.name = place.name;
@@ -86,19 +86,15 @@ class PlaceSearch extends Component {
           marker.phone = place.formatted_phone_number;
           marker.website = place.website;
           marker.description = "";
-          console.log(marker);
+        })
 
-          this.props.showPlaceSearch(marker);
-        });
-        //console.log(marker);
         return getLatLng(results[0]);
       })
-      .then((results) => {
-        console.log('Success', results);
+      .then((latLng) => {
+        //console.log('Success', latLng);
 
-        var marker = this.props.newMarker;
-        marker.lat = results.lat;
-        marker.lng = results.lng
+        marker.lat = latLng.lat;
+        marker.lng = latLng.lng
         console.log(marker);
         this.props.showPlaceSearch(marker);
       })

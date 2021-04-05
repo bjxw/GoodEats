@@ -76,7 +76,7 @@ class MarkerWindow extends Component{
             lat: this.props.place.lat,
             lng: this.props.place.lng,
             name: this.state.name || this.props.place.name,
-            addr: this.state.addr || this.props.place.name,
+            addr: this.state.addr || this.props.place.addr,
             hours: this.state.hours || this.props.place.hours,
             phone: this.state.phone || this.props.place.phone,
             website: this.state.website || this.props.place.website,
