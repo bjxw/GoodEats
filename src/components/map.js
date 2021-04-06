@@ -300,6 +300,7 @@ class GoogleMap extends Component {
                 id = {this.state.newMarker.id >= 0 ? this.state.newMarker.id : this.state.markers.length} // Include index 0 otherwise results in array addition
             />
         }
+        
 
         return(
             <div className="MapStyle">

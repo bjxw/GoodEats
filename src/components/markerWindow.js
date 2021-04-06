@@ -34,6 +34,23 @@ class MarkerWindow extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    static getDerivedStateFromProps(props, state){
+        console.log(props);
+        console.log(state);
+        if(props.place.name !== state.name){
+            return{
+                name: props.place.name,
+                addr: props.place.addr,
+                hours: props.place.hours,
+                phone: props.place.phone,
+                website: props.place.website,
+                description: props.place.description,
+                isVeggie: props.place.isVeggie
+            };
+        }
+        return null;
+    }
+
     // This method updates the state of the form
     handleChange(e){
         const target = e.target;
@@ -89,6 +106,8 @@ class MarkerWindow extends Component{
     }
 
     render(){
+        console.log(this.props.place);
+        console.log(this.state.name);
         return(
             <div onClick={this.markerWindowClick}>
                 <div className="MarkerWindowTail"/>

@@ -125,7 +125,7 @@ class PlaceSearch extends Component {
                   placeholder: searchBoxPlaceholder,
                   className: 'location-search-input PlaceInputStyle',
                 })}
-                disabled={this.props.newMarker.show ? "disabled" : ""}
+                //disabled={this.props.newMarker.show ? "disabled" : ""}
               />
 
               <div className="autocomplete-dropdown-container PlaceDropdownStyle">

@@ -141,8 +141,11 @@
 - Working on bug where placeSearch'ing after editing doesn't create the correct newMarker
 
 # 4/5/2021
-- Replaced erroneous line for address
+- Replaced erroneous line for address autofill
 - Fixed vegetarian options when updating
+
+# 4/6/2021
+- Fixed placeSearch autofill thanks to getDerivedStateFromProps
 
 # TODO
 - Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
@@ -150,6 +153,5 @@
     - Deleting a marker then adding a new one causes this bug (the existing marker is always last on the list)
     - Scrolling on and off placeList causes duplication/addition bug (existing marker is the one getting cloned/taking over)
 - Fix text overflow in infoWindows
-- markerWindow during placeSearch isn't autofilled
 - Backend database (*deletion cases)
 - Refactor/clean code (always)
