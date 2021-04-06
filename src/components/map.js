@@ -57,7 +57,7 @@ class GoogleMap extends Component {
 
     // This method toggles whether a user can add a new Marker to the Map or not
     toggleMarkerMode(){
-        //console.log("toggleMarkerMode() fired");
+        console.log("toggleMarkerMode() fired");
         var marker = {
             lat: null,
             lng: null,
@@ -80,7 +80,7 @@ class GoogleMap extends Component {
     // This method adds a new Marker to the Map
     addNewMarker(e){ // e = ({ x, y, lat, lng, event })
         if(this.state.addMarkerMode && !this.state.showNewMarker){ // Checks if the user is in addMarkerMode and not currently working on a new Marker already
-            //console.log('addMarker() fired');
+            console.log('addMarker() fired');
 
             this.closeInfoWindow();
 
@@ -104,7 +104,7 @@ class GoogleMap extends Component {
     // This method adds the submitted Marker to the Map
     submitMarker(marker){ // marker = Marker object *see ./marker.js
         console.log("submitMarker() fired");
-        console.log(marker);
+        //console.log(marker);
 
         var markers = this.state.markers;
         if(marker.id < markers.length){ // Edit an existing Marker
@@ -125,7 +125,7 @@ class GoogleMap extends Component {
 
     // This method opens an InfoWindow for the selected Marker
     openMarker(marker){
-        //console.log('openMarker() fired');
+        console.log('openMarker() fired');
         
         // Close any possible Window for newMarker
         var newMarker = this.state.newMarker;
@@ -156,7 +156,7 @@ class GoogleMap extends Component {
 
     // This methods closes all open InfoWindows
     closeInfoWindow(){
-        //console.log("closeInfoWindow() fired");
+        console.log("closeInfoWindow() fired");
         var markers = this.state.markers;
         for(var i = 0; i < markers.length; i++){
             markers[i].show = false;
@@ -168,10 +168,12 @@ class GoogleMap extends Component {
 
     // This method closes the InfowWindow for newMarker
     closeMarkerWindow(){
+        console.log("closeMarkerWindow() fired");
         var newMarker = this.state.newMarker;
         newMarker.description = "";
         newMarker.id = this.state.markers.length;
         newMarker.show = false;
+        console.log(newMarker);
         
         this.setState({newMarker: newMarker});
         this.setState({showNewMarker: false});
@@ -179,21 +181,21 @@ class GoogleMap extends Component {
 
     // This method allows for the editing of existing Markers
     editMarker(marker){
-        //console.log("editMarker() fired");
+        console.log("editMarker() fired");
         this.closeInfoWindow();
         this.setState({addMarkerMode: true});
 
         var newMarker = JSON.parse(JSON.stringify(marker));
         newMarker.show = true;
         newMarker.id = marker.id;
-        console.log(newMarker);
+        //console.log(newMarker);
         
-        this.setState({showNewMarker: true});
         this.setState({newMarker: newMarker});
+        this.setState({showNewMarker: true});
     }
 
     deleteMarker(marker){
-        // console.log("deleteMarker() fired");
+        console.log("deleteMarker() fired");
         // console.log(marker);
 
         var markers = this.state.markers;
@@ -208,21 +210,21 @@ class GoogleMap extends Component {
 
     // This method places a green location Marker for a place a user has looked up in the SearchBar
     showPlaceSearch(marker){
-        marker.show = true;
-        marker.id = this.state.markers.length;
-
-        this.setState({center: {lat: marker.lat, lng: marker.lng}});
-
+        console.log("showPlaceSearch() fired");
+        console.log(marker);
         this.closeInfoWindow();
 
-        this.setState({newMarker: marker}, () =>{
-            this.setState({showNewMarker: true});
-        });
+        this.setState({center: {lat: marker.lat, lng: marker.lng}});
+        
+        marker.show = true;
+        marker.id = this.state.markers.length;
+        this.setState({newMarker: marker});
+        this.setState({showNewMarker: true});
     }
 
     // This method filters the current Markers within the visible bounds to display as visible places in the SearchBar
     filterPlaces(bounds){
-        //console.log("filterPlaces() fired");
+        console.log("filterPlaces() fired");
         this.setState({bounds: bounds}); // Update bounds to the current one
         var floor = bounds.nw; // Determines the lower coordinate values
         var ceil = bounds.se; // Determines the higher coordinate values
@@ -286,6 +288,8 @@ class GoogleMap extends Component {
         // This block establishes the new Marker which is used interchangeably as a location Marker and a new Marker
         var newMarker = null;
         if(this.state.showNewMarker){
+            console.log("Updating new marker");
+            console.log(this.state.newMarker);
             newMarker = <NewMarker
                 lat = {this.state.newMarker.lat}
                 lng = {this.state.newMarker.lng}

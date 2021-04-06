@@ -14,6 +14,9 @@ class PlaceSearch extends Component {
         address: '',
         marker: this.props.newMarker
       };
+
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSelect = this.handleSelect.bind(this);
     }
    
     // This method fills the address field acquired from react-places-autocomplete
@@ -34,7 +37,7 @@ class PlaceSearch extends Component {
 
       var marker = this.state.marker;
 
-      this.props.closeMarkerWindow();
+      //this.props.closeMarkerWindow();
 
       geocodeByAddress(address)
       .then((results) => {
@@ -122,6 +125,7 @@ class PlaceSearch extends Component {
                   placeholder: searchBoxPlaceholder,
                   className: 'location-search-input PlaceInputStyle',
                 })}
+                disabled={this.props.newMarker.show ? "disabled" : ""}
               />
 
               <div className="autocomplete-dropdown-container PlaceDropdownStyle">

@@ -142,12 +142,14 @@
 
 # 4/5/2021
 - Replaced erroneous line for address
+- Fixed vegetarian options when updating
 
 # TODO
 - Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
     - Deleting a marker causes array index vs id mismatch (solved by using mongodb backend?)
     - Deleting a marker then adding a new one causes this bug (the existing marker is always last on the list)
     - Scrolling on and off placeList causes duplication/addition bug (existing marker is the one getting cloned/taking over)
-- Fix vegetarian option issues
+- Fix text overflow in infoWindows
+- markerWindow during placeSearch isn't autofilled
 - Backend database (*deletion cases)
 - Refactor/clean code (always)
