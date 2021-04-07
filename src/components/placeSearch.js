@@ -44,7 +44,7 @@ class PlaceSearch extends Component {
         var placeId = results[0].place_id;
         const request = {
           placeId: placeId,
-          //fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
+          fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
         }
 
         placesService.getDetails(request, (place, status) => {

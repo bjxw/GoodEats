@@ -153,5 +153,6 @@
     - Deleting a marker then adding a new one causes this bug (the existing marker is always last on the list)
     - Scrolling on and off placeList causes duplication/addition bug (existing marker is the one getting cloned/taking over)
 - Fix text overflow in infoWindows
+- Centering doesn't work when re-centering the same marker
 - Backend database (*deletion cases)
 - Refactor/clean code (always)

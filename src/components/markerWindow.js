@@ -34,21 +34,17 @@ class MarkerWindow extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    static getDerivedStateFromProps(props, state){
-        console.log(props);
-        console.log(state);
-        if(props.place.name !== state.name){
-            return{
-                name: props.place.name,
-                addr: props.place.addr,
-                hours: props.place.hours,
-                phone: props.place.phone,
-                website: props.place.website,
-                description: props.place.description,
-                isVeggie: props.place.isVeggie
-            };
+    componentWillReceiveProps(nextProps){
+        if(nextProps.place.name !== this.state.name){
+            this.setState({name: nextProps.place.name});
+            this.setState({addr: nextProps.place.addr});
+            this.setState({hours: nextProps.place.hours});
+            this.setState({phone: nextProps.place.phone});
+            this.setState({website: nextProps.place.website});
+            this.setState({description: nextProps.place.description});
+            this.setState({isVeggie: nextProps.place.isVeggie});
         }
-        return null;
+        
     }
 
     // This method updates the state of the form

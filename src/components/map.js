@@ -190,6 +190,7 @@ class GoogleMap extends Component {
         newMarker.id = marker.id;
         //console.log(newMarker);
         
+        this.setState({center: {lat: marker.lat, lng: marker.lng}});
         this.setState({newMarker: newMarker});
         this.setState({showNewMarker: true});
     }
@@ -307,7 +308,7 @@ class GoogleMap extends Component {
                 {/*Main Google Map Component*/}
                 <GoogleMapReact
                     bootstrapURLKeys={{key: 'API_KEY_HERE'}}
-                    defaultCenter={defaultCenter}
+                    //defaultCenter={defaultCenter}
                     center={this.state.center || defaultCenter}
                     defaultZoom={12}
                     onClick={this.addNewMarker}
