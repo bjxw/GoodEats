@@ -1,12 +1,15 @@
+// imported components
 import {Component} from 'react';
 
+// created components
 import PlaceSearch from './placeSearch';
 import PlaceList from './placeList';
 
+// import stylesheets
 import "./css/searchBox.css"
 
 /*
-    This class defines the SearchBox component which contains components related to map information and lookups.
+    This class defines the SearchBox component which houses components related to map information and lookups.
     Refer to the component in map.js to see its usage.
 */
 class SearchBox extends Component{

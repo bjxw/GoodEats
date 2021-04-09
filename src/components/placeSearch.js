@@ -1,6 +1,8 @@
+// imported components
 import {Component} from 'react';
 import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete'; //see https://github.com/hibiken/react-places-autocomplete
 
+// imported stylesheets
 import "./css/placeSearch.css";
 
 /*
@@ -32,6 +34,7 @@ class PlaceSearch extends Component {
     */
     handleSelect = address => { //address = name of restaurant
       // console.log("handleSelect() fired");
+      // instantiate Goolge Places service
       const temp = document.createElement('div');
       const placesService = new window.google.maps.places.PlacesService(temp);
 
@@ -39,15 +42,17 @@ class PlaceSearch extends Component {
 
       //this.props.closeMarkerWindow();
 
-      geocodeByAddress(address)
-      .then((results) => {
+      geocodeByAddress(address) // address = name of the place
+      .then((results) => { // results = array of information but only place_id is used
         var placeId = results[0].place_id;
+
+        // request defines the ID of a place and fields to be pulled from Google Places
         const request = {
           placeId: placeId,
           fields: ["formatted_address", "formatted_phone_number", "name", "opening_hours", "website"]
         }
 
-        placesService.getDetails(request, (place, status) => {
+        placesService.getDetails(request, (place, status) => { // place = {request.fields}
           //console.log(place);
           marker.name = place.name;
 
@@ -93,7 +98,7 @@ class PlaceSearch extends Component {
 
         return getLatLng(results[0]);
       })
-      .then((latLng) => {
+      .then((latLng) => { //latLng = {lat, lng}
         //console.log('Success', latLng);
 
         marker.lat = latLng.lat;

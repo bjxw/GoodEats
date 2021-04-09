@@ -1,10 +1,13 @@
+// imported components
 import React, {Component} from 'react';
 
-import "./css/infoWindow.css";
-
+// See https://fontawesome.com/how-to-use/on-the-web/using-with/react for icon usage
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faClock} from '@fortawesome/free-regular-svg-icons';
 import {faMapMarkerAlt, faPhoneAlt, faGlobe, faStickyNote, faLeaf} from '@fortawesome/free-solid-svg-icons';
+
+// imported stylesheets
+import "./css/infoWindow.css";
 
 // This class is a component that is automatically attached to any Marker component for Marker info display
 class InfoWindow extends Component{

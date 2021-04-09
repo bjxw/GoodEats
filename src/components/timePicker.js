@@ -1,7 +1,10 @@
+// imported components
 import React, {Component} from 'react';
 
+// imported stylesheets
 import "./css/timePicker.css";
 
+// This component is a single box that allows a user to set a 12 hour time
 class TimePicker extends Component{
     constructor(props){
         super(props);
@@ -19,30 +22,35 @@ class TimePicker extends Component{
             pickMinute: false,
             pickAMPM: false,
 
+            // hour, minutes, and AM/PM are pre-set if hours are passed in from hoursTable.js
             hour: this.props.hours.substr(0, this.props.hours.indexOf(':')) || "--",
             minute: this.props.hours.substr(this.props.hours.indexOf(':') + 1, this.props.hours.indexOf(':') + 1) || "--",
             AMPM: this.props.hours.substr(this.props.hours.indexOf(':') + 4) || "--"
         }
     }
 
+    // This method opens the hour UI
     pickHour(){
         this.setState({pickHour: !this.state.pickHour});
         this.setState({pickMinute: false});
         this.setState({pickAMPM: false});
     }
 
+    // This method opens the minute UI
     pickMinute(){
         this.setState({pickMinute: !this.state.pickMinute});
         this.setState({pickHour: false});
         this.setState({pickAMPM: false});
     }
 
+    // This method opens the AMPM UI
     pickAMPM(){
         this.setState({pickAMPM: !this.state.pickAMPM});
         this.setState({pickHour: false});
         this.setState({pickMinute: false});
     }
 
+    // This method sets the hour and passes a string to hoursTable.js if all fields are filled
     setHour(h){
         this.setState({hour: h});
         this.setState({pickHour: false}, () => {
@@ -53,6 +61,7 @@ class TimePicker extends Component{
         });
     }
 
+    // This method sets the minute and passes a string to hoursTable.js if all fields are filled
     setMinute(m){
         this.setState({minute: m});
         this.setState({pickMinute: false}, () => {
@@ -63,6 +72,7 @@ class TimePicker extends Component{
         });
     }
 
+    // This method sets the AMPM and passes a string to hoursTable.js if all fields are filled
     setAMPM(a){
         this.setState({AMPM: a});
         this.setState({pickAMPM: false}, () => {

@@ -1,8 +1,13 @@
+// Imported components
 import React, {Component} from 'react';
 
+// Created components
 import TimePicker from './timePicker';
+
+// Imported stylesheets
 import "./css/hoursTable.css"
 
+// This class is a component that displays the weekly operating hours for a place and passes the information to its Marker
 class HoursTable extends Component{
     constructor(props){
         super(props);
@@ -11,6 +16,7 @@ class HoursTable extends Component{
         this.setTime = this.setTime.bind(this);
         this.handleHoursSubmit = this.handleHoursSubmit.bind(this);
 
+        // state is initialized to the known operating hours if applicable
         this.state = {
             sunday: {open: this.props.hours.sunday ? this.props.hours.sunday.substr(0, this.props.hours.sunday.indexOf('–') - 1) : "",  close: this.props.hours.sunday ? this.props.hours.sunday.substr(this.props.hours.sunday.indexOf('–') + 2) : ""},
             monday: {open: this.props.hours.monday ? this.props.hours.monday.substr(0, this.props.hours.monday.indexOf('–') - 1) : "", close: this.props.hours.monday ? this.props.hours.monday.substr(this.props.hours.monday.indexOf('–') + 2) : ""},
@@ -22,12 +28,16 @@ class HoursTable extends Component{
         }
     }
 
+    // This method closes the entire hoursTable component. See markerWindow.js for integration
     closeHoursTable(){
+        console.log("closeHourstable() fired");
         this.props.closeHoursTable();
     }
 
-    setTime(day, oc, hour){
-        console.log(hour);
+    // This method sets the hours for the opening or closing time for a day of the week
+    setTime(day, oc, hour){ // day = day of the week, oc = opening or closing, hour = time to set
+        console.log("setTime() fired");
+        //console.log(hour);
         var hours = {open: "", close: ""};
         switch(day){
             case "sunday":
@@ -63,7 +73,9 @@ class HoursTable extends Component{
         this.setState({day: hours});
     }
 
+    // This method consolidates the input hours into a single string for a Marker's operating hours
     handleHoursSubmit(e){
+        console.log("handleHoursSubmit() fired");
         e.preventDefault();
 
         var hours = {};
@@ -95,14 +107,15 @@ class HoursTable extends Component{
             hours.saturday = this.state.saturday.open + " – " + this.state.saturday.close;
         }
 
-        console.log(hours);
+        //console.log(hours);
+        // see markerWindow.js for prop methods
         this.props.handleHoursTable();
         this.props.setHours(hours);
     }
 
     render(){
-        console.log(this.props.hours);
-        console.log(this.state);
+        // console.log(this.props.hours);
+        // console.log(this.state);
         return(
             <div className="HoursContainer">
                 <div className="HoursWindowStyle">

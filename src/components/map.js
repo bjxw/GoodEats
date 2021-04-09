@@ -1,10 +1,13 @@
+// Imported components
 import React, {Component} from 'react'
-import GoogleMapReact from 'google-map-react'; //see https://github.com/google-map-react/google-map-react/blob/master/API.md
+import GoogleMapReact from 'google-map-react'; // https://github.com/google-map-react/google-map-react/blob/master/API.md
 
-import Marker from './marker'; // Marker object used to track locations
+// Created components
+import Marker from './marker'; // Marker object that defines individual places
 import NewMarker from './newMarker'; // Separate Marker used for place lookup or new marker submission
 import SearchBox from './searchBox'; // Window attached to map for adding markers, place lookup, and place list
 
+// Imported stylesheets
 import "./css/map.css";
 import MapStyle from "./css/mapStyle";
 
@@ -19,7 +22,7 @@ class GoogleMap extends Component {
         this.submitMarker = this.submitMarker.bind(this);
         this.filterPlaces = this.filterPlaces.bind(this);
 
-        // Existing Marker methods
+        //Marker methods
         this.openMarker = this.openMarker.bind(this);
 
         this.closeInfoWindow = this.closeInfoWindow.bind(this);
@@ -32,7 +35,7 @@ class GoogleMap extends Component {
         this.showPlaceSearch = this.showPlaceSearch.bind(this);
         
         this.state = {
-            // List of existing Markers on the Map
+            // Array of Markers for the map component
             markers: [
                 {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Cheap Meals", show: false, id: 0}, // in-n-out
                 {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Good Chinese Food", show: false, id: 1}, // bay island
@@ -55,9 +58,11 @@ class GoogleMap extends Component {
         }
     }
 
-    // This method toggles whether a user can add a new Marker to the Map or not
+    // This method toggles whether a user can add a new Marker to the Map
     toggleMarkerMode(){
         console.log("toggleMarkerMode() fired");
+
+        // Clear newMarker data when swapping between modes
         var marker = {
             lat: null,
             lng: null,
@@ -74,7 +79,7 @@ class GoogleMap extends Component {
 
         this.setState({showNewMarker: false}); // Always removes any visible new Markers
         this.setState({newMarker: marker}); // Set the newMarker to a blank, non-visible state for further actions
-        this.setState({addMarkerMode: !this.state.addMarkerMode}); // Simply flips the state of editing or not
+        this.setState({addMarkerMode: !this.state.addMarkerMode}); // Simply flips the state of editing
     }
 
     // This method adds a new Marker to the Map
@@ -104,7 +109,6 @@ class GoogleMap extends Component {
     // This method adds the submitted Marker to the Map
     submitMarker(marker){ // marker = Marker object *see ./marker.js
         console.log("submitMarker() fired");
-        //console.log(marker);
 
         var markers = this.state.markers;
         if(marker.id < markers.length){ // Edit an existing Marker
@@ -113,10 +117,6 @@ class GoogleMap extends Component {
             markers = markers.concat(marker);
         }
         
-        // var newMarker = this.state.newMarker;
-        // newMarker.show = false;
-
-        // this.setState({newMarker: newMarker});
         this.setState({showNewMarker: false}); // Hide the Marker after submission
 
         this.setState({addMarkerMode: false}); // Exit addMarkerMode
@@ -124,7 +124,7 @@ class GoogleMap extends Component {
     }
 
     // This method opens an InfoWindow for the selected Marker
-    openMarker(marker){
+    openMarker(marker){ // marker = Marker object *see ./marker.js
         console.log('openMarker() fired');
         
         // Close any possible Window for newMarker
@@ -140,11 +140,14 @@ class GoogleMap extends Component {
         for(var i = 0; i < markers.length; i++){
             if(i === index){ // Index matches
                 markers[i].show = !markers[i].show;
+                
+                // prevent the map from being dragged after opening 
                 if(markers[i].show){
                     this.setState({draggable: false});
                 } else {
                     this.setState({draggable: true});
                 }
+
                 this.setState({center: {lat: markers[i].lat , lng: markers[i].lng}});
             } else { // Close all other markers
                 markers[i].show = false;
@@ -170,17 +173,16 @@ class GoogleMap extends Component {
     closeMarkerWindow(){
         console.log("closeMarkerWindow() fired");
         var newMarker = this.state.newMarker;
-        newMarker.description = "";
+        //newMarker.description = "";
         newMarker.id = this.state.markers.length;
         newMarker.show = false;
-        console.log(newMarker);
         
         this.setState({newMarker: newMarker});
         this.setState({showNewMarker: false});
     }
 
-    // This method allows for the editing of existing Markers
-    editMarker(marker){
+    // This method allows for the editing of existing Markers by setting newMarker to the passed in marker
+    editMarker(marker){ // marker = Marker object *see ./marker.js
         console.log("editMarker() fired");
         this.closeInfoWindow();
         this.setState({addMarkerMode: true});
@@ -195,24 +197,23 @@ class GoogleMap extends Component {
         this.setState({showNewMarker: true});
     }
 
-    deleteMarker(marker){
+    // This method deletes the passed in Marker from the markers array
+    deleteMarker(marker){ // marker = Marker object *see ./marker.js
         console.log("deleteMarker() fired");
-        // console.log(marker);
 
         var markers = this.state.markers;
 
-        //find the delete marker
+        //find the to-delete marker and remove it from the array
         const index = markers.findIndex((e) => e.id === Number(marker.id));
         markers.splice(index, 1);
-        console.log(index);
+        //console.log(index);
 
         this.setState({markers: markers}, () => this.filterPlaces(this.state.bounds));
     }
 
     // This method places a green location Marker for a place a user has looked up in the SearchBar
-    showPlaceSearch(marker){
+    showPlaceSearch(marker){ // marker = Marker object *see ./marker.js
         console.log("showPlaceSearch() fired");
-        console.log(marker);
         this.closeInfoWindow();
 
         this.setState({center: {lat: marker.lat, lng: marker.lng}});
@@ -224,8 +225,9 @@ class GoogleMap extends Component {
     }
 
     // This method filters the current Markers within the visible bounds to display as visible places in the SearchBar
-    filterPlaces(bounds){
+    filterPlaces(bounds){ // bounds = {(nw, ne, sw, se)} where each object has lat lng properties
         console.log("filterPlaces() fired");
+        console.log(bounds);
         this.setState({bounds: bounds}); // Update bounds to the current one
         var floor = bounds.nw; // Determines the lower coordinate values
         var ceil = bounds.se; // Determines the higher coordinate values
@@ -290,7 +292,6 @@ class GoogleMap extends Component {
         var newMarker = null;
         if(this.state.showNewMarker){
             console.log("Updating new marker");
-            console.log(this.state.newMarker);
             newMarker = <NewMarker
                 lat = {this.state.newMarker.lat}
                 lng = {this.state.newMarker.lng}

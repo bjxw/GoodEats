@@ -1,7 +1,10 @@
+// imported components
 import React, {Component} from 'react';
 
+// created components
 import HoursTable from './hoursTable';
 
+// imported stylesheets
 import "./css/markerWindow.css";
 
 /*
@@ -34,6 +37,7 @@ class MarkerWindow extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // this method ensures that markerWindow displays the current props when updated
     componentWillReceiveProps(nextProps){
         if(nextProps.place.name !== this.state.name){
             this.setState({name: nextProps.place.name});
@@ -53,24 +57,27 @@ class MarkerWindow extends Component{
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        console.log(name);
-        console.log(value);
+        // console.log(name);
+        // console.log(value);
         this.setState({
             [name]: value
         });
         e.stopPropagation();
     }
 
+    // This method determines whether or not hoursTable is displayed
     handleHoursTable(){
         //console.log("handleHoursTable() fired");
         this.setState({pickTime: !this.state.pickTime});
     }
 
+    // This method closes the hoursTables
     closeHoursTable(){
         this.setState({pickTime: false});
     }
 
-    setHours(hours){
+    // This method sets the business hours of the week for 
+    setHours(hours){ // hours = {sun..., mon..., tues, wed, thurs, fri, sat} where each day is a string representing operating hours
         //console.log("setHours() fired");
         //console.log(hours);
         this.setState({hours: hours});
@@ -98,12 +105,12 @@ class MarkerWindow extends Component{
             id: this.props.place.id
         }
         console.log(marker);
-        this.props.submitMarker(marker);
+        this.props.submitMarker(marker); // see map.js for reference
     }
 
     render(){
-        console.log(this.props.place);
-        console.log(this.state.name);
+        // console.log(this.props.place);
+        // console.log(this.state.name);
         return(
             <div onClick={this.markerWindowClick}>
                 <div className="MarkerWindowTail"/>

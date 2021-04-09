@@ -1,11 +1,13 @@
+// imported component
 import React, {Component} from 'react';
-
-import "./css/placeList.css";
 
 // See https://fontawesome.com/how-to-use/on-the-web/using-with/react for icon usage
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt} from '@fortawesome/free-regular-svg-icons';
 import {faLeaf} from '@fortawesome/free-solid-svg-icons';
+
+// imported stylesheet
+import "./css/placeList.css";
 
 /*
     This class defines the PlaceList component meant to show visible Markers on the Map.
@@ -32,18 +34,21 @@ class PlaceList extends Component{
         this.props.openMarker(e.target.id);
     }
     
-    deleteConfirm(marker){
+    // This method prompts a confirmation to ensure the user wants to delete the pass marker
+    deleteConfirm(marker){ // marker = Marker object see marker.js for full reference
         this.setState({markerToDel: marker}, () => {
             this.setState({toDelete: true});
         });
     }
 
+    // This method closes the confirmation after the user cancels the deletion process
     deleteCancel(){
         this.setState({toDelete: false});
     }
 
+    // This method removes the Marker from the map array
     deleteMarker(marker){
-        this.props.deleteMarker(marker);
+        this.props.deleteMarker(marker); // see map.js for full method
         this.deleteCancel();
     }
 

@@ -1,7 +1,11 @@
+// imported components
 import React, {Component} from 'react';
+
+// created components
 import MarkerWindow from './markerWindow';
 import InfoWindow from './infoWindow';
 
+// imported stylesheets
 import "./css/newMarker.css";
 
 /*

@@ -145,7 +145,11 @@
 - Fixed vegetarian options when updating
 
 # 4/6/2021
-- Fixed placeSearch autofill thanks to getDerivedStateFromProps
+- Fixed placeSearch autofill
+- Found centering issue on already centered marker
+
+# 4/8/2021
+- Commenting and cleaning up code all around before moving to backend
 
 # TODO
 - Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
