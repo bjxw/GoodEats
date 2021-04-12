@@ -21,6 +21,7 @@ class GoogleMap extends Component {
         this.addNewMarker = this.addNewMarker.bind(this);
         this.submitMarker = this.submitMarker.bind(this);
         this.filterPlaces = this.filterPlaces.bind(this);
+        this.setCenter = this.setCenter.bind(this);
 
         //Marker methods
         this.openMarker = this.openMarker.bind(this);
@@ -267,6 +268,11 @@ class GoogleMap extends Component {
         this.setState({placeList: placeList});
     }
 
+    setCenter(e){
+        console.log("setCenter() fired");
+        this.setState({center:{lat: e.center.lat, lng: e.center.lng}});
+    }
+
     render(){
         const defaultCenter = { // Centered location for initial Map render
             lat: 34.08070866379608,
@@ -316,6 +322,7 @@ class GoogleMap extends Component {
                     onChildClick={this.openMarker}
                     draggable={!(this.state.showNewMarker && this.state.addMarkerMode) && this.state.draggable}
                     onChange={(e) => this.filterPlaces(e.bounds)}
+                    onDragEnd={this.setCenter}
                     options={mapOptions}
                 >
                     {/*This block renders all existing markers from the database*/}

@@ -71,6 +71,12 @@ class MarkerWindow extends Component{
         this.setState({pickTime: !this.state.pickTime});
     }
 
+    onFocus(e){
+        if(e.target.autocomplete){
+            e.target.autocomplete= "";
+        }
+    }
+
     // This method closes the hoursTables
     closeHoursTable(){
         this.setState({pickTime: false});
@@ -127,8 +133,8 @@ class MarkerWindow extends Component{
                     <form 
                         onSubmit={this.handleSubmit}
                         className="MarkerWindowForm"
-                        autoComplete="off"
                     >
+
                         <div className="InputBox">
                             <label>
                                 Name:
@@ -139,7 +145,7 @@ class MarkerWindow extends Component{
                                 placeholder="Location Name"
                                 value={this.state.name} 
                                 onChange={this.handleChange}
-                                autoComplete="off"
+                                autoComplete="new-place-name"
                             />
                             <br/>
                         </div>
@@ -155,7 +161,7 @@ class MarkerWindow extends Component{
                                 placeholder="Street, City, State ZIP"
                                 value={this.state.addr}
                                 onChange={this.handleChange}
-                                autoComplete="off"
+                                autoComplete="new-place-addr"
                             />
                             <br/>
                         </div>
@@ -184,7 +190,7 @@ class MarkerWindow extends Component{
                                 placeholder="Phone"
                                 value={this.state.phone}
                                 onChange={this.handleChange}
-                                autoComplete="off"
+                                autoComplete="new-place-phone"
                             />
                             <br/>
                         </div>
@@ -199,7 +205,7 @@ class MarkerWindow extends Component{
                                 placeholder="Website"
                                 value={this.state.website}
                                 onChange={this.handleChange}
-                                autoComplete="off"
+                                autoComplete="new-place-website"
                             />
                             <br/>
                         </div>
@@ -214,7 +220,7 @@ class MarkerWindow extends Component{
                                 placeholder="Description"
                                 value={this.state.description}
                                 onChange={this.handleChange}
-                                autoComplete="off"
+                                autoComplete="new-place-description"
                             />
                             <br/>
                         </div>

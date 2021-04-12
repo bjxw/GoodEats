@@ -119,7 +119,7 @@ class InfoWindow extends Component{
                                 <div className="Icon">
                                     <FontAwesomeIcon icon={faGlobe}/>
                                 </div>
-                                <div className="PlaceInfoStyle">
+                                <div className="PlaceInfoWebStyle">
                                     {this.props.place.website}
                                 </div>
                             </div>
