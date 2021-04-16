@@ -154,12 +154,19 @@
 # 4/12/2021
 - Fixed text overflow in infoWindows
 - Partial fix to Chromium autofill
+- Centering fix
+
+# 4/14/2021
+- Initial backend API established
+
+# 4/16/2021
+- Connecting frontend bits with backend
+- Filling in preliminary database
 
 # TODO
 - Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
     - Deleting a marker causes array index vs id mismatch (solved by using mongodb backend?)
     - Deleting a marker then adding a new one causes this bug (the existing marker is always last on the list)
     - Scrolling on and off placeList causes duplication/addition bug (existing marker is the one getting cloned/taking over)
-- Centering doesn't work when re-centering the same marker
 - Backend database (*deletion cases)
-- Refactor/clean code (always)
+- Always refactor/clean code after major features or updates!

@@ -39,7 +39,12 @@ class MarkerWindow extends Component{
 
     // this method ensures that markerWindow displays the current props when updated
     componentWillReceiveProps(nextProps){
-        if(nextProps.place.name !== this.state.name){
+        console.log(nextProps);
+        console.log(this.state);
+        if(nextProps.place.name !== this.state.name ||
+            nextProps.place.addr !== this.state.addr ||
+            nextProps.place.phone !== this.state.phone ||
+            nextProps.place.website !== this.state.website){
             this.setState({name: nextProps.place.name});
             this.setState({addr: nextProps.place.addr});
             this.setState({hours: nextProps.place.hours});

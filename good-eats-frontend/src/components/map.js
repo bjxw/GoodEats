@@ -1,6 +1,7 @@
 // Imported components
 import React, {Component} from 'react'
 import GoogleMapReact from 'google-map-react'; // https://github.com/google-map-react/google-map-react/blob/master/API.md
+import axios from 'axios';
 
 // Created components
 import Marker from './marker'; // Marker object that defines individual places
@@ -38,11 +39,11 @@ class GoogleMap extends Component {
         this.state = {
             // Array of Markers for the map component
             markers: [
-                {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Cheap Meals", show: false, id: 0}, // in-n-out
-                {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Good Chinese Food", show: false, id: 1}, // bay island
-                {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: true, description:"Solid Vegetarian Options", show: false, id: 2}, // bodhi veggie cuisine
-                {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", hours:"", phone:"", website:"", isVeggie: false, description:"Bougie Organic Food", show: false, id: 3}, // green zone
-                {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", hours:{friday: "5:00 AM – 5:00 PM", monday: "1:00 AM – 1:00 PM", saturday: "6:00 AM – 6:00 PM", sunday: "12:00 AM – 12:00 PM", thursday: "4:00 AM – 4:00 PM", tuesday: "2:00 AM – 2:00 PM", wednesday: "3:00 AM – 3:00 PM"}, phone:"", website:"", isVeggie: false, description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
+                // {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Cheap Meals", show: false, id: 0}, // in-n-out
+                // {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Good Chinese Food", show: false, id: 1}, // bay island
+                // {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: true, description:"Solid Vegetarian Options", show: false, id: 2}, // bodhi veggie cuisine
+                // {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", hours:"", phone:"", website:"", isVeggie: false, description:"Bougie Organic Food", show: false, id: 3}, // green zone
+                // {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", hours:{friday: "5:00 AM – 5:00 PM", monday: "1:00 AM – 1:00 PM", saturday: "6:00 AM – 6:00 PM", sunday: "12:00 AM – 12:00 PM", thursday: "4:00 AM – 4:00 PM", tuesday: "2:00 AM – 2:00 PM", wednesday: "3:00 AM – 3:00 PM"}, phone:"", website:"", isVeggie: false, description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
             ],
 
             placeList:[], // List of Markers to be shown on the Map *entries are references to the Markers array above
@@ -122,11 +123,15 @@ class GoogleMap extends Component {
 
         this.setState({addMarkerMode: false}); // Exit addMarkerMode
         this.setState({markers: markers}, () => this.filterPlaces(this.state.bounds)); // Update visible placeList after Marker submission
+
+        axios.post('http://localhost:5000/place/add', marker)
+            .then(res => console.log(res.data));
     }
 
     // This method opens an InfoWindow for the selected Marker
     openMarker(marker){ // marker = Marker object *see ./marker.js
         console.log('openMarker() fired');
+        console.log(marker);
         
         // Close any possible Window for newMarker
         var newMarker = this.state.newMarker;
@@ -135,7 +140,7 @@ class GoogleMap extends Component {
         this.setState({showNewMarker: false});
 
         var markers = this.state.markers;
-        const index = markers.findIndex((e) => e.id === Number(marker)); // Get the index of the Marker to open
+        const index = marker; //markers.findIndex((e) => e.id === Number(marker)); // Get the index of the Marker to open
 
         // Search for the index matching the opened Marker
         for(var i = 0; i < markers.length; i++){
@@ -228,7 +233,6 @@ class GoogleMap extends Component {
     // This method filters the current Markers within the visible bounds to display as visible places in the SearchBar
     filterPlaces(bounds){ // bounds = {(nw, ne, sw, se)} where each object has lat lng properties
         console.log("filterPlaces() fired");
-        console.log(bounds);
         this.setState({bounds: bounds}); // Update bounds to the current one
         var floor = bounds.nw; // Determines the lower coordinate values
         var ceil = bounds.se; // Determines the higher coordinate values
@@ -271,6 +275,14 @@ class GoogleMap extends Component {
     setCenter(e){
         console.log("setCenter() fired");
         this.setState({center:{lat: e.center.lat, lng: e.center.lng}});
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:5000/place/')
+            .then(res => {
+                console.log(res.data);
+                this.setState({markers: res.data});
+            })
     }
 
     render(){
