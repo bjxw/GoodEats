@@ -54,7 +54,7 @@ class PlaceList extends Component{
 
     render(){
         var placeList = this.props.placeList;
-        //console.log(placeList);
+        console.log(placeList);
 
         var trashIcon = null;
         if(!this.props.addMarkerMode){
@@ -104,7 +104,7 @@ class PlaceList extends Component{
                                 className="PlaceName"
                                 onClick={this.chooseMarker}
                                 
-                                id={marker.id} //passes id for marker index
+                                id={marker._id} //passes id for marker index
                             >
                                 {marker.name}
                             </div>

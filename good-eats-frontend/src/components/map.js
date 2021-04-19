@@ -38,13 +38,7 @@ class GoogleMap extends Component {
         
         this.state = {
             // Array of Markers for the map component
-            markers: [
-                // {lat: 34.08421909476845, lng: -118.07298836096781, name:"In-N-Out", addr:"4242 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Cheap Meals", show: false, id: 0}, // in-n-out
-                // {lat: 34.07993604059942, lng: -118.08234390563354, name:"Bay Island", addr:"3927 Walnut Grove Ave #115, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: false, description:"Good Chinese Food", show: false, id: 1}, // bay island
-                // {lat: 34.07583050324687, lng: -118.07335314159903, name:"Bodhi Veggie Cuisine", addr:"3643 Rosemead Blvd, Rosemead, CA 91770", hours:"", phone:"", website:"", isVeggie: true, description:"Solid Vegetarian Options", show: false, id: 2}, // bodhi veggie cuisine
-                // {lat: 34.10543567839181, lng: -118.07300981856079, name:"Green Zone", addr:"5728 Rosemead Blvd unit 106, Temple City, CA 91780", hours:"", phone:"", website:"", isVeggie: false, description:"Bougie Organic Food", show: false, id: 3}, // green zone
-                // {lat: 34.0897531, lng: -118.0529848, name:"Popeyes", addr:"9744 Lower Azusa Rd, El Monte, CA 91731", hours:{friday: "5:00 AM – 5:00 PM", monday: "1:00 AM – 1:00 PM", saturday: "6:00 AM – 6:00 PM", sunday: "12:00 AM – 12:00 PM", thursday: "4:00 AM – 4:00 PM", tuesday: "2:00 AM – 2:00 PM", wednesday: "3:00 AM – 3:00 PM"}, phone:"", website:"", isVeggie: false, description:"Chicken. Need I say more?", show: false, id: 4}, // popeyes
-            ],
+            markers: [],
 
             placeList:[], // List of Markers to be shown on the Map *entries are references to the Markers array above
             bounds:{}, // Bounds variable stored to enable filterPlaces() to be called outside of the Map
@@ -70,7 +64,7 @@ class GoogleMap extends Component {
             lng: null,
             name: "",
             addr: "",
-            hours: "",
+            hours: {},
             description: "",
             isVeggie: false,
             show: false,
@@ -97,10 +91,10 @@ class GoogleMap extends Component {
             newMarker.lng = e.lng;
             newMarker.name = "";
             newMarker.addr = "";
+            newMarker.hours = {};
             newMarker.description = "";
             newMarker.isVeggie = false;
             newMarker.show = true;
-            newMarker.id = this.state.markers.length;
 
             this.setState({center: {lat: e.lat, lng: e.lng}});
             this.setState({showNewMarker: true}); // Make the Marker visible
@@ -111,6 +105,7 @@ class GoogleMap extends Component {
     // This method adds the submitted Marker to the Map
     submitMarker(marker){ // marker = Marker object *see ./marker.js
         console.log("submitMarker() fired");
+        console.log(marker);
 
         var markers = this.state.markers;
         if(marker.id < markers.length){ // Edit an existing Marker
@@ -131,8 +126,9 @@ class GoogleMap extends Component {
     // This method opens an InfoWindow for the selected Marker
     openMarker(marker){ // marker = Marker object *see ./marker.js
         console.log('openMarker() fired');
-        console.log(marker);
-        
+        //console.log(marker);
+        //console.log(typeof(marker));
+
         // Close any possible Window for newMarker
         var newMarker = this.state.newMarker;
         newMarker.show = false;
@@ -140,32 +136,28 @@ class GoogleMap extends Component {
         this.setState({showNewMarker: false});
 
         var markers = this.state.markers;
-        const index = marker; //markers.findIndex((e) => e.id === Number(marker)); // Get the index of the Marker to open
 
-        // Search for the index matching the opened Marker
         for(var i = 0; i < markers.length; i++){
-            if(i === index){ // Index matches
+            if(markers[i]._id === marker || i === Number(marker)){
                 markers[i].show = !markers[i].show;
-                
-                // prevent the map from being dragged after opening 
+                this.setState({center: {lat: markers[i].lat , lng: markers[i].lng}});
+
                 if(markers[i].show){
                     this.setState({draggable: false});
                 } else {
-                    this.setState({draggable: true});
+                    this.setState({draggable:true});
                 }
-
-                this.setState({center: {lat: markers[i].lat , lng: markers[i].lng}});
-            } else { // Close all other markers
+            } else {
                 markers[i].show = false;
             }
         }
-
+        
         this.setState({markers});
     }
 
     // This methods closes all open InfoWindows
     closeInfoWindow(){
-        console.log("closeInfoWindow() fired");
+        //console.log("closeInfoWindow() fired");
         var markers = this.state.markers;
         for(var i = 0; i < markers.length; i++){
             markers[i].show = false;
@@ -180,7 +172,6 @@ class GoogleMap extends Component {
         console.log("closeMarkerWindow() fired");
         var newMarker = this.state.newMarker;
         //newMarker.description = "";
-        newMarker.id = this.state.markers.length;
         newMarker.show = false;
         
         this.setState({newMarker: newMarker});
@@ -195,7 +186,6 @@ class GoogleMap extends Component {
 
         var newMarker = JSON.parse(JSON.stringify(marker));
         newMarker.show = true;
-        newMarker.id = marker.id;
         //console.log(newMarker);
         
         this.setState({center: {lat: marker.lat, lng: marker.lng}});
@@ -225,7 +215,6 @@ class GoogleMap extends Component {
         this.setState({center: {lat: marker.lat, lng: marker.lng}});
         
         marker.show = true;
-        marker.id = this.state.markers.length;
         this.setState({newMarker: marker});
         this.setState({showNewMarker: true});
     }
@@ -282,6 +271,7 @@ class GoogleMap extends Component {
             .then(res => {
                 console.log(res.data);
                 this.setState({markers: res.data});
+                this.filterPlaces(this.state.bounds);
             })
     }
 
@@ -319,7 +309,6 @@ class GoogleMap extends Component {
                 submitMarker = {this.submitMarker}
             />
         }
-        
 
         return(
             <div className="MapStyle">
@@ -341,8 +330,10 @@ class GoogleMap extends Component {
                         <Marker
                             lat={marker.lat}
                             lng={marker.lng}
+                            show={false}
                             place={marker}
                             key={index}
+                            id={marker._id}
                             closeInfoWindow={this.closeInfoWindow}
                             editMarker={this.editMarker}
                         />

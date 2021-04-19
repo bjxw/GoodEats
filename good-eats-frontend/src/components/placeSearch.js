@@ -18,6 +18,7 @@ class PlaceSearch extends Component {
       };
 
       this.handleChange = this.handleChange.bind(this);
+      this.hoursToObject = this.hoursToObject.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
     }
    
@@ -25,6 +26,41 @@ class PlaceSearch extends Component {
     handleChange = address => {
       this.setState({ address });
     };
+
+    hoursToObject(hours){
+      console.log("hoursToObject() fired");
+      //console.log(hours);
+      var newHours = {};
+      for(var i = 0; i < hours.length; i++){
+        var hour = hours[i].substring(hours[i].indexOf(":") + 2);
+        switch(i){
+          case 0:
+            newHours.sunday = hour
+            break;
+          case 1:
+            newHours.monday = hour
+            break;
+          case 2:
+            newHours.tuesday = hour;
+            break
+          case 3:
+            newHours.wednesday = hour;
+            break;
+          case 4:
+            newHours.thursday = hour;
+            break;
+          case 5:
+            newHours.friday = hour;
+            break;
+          case 6:
+            newHours.saturday = hour
+            break;
+          default:
+            hours = "";
+        }
+      }
+      return newHours;
+    }
 
     /*
       This method handles the selection of a location in the list. This functions
@@ -39,7 +75,6 @@ class PlaceSearch extends Component {
       const placesService = new window.google.maps.places.PlacesService(temp);
 
       var marker = this.state.marker;
-
       //this.props.closeMarkerWindow();
 
       geocodeByAddress(address) // address = name of the place
@@ -60,36 +95,7 @@ class PlaceSearch extends Component {
           marker.addr = marker.addr.substring(0, marker.addr.indexOf(", USA"));
 
           var hours = place.opening_hours.weekday_text;
-          for(var i = 0; i < hours.length; i++){
-            var hour = hours[i].substring(hours[i].indexOf(":") + 2);
-            switch(i){
-              case 0:
-                hours.sunday = hour;
-                break;
-              case 1:
-                hours.monday = hour;
-                break;
-              case 2:
-                hours.tuesday = hour;
-                break
-              case 3:
-                hours.wednesday = hour;
-                break;
-              case 4:
-                hours.thursday = hour;
-                break;
-              case 5:
-                hours.friday = hour;
-                break;
-              case 6:
-                hours.saturday = hour
-                break;
-              default:
-                hours = "";
-            }
-            delete hours[i];
-          }
-          marker.hours = hours;
+          marker.hours = this.hoursToObject(hours);;
 
           marker.phone = place.formatted_phone_number;
           marker.website = place.website;

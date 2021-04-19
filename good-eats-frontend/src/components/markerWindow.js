@@ -39,8 +39,8 @@ class MarkerWindow extends Component{
 
     // this method ensures that markerWindow displays the current props when updated
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
-        console.log(this.state);
+        //console.log(nextProps);
+        //console.log(this.state);
         if(nextProps.place.name !== this.state.name ||
             nextProps.place.addr !== this.state.addr ||
             nextProps.place.phone !== this.state.phone ||
@@ -90,7 +90,7 @@ class MarkerWindow extends Component{
     // This method sets the business hours of the week for 
     setHours(hours){ // hours = {sun..., mon..., tues, wed, thurs, fri, sat} where each day is a string representing operating hours
         //console.log("setHours() fired");
-        //console.log(hours);
+        console.log(hours);
         this.setState({hours: hours});
     }
 
