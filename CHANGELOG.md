@@ -163,10 +163,13 @@
 - Connecting frontend bits with backend
 - Filling in preliminary database
 
+# 4/19/2021
+- openMarker and placeList working together
+- deleteMarker working
+- backend essentials wired up. ready to stress test!
+
 # TODO
 - Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
-    - Deleting a marker causes array index vs id mismatch (solved by using mongodb backend?)
     - Deleting a marker then adding a new one causes this bug (the existing marker is always last on the list)
     - Scrolling on and off placeList causes duplication/addition bug (existing marker is the one getting cloned/taking over)
-- Backend database (*deletion cases)
 - Always refactor/clean code after major features or updates!

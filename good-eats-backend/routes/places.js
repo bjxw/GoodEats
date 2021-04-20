@@ -19,26 +19,6 @@ router.route('/:id').delete((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
-router.route('/update/:id').post((req, res) => {
-    Place.findById(req.params.id)
-        .then(place => {
-            place.lat = req.body.lat;
-            place.lng = req.body.lng;
-            place.name = req.body.name;
-            place.addr = req.body.addr;
-            place.hours = req.body.hours;
-            place.phone = req.body.phone;
-            place.website = req.body.website;
-            place.isVeggie = req.body.isVeggie;
-            place.description = req.body.description;
-
-            place.save()
-                .then(() => res.json('Exercise updated!'))
-                .catch(err => res.status(400).json('Error: ' + err));
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
-});
-
 router.route('/add').post((req, res) => {
     Place.findOneAndUpdate({name: req.body.name, addr: req.body.addr}, 
         {

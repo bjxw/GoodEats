@@ -107,20 +107,25 @@ class GoogleMap extends Component {
         console.log("submitMarker() fired");
         console.log(marker);
 
-        var markers = this.state.markers;
-        if(marker.id < markers.length){ // Edit an existing Marker
-            markers[marker.id] = marker;
-        } else { // Submit a new Marker
-            markers = markers.concat(marker);
-        }
+        // var markers = this.state.markers;
+        // if(marker.id < markers.length){ // Edit an existing Marker
+        //     markers[marker.id] = marker;
+        // } else { // Submit a new Marker
+        //     markers = markers.concat(marker);
+        // }
         
         this.setState({showNewMarker: false}); // Hide the Marker after submission
-
         this.setState({addMarkerMode: false}); // Exit addMarkerMode
-        this.setState({markers: markers}, () => this.filterPlaces(this.state.bounds)); // Update visible placeList after Marker submission
 
         axios.post('http://localhost:5000/place/add', marker)
-            .then(res => console.log(res.data));
+            .then(res => {
+                console.log(res.data);
+                axios.get('http://localhost:5000/place/')
+                    .then(res => {
+                        console.log(res.data);
+                        this.setState({markers: res.data}, () => this.filterPlaces(this.state.bounds));
+                    });
+            });
     }
 
     // This method opens an InfoWindow for the selected Marker
@@ -196,15 +201,18 @@ class GoogleMap extends Component {
     // This method deletes the passed in Marker from the markers array
     deleteMarker(marker){ // marker = Marker object *see ./marker.js
         console.log("deleteMarker() fired");
+        console.log(marker);
 
-        var markers = this.state.markers;
+        axios.delete('http://localhost:5000/place/' + marker._id)
+            .then(res => {
+                console.log("Place deleted");
+            });
 
-        //find the to-delete marker and remove it from the array
-        const index = markers.findIndex((e) => e.id === Number(marker.id));
-        markers.splice(index, 1);
-        //console.log(index);
-
-        this.setState({markers: markers}, () => this.filterPlaces(this.state.bounds));
+        axios.get('http://localhost:5000/place/')
+            .then(res => {
+                console.log(res.data);
+                this.setState({markers: res.data}, () => this.filterPlaces(this.state.bounds));
+            });
     }
 
     // This method places a green location Marker for a place a user has looked up in the SearchBar
