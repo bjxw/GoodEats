@@ -1,0 +1,87 @@
+.HelpBox{
+    position: fixed;
+    top: 0;
+
+    margin: 5px;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+
+    border: 5px solid dimgray;
+}
+
+.HelpBox:hover{
+    background-color: darkgray;
+
+    border: 5px solid gray;
+    cursor: pointer;
+}
+
+.HelpIcon{
+    padding: 3px;
+}
+
+.HelpContainer{
+    visibility: visible;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    z-index: 1000;
+}
+
+.HelpWindow{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    height: 600px;
+    width: 800px;
+    background-color: white;
+
+    border-radius: 10px;
+    box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.4);
+}
+
+.CloseHelpWindow{
+    position: fixed;
+    top: 2%;
+    right: 2%;
+}
+
+.CloseHelpWindow:hover{
+    color: gray;
+    cursor: pointer;
+}
+
+.QuickStartTitle{
+    padding: 5px;
+    font-size: 24pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+hr.QuickStartBreak{
+    border-top: 3px solid black;
+    width: 20rem;
+    margin-top: 0px;
+}
+
+.QuickStartContent{
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+dl.QuickStartTips dt{
+    margin-left: 2rem;
+}
+
+dl.QuickStartTips dd{
+    margin-left: 4rem;
+}

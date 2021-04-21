@@ -1,4 +1,5 @@
 import React from 'react';
+import Help from "./components/help"; //help quickguide
 import GoogleMap from "./components/map"; //main map app component
 
 import "./components/css/App.css";
@@ -10,6 +11,7 @@ function App() {
       <header className="AppHeader">
           Good Eats
       </header>
+      <Help/>
 
       <div className="AppBox">
         <GoogleMap/>

@@ -206,12 +206,11 @@ class GoogleMap extends Component {
         axios.delete('http://localhost:5000/place/' + marker._id)
             .then(res => {
                 console.log("Place deleted");
-            });
-
-        axios.get('http://localhost:5000/place/')
-            .then(res => {
-                console.log(res.data);
-                this.setState({markers: res.data}, () => this.filterPlaces(this.state.bounds));
+                axios.get('http://localhost:5000/place/')
+                    .then(res => {
+                        console.log(res.data);
+                        this.setState({markers: res.data}, () => this.filterPlaces(this.state.bounds));
+                    });
             });
     }
 

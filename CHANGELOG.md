@@ -169,7 +169,4 @@
 - backend essentials wired up. ready to stress test!
 
 # TODO
-- Fix placeSearch submission bug where new marker refers to an existing marker (places to look: placeList duplicate keys?)
-    - Deleting a marker then adding a new one causes this bug (the existing marker is always last on the list)
-    - Scrolling on and off placeList causes duplication/addition bug (existing marker is the one getting cloned/taking over)
 - Always refactor/clean code after major features or updates!
