@@ -117,10 +117,10 @@ class GoogleMap extends Component {
         this.setState({showNewMarker: false}); // Hide the Marker after submission
         this.setState({addMarkerMode: false}); // Exit addMarkerMode
 
-        axios.post('http://localhost:5000/place/add', marker)
+        axios.post('/place/add', marker)
             .then(res => {
                 console.log(res.data);
-                axios.get('http://localhost:5000/place/')
+                axios.get('/place')
                     .then(res => {
                         console.log(res.data);
                         this.setState({markers: res.data}, () => this.filterPlaces(this.state.bounds));
@@ -203,10 +203,10 @@ class GoogleMap extends Component {
         console.log("deleteMarker() fired");
         console.log(marker);
 
-        axios.delete('http://localhost:5000/place/' + marker._id)
+        axios.delete('/place/' + marker._id)
             .then(res => {
                 console.log("Place deleted");
-                axios.get('http://localhost:5000/place/')
+                axios.get('/place')
                     .then(res => {
                         console.log(res.data);
                         this.setState({markers: res.data}, () => this.filterPlaces(this.state.bounds));
@@ -274,7 +274,7 @@ class GoogleMap extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/place/')
+        axios.get('/place')
             .then(res => {
                 console.log(res.data);
                 this.setState({markers: res.data});

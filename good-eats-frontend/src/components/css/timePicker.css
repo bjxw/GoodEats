@@ -9,8 +9,11 @@
 
     border: 1px solid black;
 
-    display: table-cell;
     vertical-align: middle;
+    padding: 5px;
+    margin: 3px;
+
+    overflow: hidden
 }
 
 .TimeBox{
@@ -116,12 +119,6 @@
 
 .AMPMPickerWindow.Hide{
     visibility: hidden;
-}
-
-.TimeContainer{
-    padding: 5px;
-
-    overflow: hidden
 }
 
 .Time{
