@@ -2,7 +2,7 @@
     "scripts": {
         "frontend": "cd good-eats-frontend && npm start",
         "api": "cd good-eats-backend && nodemon server.js",
-        "heroku-postbuild": "cd frontend && npm install && npm run build"
+        "heroku-postbuild": "cd good-eats-frontend && npm install && npm run build"
     },
     "dependencies": {
         "cors": "^2.8.5",
