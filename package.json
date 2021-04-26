@@ -1,0 +1,13 @@
+{
+    "scripts": {
+        "frontend": "cd good-eats-frontend && npm start",
+        "api": "cd good-eats-backend && nodemon server.js",
+        "heroku-postbuild": "cd frontend && npm install && npm run build"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "mongoose": "^5.12.3"
+    }
+}
